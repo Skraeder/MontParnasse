@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" role="img" aria-label="Montparnasse Pastelería logo placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#7A2D8E"/>
+      <stop offset="1" stop-color="#321832"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="120" fill="none"/>
+  <circle cx="58" cy="60" r="42" fill="#FFF8F1" stroke="url(#g)" stroke-width="5"/>
+  <text x="58" y="73" text-anchor="middle" font-family="Georgia, serif" font-size="48" font-weight="700" fill="#6F2D84">M</text>
+  <text x="118" y="52" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#321832" letter-spacing="2">MONTPARNASSE</text>
+  <text x="121" y="78" font-family="Arial, sans-serif" font-size="14" fill="#6F2D84" letter-spacing="3">PASTELERÍA</text>
+  <text x="121" y="98" font-family="Arial, sans-serif" font-size="10" fill="#8C6B83">PLACEHOLDER · REEMPLAZAR POR LOGO OFICIAL</text>
+</svg>

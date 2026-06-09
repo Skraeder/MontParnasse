@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Montparnasse Pastelería | Pasteles y postres para celebrar</title>
+  <meta name="description" content="Montparnasse Pastelería: demo funcional para catálogo, carrito y confirmación de pedidos por WhatsApp. Datos comerciales sujetos a confirmación oficial.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#6F2D84">
+  <meta property="og:title" content="Montparnasse Pastelería | Endulzamos tu vida">
+  <meta property="og:description" content="Pasteles, postres, opciones para eventos y línea libre de azúcar. Demo funcional con pedido asistido por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/brand/social-card-placeholder.svg">
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <p><strong>Demo funcional v2.</strong> Información pública y placeholders editables; confirmar datos antes de publicación comercial final.</p>
+      <a href="https://wa.me/525524994700" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">WhatsApp: 55 2499 4700</a>
+    </div>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="container header__inner">
+      <a href="#top" class="brand" aria-label="Inicio Montparnasse Pastelería">
+        <!-- TODO: reemplazar con logo oficial en SVG/PNG -->
+        <img src="assets/brand/logo-placeholder.svg" alt="Montparnasse Pastelería - logo temporal" class="brand__logo">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#libre-azucar">Libre de azúcar</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#como-pedir">Cómo pedir</a>
+        <a href="#sucursales">Sucursales</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <button class="cart-button" type="button" data-open-cart aria-label="Abrir carrito">
+        <span>Pedido</span>
+        <strong data-cart-count>0</strong>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero section-pad" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__copy reveal">
+          <span class="eyebrow">Pastelería mexicana · trayectoria desde 1981</span>
+          <h1 id="hero-title">Pasteles para celebrar bonito, pedir fácil y compartir mejor.</h1>
+          <p class="hero__lead">Elige entre pasteles, postres y opciones especiales para cumpleaños, regalos, reuniones y eventos. Arma tu pedido en línea y confirma disponibilidad, entrega o recolección con atención personalizada.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#catalogo">Armar mi pedido</a>
+            <a class="btn btn--ghost" href="#eventos">Cotizar pastel para evento</a>
+          </div>
+          <div class="hero__note" role="note">
+            <span>“Endulzamos tu vida”</span>
+            <small>La disponibilidad, cobertura, total final y método de pago se confirman por WhatsApp.</small>
+          </div>
+        </div>
+
+        <div class="hero__visual reveal" aria-label="Producto destacado">
+          <div class="hero-card">
+            <span class="hero-card__badge">Producto destacado editable</span>
+            <!-- PLACEHOLDER: imagen temporal -->
+            <img src="assets/products/hero-pastel-celebracion.svg" alt="Pastel de celebración - imagen temporal editable" loading="eager">
+            <div class="hero-card__content">
+              <p class="mini-title">Pastel de celebración</p>
+              <p>Ideal para cumpleaños, regalos y reuniones familiares.</p>
+              <button class="text-button" type="button" data-quick-add="pastel-celebracion">Agregar al pedido</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Puntos de confianza">
+      <div class="container trust-strip__grid">
+        <div><strong>Atención asistida</strong><span>Confirmación final por WhatsApp</span></div>
+        <div><strong>Pedido flexible</strong><span>Recolección o entrega sujeta a cobertura</span></div>
+        <div><strong>Ocasiones especiales</strong><span>Cumpleaños, regalos y eventos</span></div>
+        <div><strong>Datos editables</strong><span>Precios y sucursales por validar</span></div>
+      </div>
+    </section>
+
+    <section class="occasion section-pad" aria-labelledby="ocasion-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Compra por ocasión</span>
+          <h2 id="ocasion-title">¿Qué estás celebrando?</h2>
+          <p>La página debe ayudar al cliente a comprar por intención, no solo por producto. Así se reduce fricción y se vuelve más fácil decidir.</p>
+        </div>
+        <div class="occasion__grid">
+          <article class="occasion-card reveal">
+            <img src="assets/products/categoria-cumpleanos.svg" alt="Categoría cumpleaños - imagen temporal">
+            <div><h3>Cumpleaños</h3><p>Pasteles para reuniones familiares y celebraciones especiales.</p><a href="#catalogo" data-filter-link="pasteles">Ver opciones</a></div>
+          </article>
+          <article class="occasion-card reveal">
+            <img src="assets/products/categoria-regalos.svg" alt="Categoría regalos - imagen temporal">
+            <div><h3>Regalos</h3><p>Detalles dulces para sorprender sin complicarte.</p><a href="#catalogo" data-filter-link="postres">Ver regalos</a></div>
+          </article>
+          <article class="occasion-card reveal">
+            <img src="assets/products/categoria-eventos.svg" alt="Categoría eventos - imagen temporal">
+            <div><h3>Eventos</h3><p>Opciones para bodas, XV años, empresas y celebraciones grandes.</p><a href="#eventos">Cotizar evento</a></div>
+          </article>
+          <article class="occasion-card reveal">
+            <img src="assets/products/categoria-libre-azucar.svg" alt="Categoría libre de azúcar - imagen temporal">
+            <div><h3>Libre de azúcar</h3><p>Alternativas especiales para quienes buscan disfrutar diferente.</p><a href="#libre-azucar">Consultar línea</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog section-pad section-muted" id="catalogo" aria-labelledby="catalog-title">
+      <div class="container">
+        <div class="section-heading section-heading--split reveal">
+          <div>
+            <span class="eyebrow">Catálogo editable</span>
+            <h2 id="catalog-title">Elige tu próximo antojo</h2>
+            <p>Productos de ejemplo basados en categorías reales de pastelería. Reemplazar por catálogo oficial antes de publicar comercialmente.</p>
+          </div>
+          <div class="catalog-search">
+            <label for="search-products">Buscar producto</label>
+            <input id="search-products" type="search" placeholder="Ej. chocolate, evento, gelatina">
+          </div>
+        </div>
+
+        <div class="filters reveal" role="tablist" aria-label="Filtrar productos">
+          <button class="filter-btn is-active" type="button" data-filter="todos">Todos</button>
+          <button class="filter-btn" type="button" data-filter="pasteles">Pasteles</button>
+          <button class="filter-btn" type="button" data-filter="gelatinas">Gelatinas</button>
+          <button class="filter-btn" type="button" data-filter="postres">Postres</button>
+          <button class="filter-btn" type="button" data-filter="libre-azucar">Libre de azúcar</button>
+          <button class="filter-btn" type="button" data-filter="eventos">Eventos</button>
+        </div>
+
+        <div class="catalog-grid" id="product-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="special section-pad" id="libre-azucar" aria-labelledby="sugar-title">
+      <div class="container special__grid">
+        <div class="special__image reveal">
+          <!-- PLACEHOLDER: imagen temporal -->
+          <img src="assets/products/producto-libre-azucar.svg" alt="Línea libre de azúcar - imagen temporal editable" loading="lazy">
+        </div>
+        <div class="special__copy reveal">
+          <span class="eyebrow eyebrow--green">Línea especial</span>
+          <h2 id="sugar-title">Opciones especiales para disfrutar diferente.</h2>
+          <p>Montparnasse menciona una línea libre de azúcar en información pública. En esta demo se muestra como sección estratégica, pero el catálogo, ingredientes, tamaños y disponibilidad deben confirmarse antes de publicación final.</p>
+          <ul class="check-list">
+            <li>Consulta opciones disponibles por fecha.</li>
+            <li>Confirma ingredientes y restricciones antes de comprar.</li>
+            <li>Solicita recomendación para regalos o reuniones.</li>
+          </ul>
+          <a class="btn btn--secondary" href="https://wa.me/525524994700?text=Hola%2C%20quiero%20consultar%20opciones%20libres%20de%20az%C3%BAcar%20de%20Montparnasse." target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="events section-pad section-dark" id="eventos" aria-labelledby="events-title">
+      <div class="container events__grid">
+        <div class="events__copy reveal">
+          <span class="eyebrow eyebrow--gold">Cotización para eventos</span>
+          <h2 id="events-title">Pasteles para eventos que merecen verse y saberse bien.</h2>
+          <p>Para cumpleaños grandes, bodas, XV años, eventos empresariales o celebraciones especiales, solicita una cotización con fecha, número de personas, producto deseado y zona.</p>
+          <div class="events__cards">
+            <span>Bodas</span><span>XV años</span><span>Empresas</span><span>Cumpleaños</span><span>Regalos</span>
+          </div>
+        </div>
+
+        <form class="quote-form reveal" id="quote-form" novalidate>
+          <h3>Cotizar evento</h3>
+          <p>Formulario preparado para enviar solicitud por WhatsApp.</p>
+          <div class="form-grid">
+            <label>Tipo de evento
+              <select name="eventType" required>
+                <option value="">Selecciona una opción</option>
+                <option>Cumpleaños</option>
+                <option>Boda</option>
+                <option>XV años</option>
+                <option>Evento empresarial</option>
+                <option>Regalo especial</option>
+                <option>Otro</option>
+              </select>
+            </label>
+            <label>Fecha
+              <input type="date" name="eventDate" required>
+            </label>
+            <label>Número de personas
+              <input type="number" name="people" min="1" placeholder="Ej. 30" required>
+            </label>
+            <label>Producto deseado
+              <input type="text" name="desiredProduct" placeholder="Ej. pastel, mesa de postres" required>
+            </label>
+            <label class="full">Zona
+              <input type="text" name="zone" placeholder="Alcaldía, municipio o zona de entrega" required>
+            </label>
+            <label class="full">Comentarios
+              <textarea name="comments" rows="4" placeholder="Cuéntanos estilo, sabor, colores, entrega o recolección."></textarea>
+            </label>
+          </div>
+          <button class="btn btn--primary btn--full" type="submit">Enviar cotización por WhatsApp</button>
+          <p class="form-message" data-quote-message aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="process section-pad" id="como-pedir" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">MVP realista</span>
+          <h2 id="process-title">Pedir tu pastel debe ser sencillo.</h2>
+          <p>Esta versión está pensada como catálogo funcional con carrito y confirmación asistida por WhatsApp.</p>
+        </div>
+        <div class="process__grid">
+          <article class="step-card reveal"><span>01</span><h3>Elige</h3><p>Explora categorías, busca productos y revisa detalles editables.</p></article>
+          <article class="step-card reveal"><span>02</span><h3>Agrega</h3><p>Arma tu pedido y ajusta cantidades desde el carrito lateral.</p></article>
+          <article class="step-card reveal"><span>03</span><h3>Define</h3><p>Selecciona intención de compra, fecha tentativa y entrega o recolección.</p></article>
+          <article class="step-card reveal"><span>04</span><h3>Confirma</h3><p>El equipo valida disponibilidad, cobertura, total final y método de pago.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="locations section-pad section-muted" id="sucursales" aria-labelledby="locations-title">
+      <div class="container">
+        <div class="section-heading section-heading--split reveal">
+          <div>
+            <span class="eyebrow">Sucursales y cobertura</span>
+            <h2 id="locations-title">Encuentra la mejor forma de recibir tu pedido.</h2>
+            <p>No se incluyen direcciones exactas hasta confirmarlas con información oficial.</p>
+          </div>
+          <a class="btn btn--ghost-dark" href="https://wa.me/525524994700?text=Hola%2C%20quiero%20confirmar%20sucursal%20o%20cobertura%20para%20un%20pedido%20de%20Montparnasse." target="_blank" rel="noopener">Consultar cobertura</a>
+        </div>
+        <div class="locations__grid">
+          <article class="location-card reveal"><h3>Sucursal 1</h3><p>Dirección por confirmar</p><small>Horarios sujetos a disponibilidad por sucursal. Confirma atención por WhatsApp.</small></article>
+          <article class="location-card reveal"><h3>Sucursal 2</h3><p>Dirección por confirmar</p><small>Horarios sujetos a disponibilidad por sucursal. Confirma atención por WhatsApp.</small></article>
+          <article class="location-card reveal"><h3>Sucursal 3</h3><p>Dirección por confirmar</p><small>Horarios sujetos a disponibilidad por sucursal. Confirma atención por WhatsApp.</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq section-pad" aria-labelledby="faq-title">
+      <div class="container faq__grid">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 id="faq-title">Antes de confirmar tu pedido.</h2>
+          <p>Respuestas redactadas como demo. Ajustar con políticas oficiales.</p>
+        </div>
+        <div class="accordion reveal" id="faq-accordion">
+          <div class="faq-item"><button type="button">¿Puedo comprar directamente en la página?</button><div><p>En esta versión, la página permite armar tu pedido y enviarlo por WhatsApp para confirmar disponibilidad, cobertura y total final.</p></div></div>
+          <div class="faq-item"><button type="button">¿Los precios son definitivos?</button><div><p>No. Los precios mostrados son placeholders o textos por confirmar. Deben reemplazarse por precios oficiales antes de publicar comercialmente.</p></div></div>
+          <div class="faq-item"><button type="button">¿Puedo pedir para un evento?</button><div><p>Sí. La página tiene un flujo especial para solicitar cotización de eventos, cumpleaños grandes, empresas, bodas o XV años.</p></div></div>
+          <div class="faq-item"><button type="button">¿Tienen línea libre de azúcar?</button><div><p>La información pública menciona una línea libre de azúcar. El catálogo, ingredientes y disponibilidad deben confirmarse con la marca.</p></div></div>
+          <div class="faq-item"><button type="button">¿Mi pedido queda confirmado al enviar WhatsApp?</button><div><p>No. Tu pedido queda confirmado hasta recibir respuesta del equipo Montparnasse con disponibilidad, cobertura, total final y método de pago.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact section-pad section-muted" id="contacto" aria-labelledby="contact-title">
+      <div class="container contact__grid">
+        <div class="contact__copy reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2 id="contact-title">¿Necesitas ayuda para elegir?</h2>
+          <p>Cuéntanos qué estás buscando y te orientamos para encontrar una opción adecuada para tu celebración, regalo o evento.</p>
+          <div class="contact-card">
+            <strong>WhatsApp público encontrado</strong>
+            <a href="https://wa.me/525524994700" target="_blank" rel="noopener">55 2499 4700</a>
+            <small>Confirmar antes de publicación comercial final.</small>
+          </div>
+        </div>
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-grid">
+            <label>Nombre
+              <input type="text" name="name" autocomplete="name" required placeholder="Tu nombre">
+            </label>
+            <label>Teléfono
+              <input type="tel" name="phone" autocomplete="tel" required placeholder="Tu WhatsApp">
+            </label>
+            <label class="full">Motivo
+              <select name="reason" required>
+                <option value="">Selecciona una opción</option>
+                <option>Pedido de pastel</option>
+                <option>Cotización de evento</option>
+                <option>Consulta línea libre de azúcar</option>
+                <option>Recolección o entrega</option>
+                <option>Otro</option>
+              </select>
+            </label>
+            <label class="full">Mensaje
+              <textarea name="message" rows="5" placeholder="Escribe tu solicitud" required></textarea>
+            </label>
+          </div>
+          <button class="btn btn--primary btn--full" type="submit">Enviar solicitud</button>
+          <p class="form-message" data-contact-message aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <a class="footer__brand" href="#top">
+          <img src="assets/brand/logo-placeholder.svg" alt="Montparnasse Pastelería - logo temporal">
+        </a>
+        <p>Demo profesional para Montparnasse Pastelería. Información pública y datos editables sujetos a confirmación.</p>
+      </div>
+      <div>
+        <h3>Navegación</h3>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#como-pedir">Cómo pedir</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="aviso-privacidad.html">Aviso de privacidad</a>
+        <a href="terminos.html">Términos y condiciones</a>
+        <a href="404.html">Página 404</a>
+      </div>
+      <div>
+        <h3>Atención</h3>
+        <a href="https://wa.me/525524994700" target="_blank" rel="noopener">WhatsApp 55 2499 4700</a>
+        <span>Horarios sujetos a disponibilidad por sucursal.</span>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <small>© <span id="year"></span> Montparnasse Pastelería. Demo v2. Texto pendiente de validación comercial y legal.</small>
+    </div>
+  </footer>
+
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Carrito de pedido">
+    <div class="cart-drawer__overlay" data-close-cart></div>
+    <div class="cart-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+      <div class="cart-drawer__header">
+        <div>
+          <span class="eyebrow">Pedido asistido</span>
+          <h2 id="cart-title">Tu pedido</h2>
+        </div>
+        <button class="icon-button" type="button" data-close-cart aria-label="Cerrar carrito">×</button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-empty" id="cart-empty">
+        <p>Aún no has agregado productos.</p>
+        <a href="#catalogo" data-close-cart>Ver catálogo</a>
+      </div>
+      <div class="cart-summary">
+        <p><span>Productos</span><strong data-cart-count>0</strong></p>
+        <p><span>Total final</span><strong>Por confirmar</strong></p>
+        <small>El equipo confirmará disponibilidad, cobertura, total final y método de pago por WhatsApp.</small>
+      </div>
+      <form class="cart-form" id="cart-form">
+        <label>Motivo del pedido
+          <select name="intent" required>
+            <option>Cumpleaños</option>
+            <option>Regalo</option>
+            <option>Evento</option>
+            <option>Antojo</option>
+            <option>Línea libre de azúcar</option>
+          </select>
+        </label>
+        <label>Fecha tentativa
+          <input type="date" name="date" required>
+        </label>
+        <label>Entrega o recolección
+          <select name="delivery" required>
+            <option>Recolección en sucursal</option>
+            <option>Entrega sujeta a cobertura</option>
+            <option>Quiero que me orienten</option>
+          </select>
+        </label>
+        <label>Zona o sucursal de interés
+          <input type="text" name="zone" placeholder="Ej. CDMX, EdoMex, sucursal por confirmar" required>
+        </label>
+        <button class="btn btn--primary btn--full" type="submit">Confirmar por WhatsApp</button>
+        <p class="cart-disclaimer">Tu pedido queda confirmado hasta recibir respuesta del equipo Montparnasse.</p>
+      </form>
+    </div>
+  </aside>
+
+  <div class="product-modal" id="product-modal" aria-hidden="true">
+    <div class="product-modal__overlay" data-close-modal></div>
+    <article class="product-modal__card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="icon-button product-modal__close" type="button" data-close-modal aria-label="Cerrar detalle">×</button>
+      <img id="modal-image" alt="" loading="lazy">
+      <div class="product-modal__content">
+        <span class="tag" id="modal-tag">Editable</span>
+        <h2 id="modal-title"></h2>
+        <p id="modal-description"></p>
+        <ul class="product-meta" id="modal-meta"></ul>
+        <p class="product-price" id="modal-price"></p>
+        <button class="btn btn--primary" type="button" id="modal-add">Agregar al pedido</button>
+        <small>Sujeto a disponibilidad por sucursal y fecha.</small>
+      </div>
+    </article>
+  </div>
+
+  <a class="whatsapp-float" href="https://wa.me/525524994700?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Montparnasse%20Pasteler%C3%ADa." target="_blank" rel="noopener" aria-label="Enviar WhatsApp">
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
