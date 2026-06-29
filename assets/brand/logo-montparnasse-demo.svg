@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" role="img" aria-label="Montparnasse Pastelería">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#6F2D84"/><stop offset="1" stop-color="#321832"/></linearGradient></defs>
+<rect width="520" height="160" rx="28" fill="#fff8f1"/>
+<circle cx="80" cy="80" r="54" fill="none" stroke="url(#g)" stroke-width="6"/>
+<text x="80" y="99" text-anchor="middle" font-family="Georgia,serif" font-size="68" font-weight="700" fill="#6F2D84">M</text>
+<text x="155" y="70" font-family="Georgia,serif" font-size="36" font-weight="700" fill="#2E1D18">MONTPARNASSE</text>
+<text x="158" y="103" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="4" fill="#6F2D84">PASTELERÍA</text>
+<path d="M158 120 H448" stroke="#C9A15A" stroke-width="3" stroke-linecap="round"/>
+</svg>

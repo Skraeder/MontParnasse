@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Pastel Montparnasse para celebración">
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#FFF8F1"/><stop offset=".55" stop-color="#E9D6EF"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#321832" flood-opacity=".20"/></filter></defs>
+<rect width="1200" height="900" fill="url(#bg)" rx="80"/>
+<circle cx="730" cy="420" r="310" fill="#fff" opacity=".62"/>
+<path d="M92 160 C260 60 416 110 570 82 C762 48 940 88 1090 210" fill="none" stroke="#C9A15A" stroke-width="5" opacity=".35"/>
+<g filter="url(#s)">
+<ellipse cx="650" cy="700" rx="270" ry="54" fill="#2E1D18" opacity=".16"/>
+<path d="M330 425 C330 300 970 300 970 425 L920 645 C900 748 400 748 380 645 Z" fill="#F3D7EA"/>
+<path d="M330 425 C374 510 926 510 970 425" fill="none" stroke="#6F2D84" stroke-width="26" opacity=".42"/>
+<path d="M410 330 C490 238 804 238 890 330" fill="none" stroke="#6F2D84" stroke-width="22" stroke-linecap="round" opacity=".38"/>
+<path d="M438 558 C558 635 768 637 883 552" fill="none" stroke="#C9A15A" stroke-width="18" stroke-linecap="round"/>
+<circle cx="505" cy="350" r="34" fill="#D94B67"/><circle cx="680" cy="320" r="32" fill="#D94B67"/><circle cx="800" cy="372" r="28" fill="#D94B67"/><circle cx="875" cy="420" r="23" fill="#C9A15A"/>
+</g>
+<text x="96" y="768" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#321832">Endulzamos tu vida</text>
+<text x="100" y="815" font-family="Arial,sans-serif" font-size="25" fill="#6F2D84">Pasteles, postres y celebraciones con el estilo Montparnasse.</text>
+</svg>

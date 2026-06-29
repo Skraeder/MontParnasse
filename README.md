@@ -1,101 +1,99 @@
-# Montparnasse Pastelería — Demo funcional v2
+# Montparnasse Pastelería — Web v3 para Vercel
 
-Sitio web estático profesional, listo para abrir localmente o subir directo a Vercel, Netlify o GitHub Pages. No requiere build, dependencias ni servidor.
+Demo funcional de eCommerce para Montparnasse Pastelería con catálogo amplio, carruseles por categoría, carrito, cotización de eventos, flujo por WhatsApp y preparación para Mercado Pago en Vercel.
+
+## Qué contiene
+
+- `index.html`: página principal con hero, constructor de celebración, favoritos, catálogo por categorías, eventos, compra y FAQ.
+- `styles.css`: identidad visual premium cálida basada en morado Montparnasse, crema, lila, chocolate y dorado.
+- `script.js`: catálogo editable, carruseles, filtros, carrito, modal de producto, WhatsApp y llamada a Mercado Pago.
+- `api/create-preference.js`: función serverless para crear preferencia de pago en Mercado Pago desde Vercel.
+- `success.html`, `pending.html`, `failure.html`: páginas de retorno de Mercado Pago.
+- `aviso-privacidad.html`, `terminos.html`: textos base editables con aviso de validación legal.
+- `404.html`: página de error personalizada.
+- `assets/products`: imágenes SVG temporales de producto para presentación.
+- `assets/data`: catálogo base en JSON y CSV.
+- `.env.example`: variables de activación para Mercado Pago y WhatsApp.
+- `vercel.json`: configuración mínima para Vercel.
 
 ## Información pública utilizada como base
 
-Esta demo usa como base información pública previamente investigada y aprobada para el proyecto:
+La demo se construyó usando como base información pública investigada previamente:
 
-- Montparnasse Pastelería es una pastelería mexicana con trayectoria desde 1981.
-- Ofrece categorías como pasteles, chocolates, gelatinas, helados, pastas secas y línea libre de azúcar.
-- Maneja el mensaje de marca “Endulzamos tu vida”.
-- El contacto público encontrado es 55 2499 4700.
-- Tiene presencia en redes sociales y plataformas de delivery.
-- Para esta versión, el flujo más realista es catálogo + carrito + confirmación por WhatsApp.
+- Montparnasse Pastelería como pastelería mexicana con trayectoria desde 1981.
+- Oferta pública mencionada: pasteles, chocolates, gelatinas, helados, pastas secas y línea libre de azúcar.
+- Mensaje de marca: “Endulzamos tu vida”.
+- Contacto público observado: 55 2499 4700.
+- Presencia digital en redes sociales y plataformas de delivery.
+- Flujo recomendado para esta fase: catálogo + carrito + confirmación por WhatsApp.
 
-> Importante: esta información debe confirmarse con la empresa antes de publicación comercial final.
+Esta información debe confirmarse con la empresa antes de publicación comercial final.
 
-## Qué contiene el proyecto
+## Datos por reemplazar antes de publicación final
 
-```text
-index.html
-styles.css
-script.js
-aviso-privacidad.html
-terminos.html
-404.html
-README.md
-/assets
-/assets/products
-/assets/brand
-/assets/placeholders
-```
+| Elemento | Dato usado actualmente | Tipo: público validado / supuesto / placeholder | Dónde se edita | Recomendación |
+|---|---|---|---|---|
+| Logo | Logo demo con monograma M | Placeholder | `assets/brand/logo-montparnasse-demo.svg`, `index.html` | Reemplazar por logo oficial en SVG/PNG. |
+| WhatsApp | 55 2499 4700 / `525524994700` | Público validado previamente | `script.js`, `.env.example`, enlaces en HTML | Confirmar número oficial para pedidos web. |
+| Catálogo | 54 productos base | Público + supuesto profesional | `script.js`, `assets/data/catalogo_montparnasse_base.json` | Validar productos vigentes, nombres y categorías. |
+| Precios | Precios observados y precios demo | Público + placeholder | `script.js`, `assets/data/catalogo_montparnasse_base.csv` | Reemplazar por lista oficial de precios por sucursal/presentación. |
+| Fotos de producto | SVG generados para demo | Placeholder | `assets/products/` y campo `image` en `script.js` | Reemplazar por fotos oficiales autorizadas en WebP/JPG. |
+| Porciones | Tamaños observados o demo | Público + supuesto | `script.js` | Confirmar gramajes, porciones y medidas oficiales. |
+| Sucursales | Sección de consulta, sin direcciones exactas | Supuesto | `index.html` | Agregar buscador o listado oficial de sucursales. |
+| Horarios | No se muestran horarios exactos | Pendiente | `index.html`, FAQ | Agregar horarios oficiales por sucursal. |
+| Entrega | Recolección/entrega como flujo general | Supuesto | `index.html`, `script.js` | Definir zonas, costos y tiempos de entrega. |
+| Mercado Pago | Integración preparada, no activa sin token | Supuesto técnico | `.env.example`, `api/create-preference.js` | Configurar credenciales reales en Vercel. |
+| Métodos de pago | Mercado Pago + WhatsApp | Supuesto | `script.js`, `index.html` | Confirmar pagos aceptados: tarjeta, transferencia, efectivo, etc. |
+| Facturación | No implementada como flujo final | Pendiente | `terminos.html`, `index.html` | Agregar proceso oficial de facturación. |
+| Aviso de privacidad | Texto base editable | Placeholder legal | `aviso-privacidad.html` | Validar con abogado o responsable legal. |
+| Términos | Texto base editable | Placeholder legal | `terminos.html` | Validar políticas de venta, cambios y cancelaciones. |
+| Promociones | No se publican como definitivas | Pendiente | `index.html`, `script.js` | Agregar solo promociones oficiales vigentes. |
 
-## Cómo abrirlo localmente
+## Cómo abrir localmente
 
-1. Descomprime el ZIP.
-2. Abre `index.html` en tu navegador.
-3. También puedes usar Live Server en VS Code para probarlo mejor.
+Abre `index.html` directamente en tu navegador. La página funciona como sitio estático.
 
-## Cómo publicarlo en Vercel
-
-1. Crea un repositorio en GitHub.
-2. Sube todos los archivos a la raíz del repositorio, no dentro de una carpeta extra.
-3. Entra a Vercel.
-4. Selecciona **New Project**.
-5. Importa el repositorio.
-6. Framework preset: **Other** o **Static**.
-7. Build command: dejar vacío.
-8. Output directory: dejar vacío o usar raíz.
-9. Deploy.
+Para probar la función de Mercado Pago localmente necesitarías un entorno que ejecute funciones serverless o desplegar en Vercel.
 
 ## Cómo editar el catálogo
 
-Abre `script.js` y busca:
+En `script.js`, busca:
 
 ```js
-// TODO: reemplazar con catálogo oficial.
-const PRODUCTS = [ ... ]
+const PRODUCTS = [...]
 ```
 
-Cada producto tiene:
+Cada producto tiene campos editables:
 
-- `id`
 - `name`
 - `category`
-- `tag`
-- `priceLabel`
-- `image`
+- `subcategory`
+- `size`
 - `description`
-- `meta`
+- `price`
+- `priceNumber`
+- `image`
+- `badge`
+- `moments`
 
-## Cómo cambiar WhatsApp
-
-En `script.js` cambia:
+Comentarios importantes dentro del código:
 
 ```js
-const WHATSAPP_NUMBER = "525524994700";
+// TODO: reemplazar con catálogo oficial validado por Montparnasse
+// PLACEHOLDER: las imágenes SVG son arte temporal para presentación
 ```
-
-Usa formato internacional sin espacios. Ejemplo México: `52` + número.
 
 ## Cómo cambiar imágenes
 
-Reemplaza los SVG temporales en:
+1. Guarda fotos oficiales en `assets/products/`.
+2. Ideal: formato `.webp`, 1000 × 1000 px, peso menor a 300 KB.
+3. Cambia el campo `image` en `script.js`.
 
-```text
-/assets/products
-/assets/brand
-/assets/placeholders
+Ejemplo:
+
+```js
+image: 'assets/products/fresas-con-crema-oficial.webp'
 ```
-
-Recomendación:
-
-- Fotos de producto: `.webp`, 1000x1000 px, menos de 300 KB.
-- Hero: `.webp`, 1800x1400 px, menos de 500 KB.
-- Logo: `.svg` o `.png` transparente.
-
-Luego actualiza las rutas en `index.html` y `script.js`.
 
 ## Cómo cambiar colores
 
@@ -103,81 +101,65 @@ Edita las variables en `styles.css`:
 
 ```css
 :root {
-  --brand: #6F2D84;
-  --brand-dark: #321832;
-  --cream: #FFF8F1;
+  --plum:#6F2D84;
+  --plum-dark:#321832;
+  --lilac:#E9D6EF;
+  --cream:#FFF8F1;
+  --gold:#C9A15A;
 }
 ```
 
-La paleta actual busca respetar la identidad morada/lila observada en la marca y elevarla con crema, chocolate y dorado suave.
+## Cómo activar Mercado Pago en Vercel
 
-## Formularios
+1. Sube el proyecto a GitHub.
+2. Importa el repositorio en Vercel.
+3. En Vercel, entra a **Settings > Environment Variables**.
+4. Agrega:
 
-- El formulario de evento abre WhatsApp con mensaje prellenado.
-- El formulario de contacto muestra mensaje de éxito en demo.
-- Para producción, conectar a Formspree, Netlify Forms, Make, Zapier o backend propio.
+```env
+MP_ACCESS_TOKEN=APP_USR_TU_ACCESS_TOKEN
+SITE_URL=https://tu-dominio.vercel.app
+DEFAULT_CURRENCY=MXN
+```
 
-## Flujo de compra incluido
+5. Despliega nuevamente.
 
-Versión MVP incluida:
+El frontend llama a:
 
-1. Catálogo editable.
-2. Producto detalle.
-3. Carrito lateral.
-4. Cantidades.
-5. Datos de intención, fecha y zona.
-6. Confirmación por WhatsApp.
+```text
+/api/create-preference
+```
 
-No se promete pago en línea. El sitio comunica:
+La función crea la preferencia de pago y redirige al checkout de Mercado Pago.
 
-> “El equipo confirmará disponibilidad, cobertura, total final y método de pago por WhatsApp.”
+## Cómo publicar en Vercel
 
-## Datos por reemplazar antes de publicación final
+- No requiere build.
+- No requiere dependencias.
+- `index.html` está en la raíz.
+- Vercel detecta archivos estáticos y la función dentro de `/api`.
 
-| Elemento | Dato usado actualmente | Tipo: público validado / supuesto / placeholder | Dónde se edita | Recomendación |
-|---|---|---|---|---|
-| Nombre comercial | Montparnasse Pastelería | Público validado | `index.html`, metatags, footer | Confirmar escritura oficial, acentos y uso de mayúsculas. |
-| Trayectoria | Desde 1981 | Público validado | `index.html` hero y README | Confirmar si debe comunicarse como “desde 1981”, “fundada en 1981” u otra frase oficial. |
-| Mensaje de marca | “Endulzamos tu vida” | Público validado | `index.html` hero | Confirmar frase exacta y estilo de uso. |
-| WhatsApp | 55 2499 4700 / `525524994700` | Público validado por investigar, requiere confirmación | `script.js`, `index.html`, footer | Validar que sea el número correcto para pedidos web. |
-| Logo | `logo-placeholder.svg` | Placeholder | `/assets/brand/`, `index.html`, footer | Reemplazar por logo oficial en SVG o PNG transparente. |
-| Catálogo | Productos de ejemplo por categoría | Supuesto / placeholder | `script.js` en `PRODUCTS` | Reemplazar por catálogo oficial con nombres, descripciones y disponibilidad. |
-| Precios | “Precio por confirmar”, “Desde $___” | Placeholder | `script.js`, campo `priceLabel` | Sustituir por precios oficiales o mantener cotización si así opera la empresa. |
-| Porciones | Por confirmar | Placeholder | `script.js`, `meta` de cada producto | Agregar porciones reales por tamaño. |
-| Fotografías | SVG premium temporales | Placeholder | `/assets/products` y rutas en `script.js` | Usar fotos reales optimizadas en WebP. |
-| Sucursales | Sucursal 1, 2 y 3 — dirección por confirmar | Placeholder | `index.html`, sección `sucursales` | Reemplazar con direcciones oficiales y links a Maps. |
-| Horarios | “Horarios sujetos a disponibilidad por sucursal...” | Supuesto profesional | `index.html`, sección `sucursales` | Confirmar horarios reales por sucursal. |
-| Entrega | Recolección y entrega sujeta a cobertura | Supuesto profesional | `index.html`, carrito, FAQ | Definir zonas, costos, tiempos y restricciones. |
-| Métodos de pago | Confirmación por WhatsApp | Supuesto profesional | `index.html`, `script.js`, términos | Confirmar efectivo, transferencia, tarjeta, link de pago, Mercado Pago u otros. |
-| Facturación | No definida | Dato pendiente | Agregar en FAQ, términos o checkout futuro | Confirmar proceso, correo y datos necesarios. |
-| Políticas de entrega | Texto base editable | Placeholder legal/comercial | `terminos.html`, FAQ | Redactar con reglas oficiales. |
-| Políticas de cancelación | Texto base editable | Placeholder legal/comercial | `terminos.html` | Validar legalmente antes de publicar. |
-| Aviso de privacidad | Texto base editable | Placeholder legal | `aviso-privacidad.html` | Reemplazar por aviso legal oficial. |
-| Términos y condiciones | Texto base editable | Placeholder legal | `terminos.html` | Reemplazar por términos oficiales. |
-| Página 404 | Página de error demo | Supuesto profesional | `404.html` | Ajustar texto final si se desea. |
-| SEO | Meta title y description demo | Supuesto profesional | `index.html` `<head>` | Ajustar con keywords, zonas y sucursales oficiales. |
+Pasos:
 
-## Pendientes recomendados
+1. Descomprime el ZIP.
+2. Sube todo a GitHub tal cual.
+3. Conecta el repositorio en Vercel.
+4. No pongas Build Command.
+5. Output Directory vacío o raíz.
+6. Agrega variables de entorno si activarás Mercado Pago.
+7. Deploy.
 
-- Confirmar datos oficiales con la empresa.
-- Reemplazar imágenes temporales por fotos reales.
-- Validar textos legales.
-- Definir si el sitio se queda como MVP con WhatsApp o evoluciona a eCommerce avanzado.
-- Conectar formulario de contacto a una herramienta real.
-- Configurar dominio propio en Vercel.
-- Crear favicon y social card oficiales.
+## Pendientes importantes
 
-## Versión eCommerce avanzada futura
+- Reemplazar logos e imágenes temporales.
+- Confirmar precios oficiales.
+- Confirmar catálogo vigente.
+- Definir sucursales y horarios.
+- Definir políticas de entrega, cancelación y facturación.
+- Validar documentos legales.
+- Configurar Mercado Pago real.
+- Revisar textos finales con la marca.
 
-Para convertir este MVP en eCommerce completo se necesitaría:
+## Nota de diseño
 
-- Catálogo oficial con SKUs.
-- Inventario por sucursal.
-- Precios definitivos.
-- Cobertura por código postal.
-- Selección real de fecha y horario.
-- Checkout.
-- Pasarela de pago.
-- Confirmación automática por correo y WhatsApp.
-- Políticas legales definitivas.
-- Panel para administrar pedidos.
+La v3 evita mostrar textos de “placeholder” o “por confirmar” en la página pública para que se sienta como una marca real. Las advertencias y datos pendientes quedan en README, código y archivos internos.
