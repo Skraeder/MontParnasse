@@ -1,165 +1,117 @@
-# Montparnasse Pastelería — Web v3 para Vercel
+# Montparnasse Pastelería — sitio web v4 visual
 
-Demo funcional de eCommerce para Montparnasse Pastelería con catálogo amplio, carruseles por categoría, carrito, cotización de eventos, flujo por WhatsApp y preparación para Mercado Pago en Vercel.
+Demo funcional lista para Vercel con enfoque visual premium, catálogo por carruseles, imágenes reales/generadas para demo, carrito, WhatsApp y Mercado Pago preparado mediante Serverless Function.
 
 ## Qué contiene
 
-- `index.html`: página principal con hero, constructor de celebración, favoritos, catálogo por categorías, eventos, compra y FAQ.
-- `styles.css`: identidad visual premium cálida basada en morado Montparnasse, crema, lila, chocolate y dorado.
-- `script.js`: catálogo editable, carruseles, filtros, carrito, modal de producto, WhatsApp y llamada a Mercado Pago.
-- `api/create-preference.js`: función serverless para crear preferencia de pago en Mercado Pago desde Vercel.
-- `success.html`, `pending.html`, `failure.html`: páginas de retorno de Mercado Pago.
-- `aviso-privacidad.html`, `terminos.html`: textos base editables con aviso de validación legal.
-- `404.html`: página de error personalizada.
-- `assets/products`: imágenes SVG temporales de producto para presentación.
-- `assets/data`: catálogo base en JSON y CSV.
-- `.env.example`: variables de activación para Mercado Pago y WhatsApp.
-- `vercel.json`: configuración mínima para Vercel.
+- `index.html` en raíz, listo para abrir localmente.
+- `styles.css` con diseño responsive, carruseles, cards premium y tratamiento visual para línea libre de azúcar.
+- `script.js` con catálogo editable, carrito, recomendaciones, WhatsApp y flujo Mercado Pago.
+- `/api/create-preference.js` para crear preferencias de Mercado Pago en Vercel.
+- `aviso-privacidad.html`, `terminos.html`, `404.html`, `success.html`, `pending.html`, `failure.html`.
+- `/assets/products` con 27 imágenes optimizadas en WebP.
+- `/assets/brand` con wordmark editable en SVG.
+- `/assets/placeholders` con imagen para “Más especialidades”.
 
 ## Información pública utilizada como base
 
-La demo se construyó usando como base información pública investigada previamente:
+- Montparnasse Pastelería se presenta como pastelería mexicana con trayectoria desde 1981.
+- Oferta usada como base: pasteles, chocolates, gelatinas, helados, pastas secas, panqués y línea libre de azúcar.
+- Mensaje de marca usado: “Endulzamos tu vida”.
+- Contacto público usado como base: 55 2499 4700.
+- La presencia digital y delivery se consideró como referencia para plantear un flujo realista de catálogo + carrito + WhatsApp.
 
-- Montparnasse Pastelería como pastelería mexicana con trayectoria desde 1981.
-- Oferta pública mencionada: pasteles, chocolates, gelatinas, helados, pastas secas y línea libre de azúcar.
-- Mensaje de marca: “Endulzamos tu vida”.
-- Contacto público observado: 55 2499 4700.
-- Presencia digital en redes sociales y plataformas de delivery.
-- Flujo recomendado para esta fase: catálogo + carrito + confirmación por WhatsApp.
-
-Esta información debe confirmarse con la empresa antes de publicación comercial final.
+Todo lo anterior debe validarse antes de publicación comercial final.
 
 ## Datos por reemplazar antes de publicación final
 
 | Elemento | Dato usado actualmente | Tipo: público validado / supuesto / placeholder | Dónde se edita | Recomendación |
 |---|---|---|---|---|
-| Logo | Logo demo con monograma M | Placeholder | `assets/brand/logo-montparnasse-demo.svg`, `index.html` | Reemplazar por logo oficial en SVG/PNG. |
-| WhatsApp | 55 2499 4700 / `525524994700` | Público validado previamente | `script.js`, `.env.example`, enlaces en HTML | Confirmar número oficial para pedidos web. |
-| Catálogo | 54 productos base | Público + supuesto profesional | `script.js`, `assets/data/catalogo_montparnasse_base.json` | Validar productos vigentes, nombres y categorías. |
-| Precios | Precios observados y precios demo | Público + placeholder | `script.js`, `assets/data/catalogo_montparnasse_base.csv` | Reemplazar por lista oficial de precios por sucursal/presentación. |
-| Fotos de producto | SVG generados para demo | Placeholder | `assets/products/` y campo `image` en `script.js` | Reemplazar por fotos oficiales autorizadas en WebP/JPG. |
-| Porciones | Tamaños observados o demo | Público + supuesto | `script.js` | Confirmar gramajes, porciones y medidas oficiales. |
-| Sucursales | Sección de consulta, sin direcciones exactas | Supuesto | `index.html` | Agregar buscador o listado oficial de sucursales. |
-| Horarios | No se muestran horarios exactos | Pendiente | `index.html`, FAQ | Agregar horarios oficiales por sucursal. |
-| Entrega | Recolección/entrega como flujo general | Supuesto | `index.html`, `script.js` | Definir zonas, costos y tiempos de entrega. |
-| Mercado Pago | Integración preparada, no activa sin token | Supuesto técnico | `.env.example`, `api/create-preference.js` | Configurar credenciales reales en Vercel. |
-| Métodos de pago | Mercado Pago + WhatsApp | Supuesto | `script.js`, `index.html` | Confirmar pagos aceptados: tarjeta, transferencia, efectivo, etc. |
-| Facturación | No implementada como flujo final | Pendiente | `terminos.html`, `index.html` | Agregar proceso oficial de facturación. |
-| Aviso de privacidad | Texto base editable | Placeholder legal | `aviso-privacidad.html` | Validar con abogado o responsable legal. |
-| Términos | Texto base editable | Placeholder legal | `terminos.html` | Validar políticas de venta, cambios y cancelaciones. |
-| Promociones | No se publican como definitivas | Pendiente | `index.html`, `script.js` | Agregar solo promociones oficiales vigentes. |
+| WhatsApp | 525524994700 | público utilizado como base | `script.js`, constante `WHATSAPP_NUMBER` | Confirmar número final y país. |
+| Precios | Desde $270, $420, $120, $250 y “Cotizar” | público/supuesto demo | `script.js`, arreglo `PRODUCTS` | Reemplazar por precios oficiales por sucursal/presentación. |
+| Catálogo | 27 productos visuales + “Más especialidades” | supuesto editable | `script.js`, `PRODUCTS` y `MORE_SPECIALTIES` | Validar catálogo completo y disponibilidad. |
+| Imágenes | Imágenes generadas para demo por el usuario | placeholder visual premium | `/assets/products` y campo `image` en `script.js` | Sustituir por fotos oficiales si se usará comercialmente. |
+| Logo | Wordmark SVG editable | placeholder | `/assets/brand/montparnasse-wordmark.svg` | Sustituir por logo oficial en SVG/PNG. |
+| Línea libre de azúcar | Fresas, Queso, Moka, 3 Leches, Gelatina, Galletas | supuesto / demo | `script.js`, productos con `sugar:true` | Confirmar cuáles son oficialmente libres de azúcar. |
+| Sucursales | Consulta por WhatsApp, sin direcciones exactas | placeholder estratégico | `index.html`, sección contacto | Agregar sucursales oficiales si se confirman. |
+| Horarios | No se muestran horarios fijos | pendiente | Sección contacto/FAQ | Agregar horarios oficiales por sucursal. |
+| Entrega | Confirmación por WhatsApp | supuesto operativo | FAQ y carrito | Validar zonas, costos y condiciones. |
+| Mercado Pago | API preparada, sin token | placeholder técnico | Vercel env `MP_ACCESS_TOKEN` | Activar con credenciales reales. |
+| Aviso legal | Texto base editable | placeholder legal | `aviso-privacidad.html` | Validar con asesoría legal. |
+| Términos | Texto base editable | placeholder legal | `terminos.html` | Validar con asesoría legal. |
 
 ## Cómo abrir localmente
 
-Abre `index.html` directamente en tu navegador. La página funciona como sitio estático.
-
-Para probar la función de Mercado Pago localmente necesitarías un entorno que ejecute funciones serverless o desplegar en Vercel.
-
-## Cómo editar el catálogo
-
-En `script.js`, busca:
-
-```js
-const PRODUCTS = [...]
-```
-
-Cada producto tiene campos editables:
-
-- `name`
-- `category`
-- `subcategory`
-- `size`
-- `description`
-- `price`
-- `priceNumber`
-- `image`
-- `badge`
-- `moments`
-
-Comentarios importantes dentro del código:
-
-```js
-// TODO: reemplazar con catálogo oficial validado por Montparnasse
-// PLACEHOLDER: las imágenes SVG son arte temporal para presentación
-```
+Abre `index.html` en tu navegador. El sitio funciona de forma estática. Mercado Pago requiere Vercel o un entorno serverless para `/api/create-preference.js`.
 
 ## Cómo cambiar imágenes
 
-1. Guarda fotos oficiales en `assets/products/`.
-2. Ideal: formato `.webp`, 1000 × 1000 px, peso menor a 300 KB.
-3. Cambia el campo `image` en `script.js`.
+1. Guarda la nueva imagen en `/assets/products`.
+2. Recomendada: formato `.webp`, vertical 4:5, peso menor a 600 KB.
+3. En `script.js`, busca el producto y cambia el campo `image`.
 
 Ejemplo:
 
 ```js
-image: 'assets/products/fresas-con-crema-oficial.webp'
+image: "ganash.webp"
 ```
 
-## Cómo cambiar colores
+## Cómo editar catálogo
 
-Edita las variables en `styles.css`:
+En `script.js`, modifica el arreglo `PRODUCTS`.
 
-```css
-:root {
-  --plum:#6F2D84;
-  --plum-dark:#321832;
-  --lilac:#E9D6EF;
-  --cream:#FFF8F1;
-  --gold:#C9A15A;
+Campos clave:
+
+```js
+{
+  id: "ganash",
+  name: "Ganash",
+  category: "Pasteles",
+  section: "pasteles",
+  image: "ganash.webp",
+  sugar: false,
+  priceLabel: "Desde $270",
+  price: 270,
+  presentation: "4 porciones",
+  desc: "Descripción del producto"
 }
 ```
 
-## Cómo activar Mercado Pago en Vercel
+## Cómo marcar un producto como libre de azúcar
+
+En `script.js`, usa:
+
+```js
+sugar: true,
+section: "sugarfree",
+badge: "Libre de azúcar"
+```
+
+El sitio aplicará automáticamente el marco verde salvia y badge especial.
+
+## Cómo conectar Mercado Pago en Vercel
 
 1. Sube el proyecto a GitHub.
-2. Importa el repositorio en Vercel.
-3. En Vercel, entra a **Settings > Environment Variables**.
-4. Agrega:
+2. Conecta el repositorio en Vercel.
+3. No uses build command.
+4. Agrega estas variables de entorno:
 
 ```env
-MP_ACCESS_TOKEN=APP_USR_TU_ACCESS_TOKEN
+MP_ACCESS_TOKEN=APP_USR_xxxxxxxxx
 SITE_URL=https://tu-dominio.vercel.app
-DEFAULT_CURRENCY=MXN
 ```
 
-5. Despliega nuevamente.
+La función está en:
 
-El frontend llama a:
-
-```text
-/api/create-preference
+```txt
+/api/create-preference.js
 ```
 
-La función crea la preferencia de pago y redirige al checkout de Mercado Pago.
+## Pendientes recomendados
 
-## Cómo publicar en Vercel
-
-- No requiere build.
-- No requiere dependencias.
-- `index.html` está en la raíz.
-- Vercel detecta archivos estáticos y la función dentro de `/api`.
-
-Pasos:
-
-1. Descomprime el ZIP.
-2. Sube todo a GitHub tal cual.
-3. Conecta el repositorio en Vercel.
-4. No pongas Build Command.
-5. Output Directory vacío o raíz.
-6. Agrega variables de entorno si activarás Mercado Pago.
-7. Deploy.
-
-## Pendientes importantes
-
-- Reemplazar logos e imágenes temporales.
-- Confirmar precios oficiales.
-- Confirmar catálogo vigente.
-- Definir sucursales y horarios.
-- Definir políticas de entrega, cancelación y facturación.
-- Validar documentos legales.
-- Configurar Mercado Pago real.
-- Revisar textos finales con la marca.
-
-## Nota de diseño
-
-La v3 evita mostrar textos de “placeholder” o “por confirmar” en la página pública para que se sienta como una marca real. Las advertencias y datos pendientes quedan en README, código y archivos internos.
+- Confirmar catálogo completo, precios, porciones y disponibilidad.
+- Subir logo oficial.
+- Validar textos legales.
+- Activar Mercado Pago con token real.
+- Agregar sucursales oficiales si se decide mostrarlas.
+- Generar fotos para productos de “Más especialidades” o mantenerlos como consulta.

@@ -1,1542 +1,968 @@
-// Montparnasse Pastelería — catálogo y experiencia v3
-// TODO: reemplazar con catálogo oficial validado por Montparnasse antes de publicación comercial final.
-// Algunos precios son observados en fuentes públicas; otros son precios demo para boceto. Revisar README.
-// PLACEHOLDER: las imágenes SVG son arte temporal para presentación. Reemplazar por fotos oficiales autorizadas.
+// Montparnasse Pastelería — catálogo visual v4
+// TODO: reemplazar catálogo, precios y disponibilidad con información oficial antes de publicación comercial.
+// TODO: conectar Mercado Pago con credenciales reales desde Vercel Environment Variables.
+// TODO: validar textos legales con asesoría correspondiente.
+
+const WHATSAPP_NUMBER = "525524994700"; // TODO: confirmar número final de WhatsApp.
+const ENABLE_MERCADOPAGO = true;
+const SITE_CURRENCY = "MXN";
 
 const PRODUCTS = [
   {
-    "id": "ganash-4p",
+    "id": "ganash",
     "name": "Ganash",
     "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "4 porciones",
-    "description": "Biscuit de chocolate supreme bañado con jarabe natural de chocolate, relleno con crema Montparnasse de trufa semi-amarga y cubierto con ganash y motivos de chocolate.",
-    "price": "$270",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Rappi",
-    "image_action": "Recortar de catálogo o usar foto de Rappi con autorización",
-    "suggested_filename": "ganash-4p.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "ganash-4p",
-    "image": "assets/products/ganash-4p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Rappi/Uber",
+    "section": "pasteles",
+    "image": "ganash.webp",
+    "sugar": false,
     "badge": "Favorito",
-    "moments": [
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "chocolate",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
       "cumpleanos",
       "regalo",
-      "reunion"
+      "antojo"
     ],
-    "featured": true
+    "desc": "Biscuit de chocolate con jarabe natural de chocolate, crema estilo Montparnasse y cobertura de ganash brillante."
   },
   {
-    "id": "ganash-10p",
-    "name": "Ganash",
+    "id": "sf-fresas",
+    "name": "Fresas con Crema Libre de Azúcar",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "fresas-con-crema.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "frutal",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
+      "cumpleanos",
+      "regalo",
+      "libre"
+    ],
+    "desc": "Versión libre de azúcar con crema suave, fresas naturales y presentación premium para celebrar sin perder antojo."
+  },
+  {
+    "id": "baileys-cake",
+    "name": "Bailey’s",
     "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "10 porciones",
-    "description": "Pastel de chocolate con jarabe natural de chocolate, relleno gourmet de trufa semi-amarga y cobertura brillante de ganash con motivos de chocolate.",
-    "price": "$780",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Rappi",
-    "image_action": "Recortar de catálogo o usar foto de Rappi con autorización",
-    "suggested_filename": "ganash-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "ganash-10p",
-    "image": "assets/products/ganash-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
+    "section": "pasteles",
+    "image": "baileys.webp",
+    "sugar": false,
+    "badge": "Especial",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "especial",
+    "people": [
+      "1-4",
+      "8-10"
     ],
-    "featured": true
+    "occasions": [
+      "cumpleanos",
+      "regalo"
+    ],
+    "desc": "Pastel cremoso con notas tipo Bailey’s, bizcocho vainilla-chocolate, crema Montparnasse y detalle de chocolate."
   },
   {
-    "id": "fresas-con-crema-4p",
-    "name": "Fresas con Crema",
-    "category": "Pasteles",
-    "subcategory": "Frutales",
-    "size": "4 porciones",
-    "description": "Biscuit de vainilla bañado con jarabe de tres leches, crema Montparnasse, queso delicatessen y fresas naturales, con cobertura de ganash y motivos de chocolate.",
-    "price": "$270",
-    "price_type": "Precio observado en Uber/Rappi; en algunas sucursales aparece con descuento",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "fresas-con-crema-4p.webp",
-    "source_url": "https://www.ubereats.com/mx/store/pasteleria-montparnasse-los-reyes/xmiSyKA1XIawXohXDQlw9A",
-    "slug": "fresas-con-crema-4p",
-    "image": "assets/products/fresas-con-crema-4p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Uber/Rappi; en algunas sucursales aparece con descuento",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "fresas-con-crema-10p",
-    "name": "Fresas con Crema",
-    "category": "Pasteles",
-    "subcategory": "Frutales",
-    "size": "10 porciones",
-    "description": "Versión familiar de Fresas con Crema, ideal para cumpleaños, regalos y reuniones. Biscuit de vainilla con tres leches, crema Montparnasse, queso delicatessen y fresas naturales.",
-    "price": "$780",
-    "price_type": "Precio observado en Uber/Rappi",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "fresas-con-crema-10p.webp",
-    "source_url": "https://www.ubereats.com/mx/store/pasteleria-montparnasse-los-reyes/xmiSyKA1XIawXohXDQlw9A",
-    "slug": "fresas-con-crema-10p",
-    "image": "assets/products/fresas-con-crema-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Uber/Rappi",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "baileys-4p",
-    "name": "Bailey's",
-    "category": "Pasteles",
-    "subcategory": "Especiales",
-    "size": "4 porciones",
-    "description": "Biscuit de vainilla y chocolate bañado con jarabe de tres leches sabor Bailey’s, crema Montparnasse de Bailey’s, queso delicatessen, ganash y decoración de chocolate.",
-    "price": "$270",
-    "price_type": "Precio observado en Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "baileys-4p.webp",
-    "source_url": "https://www.ubereats.com/mx/store/pasteleria-montparnasse-tacubaya/nGoZYPSAWeymtaZTyPlovg",
-    "slug": "baileys-4p",
-    "image": "assets/products/baileys-4p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Uber",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "baileys-10p",
-    "name": "Bailey's",
-    "category": "Pasteles",
-    "subcategory": "Especiales",
-    "size": "10 porciones",
-    "description": "Pastel cremoso de vainilla y chocolate con perfil Bailey’s, crema Montparnasse, queso delicatessen y cobertura de ganash con motivos de chocolate.",
-    "price": "$780",
-    "price_type": "Precio observado en Uber/Rappi",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "baileys-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "baileys-10p",
-    "image": "assets/products/baileys-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Uber/Rappi",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "pinon-10p",
+    "id": "pinon",
     "name": "Piñón",
     "category": "Pasteles",
-    "subcategory": "Especiales",
-    "size": "10 porciones",
-    "description": "Pan de vainilla bañado con jarabe de tres leches de piñón, relleno con crema pastelera con piñones naturales y cubierto con crema de nata, motivos de chocolate y rosetas.",
-    "price": "$590",
-    "price_type": "Precio observado en Uber Navarte; también aparece variable en Rappi",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "pinon-10p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-navarte/NcfKzSdbXA-QBlOYipfh3Q",
-    "slug": "pinon-10p",
-    "image": "assets/products/pinon-10p.svg",
-    "priceNumber": 590,
-    "internalPriceType": "Precio observado en Uber Navarte; también aparece variable en Rappi",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
+    "section": "pasteles",
+    "image": "pinon.webp",
+    "sugar": false,
+    "badge": "Clásico",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "especial",
+    "people": [
+      "1-4",
+      "8-10"
     ],
-    "featured": false
+    "occasions": [
+      "cumpleanos",
+      "regalo"
+    ],
+    "desc": "Pastel tradicional con crema suave, jarabe de tres leches con piñón y textura de nuez fina en la cubierta."
   },
   {
-    "id": "queso-con-chocolate-4p",
-    "name": "Queso con Chocolate",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "4 porciones",
-    "description": "Biscuit de chocolate bañado con jarabe de vainilla hecho en casa, relleno con crema de chocolate Montparnasse y queso delicatessen.",
-    "price": "$270",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "queso-con-chocolate-4p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "queso-con-chocolate-4p",
-    "image": "assets/products/queso-con-chocolate-4p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
+    "id": "sf-queso-chocolate",
+    "name": "Queso con Chocolate Sin Azúcar",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "queso-con-chocolate.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "chocolate",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
       "cumpleanos",
       "regalo",
-      "reunion"
+      "libre"
     ],
-    "featured": true
+    "desc": "Pastel libre de azúcar con perfil de chocolate y relleno cremoso estilo queso delicatessen."
   },
   {
-    "id": "queso-con-chocolate-10p",
-    "name": "Queso con Chocolate",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "10 porciones",
-    "description": "Versión familiar de biscuit de chocolate con crema Montparnasse y queso delicatessen, decorado con chocolate blanco, de leche y varitas crujientes.",
-    "price": "$780",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "queso-con-chocolate-10p.webp",
-    "source_url": "https://www.ubereats.com/mx/store/montparnasse-montevideo/lEj1iqaGXOee3T6vLD2LsQ",
-    "slug": "queso-con-chocolate-10p",
-    "image": "assets/products/queso-con-chocolate-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
+    "id": "sf-moka",
+    "name": "Moka Libre de Azúcar",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "moka.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "chocolate",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
       "regalo",
-      "reunion"
+      "antojo",
+      "libre"
     ],
-    "featured": true
+    "desc": "Versión libre de azúcar con notas moka, chocolate semiamargo y acabado cremoso elegante."
   },
   {
-    "id": "queso-con-chocolate-20p",
-    "name": "Queso con Chocolate",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "20 porciones",
-    "description": "Pastel grande de chocolate con crema Montparnasse y queso delicatessen, pensado para reuniones y celebraciones con más invitados.",
-    "price": "$1,050",
-    "price_type": "Precio observado en Uber/Rappi",
-    "image_status": "Foto encontrada en plataformas",
-    "image_source": "Uber/Rappi, producto 20p",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, usar misma foto del sabor en formato 20p como referencia",
-    "suggested_filename": "queso-con-chocolate-20p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-bosques/8dBJK2nQVYi1GbQuI-McHQ",
-    "slug": "queso-con-chocolate-20p",
-    "image": "assets/products/queso-con-chocolate-20p.svg",
-    "priceNumber": 1050,
-    "internalPriceType": "Precio observado en Uber/Rappi",
-    "badge": "Favorito",
-    "moments": [
-      "celebracion",
-      "cumpleanos",
-      "evento",
-      "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "moka-4p",
-    "name": "Moka",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "4 porciones",
-    "description": "Pan de chocolate bañado con jarabe de vainilla, crema Montparnasse de chocolate y cobertura de chocolate semi-amargo rayado.",
-    "price": "$170",
-    "price_type": "Precio observado en Rappi en presentación chica; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "moka-4p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821574-montparnasse",
-    "slug": "moka-4p",
-    "image": "assets/products/moka-4p.svg",
-    "priceNumber": 170,
-    "internalPriceType": "Precio observado en Rappi en presentación chica; variable por sucursal",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "moka-10p",
-    "name": "Moka",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "10 porciones",
-    "description": "Pastel de chocolate con crema Montparnasse de chocolate y cobertura semi-amarga, ideal para quienes buscan un sabor intenso y clásico.",
-    "price": "$449",
-    "price_type": "Precio observado en Rappi; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 1 / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "moka-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "moka-10p",
-    "image": "assets/products/moka-10p.svg",
-    "priceNumber": 449,
-    "internalPriceType": "Precio observado en Rappi; variable por sucursal",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "mil-hojas-fresa-10p",
+    "id": "mil-hojas",
     "name": "Mil Hojas de Fresa",
     "category": "Pasteles",
-    "subcategory": "Frutales",
-    "size": "10 porciones",
-    "description": "Biscuit laminado de feite/hojaldre relleno de crema pastelera natural y fresas fileteadas, decorado con fresas globo y motivos de chocolate.",
-    "price": "$780",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Uber/Rappi",
-    "image_action": "Recortar de catálogo o usar foto pública con autorización",
-    "suggested_filename": "mil-hojas-fresa-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "mil-hojas-fresa-10p",
-    "image": "assets/products/mil-hojas-fresa-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
+    "section": "pasteles",
+    "image": "mil-hojas-de-fresa.webp",
+    "sugar": false,
+    "badge": "Premium",
+    "priceLabel": "Desde $780",
+    "price": 780,
+    "presentation": "8–10 porciones",
+    "flavor": "frutal",
+    "people": [
+      "8-10",
+      "20+"
+    ],
+    "occasions": [
       "cumpleanos",
       "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "alaska-4p",
-    "name": "Alaska",
-    "category": "Pasteles",
-    "subcategory": "Tres leches",
-    "size": "4 porciones",
-    "description": "Biscuit de vainilla bañado con tres leches, relleno de crema Montparnasse, queso delicatessen y chocolate blanco.",
-    "price": "$270",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Uber/Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "alaska-4p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "alaska-4p",
-    "image": "assets/products/alaska-4p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "alaska-10p",
-    "name": "Alaska",
-    "category": "Pasteles",
-    "subcategory": "Tres leches",
-    "size": "10 porciones",
-    "description": "Pastel de vainilla con tres leches, crema Montparnasse, queso delicatessen, chocolate blanco y cobertura de crema de nata.",
-    "price": "$780",
-    "price_type": "Precio observado en Rappi/Uber",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Uber/Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "alaska-10p.webp",
-    "source_url": "https://www.ubereats.com/mx/store/pasteleria-montparnasse-tacubaya/nGoZYPSAWeymtaZTyPlovg",
-    "slug": "alaska-10p",
-    "image": "assets/products/alaska-10p.svg",
-    "priceNumber": 780,
-    "internalPriceType": "Precio observado en Rappi/Uber",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "selva-negra-10p",
-    "name": "Selva Negra",
-    "category": "Pasteles",
-    "subcategory": "Frutales / Chocolate",
-    "size": "10 porciones",
-    "description": "Biscuit de chocolate bañado con jarabe de ron, relleno con crema de nata y salsa de zarzamora, decorado con frutas de temporada y motivos de chocolate.",
-    "price": "$449",
-    "price_type": "Precio observado en Rappi; en algunas sucursales puede variar",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "selva-negra-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "selva-negra-10p",
-    "image": "assets/products/selva-negra-10p.svg",
-    "priceNumber": 449,
-    "internalPriceType": "Precio observado en Rappi; en algunas sucursales puede variar",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "tres-leches-tradicional-4p",
-    "name": "3 Leches Tradicional",
-    "category": "Pasteles",
-    "subcategory": "Tres leches",
-    "size": "4 porciones",
-    "description": "Pan de vainilla bañado con jarabe de tres leches, relleno con crema Montparnasse y nuez garapiñada, cubierto con crema, escurrido de ganash y nuez.",
-    "price": "$170",
-    "price_type": "Precio observado en Rappi; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "tres-leches-tradicional-4p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "tres-leches-tradicional-4p",
-    "image": "assets/products/tres-leches-tradicional-4p.svg",
-    "priceNumber": 170,
-    "internalPriceType": "Precio observado en Rappi; variable por sucursal",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "tres-leches-tradicional-10p",
-    "name": "3 Leches Tradicional",
-    "category": "Pasteles",
-    "subcategory": "Tres leches",
-    "size": "10 porciones",
-    "description": "Versión familiar del pastel tres leches con crema Montparnasse, nuez garapiñada, ganash de chocolate y nuez.",
-    "price": "$449",
-    "price_type": "Precio observado en Rappi; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Pasteles 2 / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "tres-leches-tradicional-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "tres-leches-tradicional-10p",
-    "image": "assets/products/tres-leches-tradicional-10p.svg",
-    "priceNumber": 449,
-    "internalPriceType": "Precio observado en Rappi; variable por sucursal",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "monty-bunny-4p",
-    "name": "Monty Bunny",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "4 porciones",
-    "description": "Biscuit de chocolate bañado con tres leches de chocolate Turín, relleno con crema de chocolate, ganash de chocolate de leche, nuez garapiñada y chocolates Turín.",
-    "price": "$215",
-    "price_type": "Precio observado en Uber Navarte",
-    "image_status": "Foto en plataformas; no aparece en catálogo PDF 2023",
-    "image_source": "Uber Eats Navarte",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, placeholder premium de pastel chocolate",
-    "suggested_filename": "monty-bunny-4p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-navarte/NcfKzSdbXA-QBlOYipfh3Q",
-    "slug": "monty-bunny-4p",
-    "image": "assets/products/monty-bunny-4p.svg",
-    "priceNumber": 215,
-    "internalPriceType": "Precio observado en Uber Navarte",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "monty-bunny-10p",
-    "name": "Monty Bunny",
-    "category": "Pasteles",
-    "subcategory": "Chocolate",
-    "size": "10 porciones",
-    "description": "Versión familiar de Monty Bunny: chocolate Turín, crema de chocolate, ganash de leche, nuez garapiñada y chocolates Turín.",
-    "price": "$590",
-    "price_type": "Precio observado en Uber Navarte",
-    "image_status": "Foto en plataformas; no aparece en catálogo PDF 2023",
-    "image_source": "Uber Eats Navarte",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, placeholder premium de pastel chocolate",
-    "suggested_filename": "monty-bunny-10p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-navarte/NcfKzSdbXA-QBlOYipfh3Q",
-    "slug": "monty-bunny-10p",
-    "image": "assets/products/monty-bunny-10p.svg",
-    "priceNumber": 590,
-    "internalPriceType": "Precio observado en Uber Navarte",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "fiesta-rompope-10p",
-    "name": "Fiesta de Rompope",
-    "category": "Pasteles",
-    "subcategory": "Especiales",
-    "size": "10 porciones",
-    "description": "Biscuit de vainilla bañado con tres leches de rompope, crema de nata, duraznos flameados y ganache de chocolate blanco con toque de rompope.",
-    "price": "$590",
-    "price_type": "Precio observado en Uber Navarte",
-    "image_status": "Foto en plataformas; no aparece en catálogo PDF 2023",
-    "image_source": "Uber Eats Navarte",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, placeholder premium",
-    "suggested_filename": "fiesta-rompope-10p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-navarte/NcfKzSdbXA-QBlOYipfh3Q",
-    "slug": "fiesta-rompope-10p",
-    "image": "assets/products/fiesta-rompope-10p.svg",
-    "priceNumber": 590,
-    "internalPriceType": "Precio observado en Uber Navarte",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "delicia-fresa-20p",
-    "name": "Delicia de Fresa",
-    "category": "Pasteles",
-    "subcategory": "Eventos / Frutales",
-    "size": "20 porciones",
-    "description": "Biscuit de vainilla bañado con jarabe de tres leches, relleno con crema Montparnasse y fresas naturales, con cobertura de ganash y motivos de chocolate.",
-    "price": "$1,050",
-    "price_type": "Precio observado en Uber/Rappi",
-    "image_status": "Foto encontrada en redes/plataformas",
-    "image_source": "Facebook/Instagram oficial y Uber/Rappi",
-    "image_action": "Usar foto oficial solo con permiso; si no, placeholder premium de pastel de fresa",
-    "suggested_filename": "delicia-fresa-20p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/montparnasse-pantitlan/7bSqL-byVfq0TnIvvK3Dtg",
-    "slug": "delicia-fresa-20p",
-    "image": "assets/products/delicia-fresa-20p.svg",
-    "priceNumber": 1050,
-    "internalPriceType": "Precio observado en Uber/Rappi",
-    "badge": "",
-    "moments": [
-      "celebracion",
-      "cumpleanos",
-      "evento",
-      "regalo",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "fresas-con-crema-free-10p",
-    "name": "Fresas con Crema Libre de Azúcar",
-    "category": "Línea libre de azúcar",
-    "subcategory": "Frutales",
-    "size": "10 porciones",
-    "description": "Pan de vainilla con jarabe de tres leches, crema Montparnasse, queso delicatessen y fresas naturales, versión libre de azúcar según menú de plataforma.",
-    "price": "$449",
-    "price_type": "Precio observado en Rappi; variable por sucursal",
-    "image_status": "Foto en plataformas; no aparece claro en catálogo PDF",
-    "image_source": "Rappi Barrio Tejedores / Santa Cruz Tlapacoya",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, placeholder premium con badge libre de azúcar",
-    "suggested_filename": "fresas-con-crema-free-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "fresas-con-crema-free-10p",
-    "image": "assets/products/fresas-con-crema-free-10p.svg",
-    "priceNumber": 449,
-    "internalPriceType": "Precio observado en Rappi; variable por sucursal",
-    "badge": "Libre de azúcar",
-    "moments": [
-      "libre-azucar",
-      "regalo"
-    ],
-    "featured": true
-  },
-  {
-    "id": "queso-chocolate-free-10p",
-    "name": "Queso con Chocolate Sin Azúcar",
-    "category": "Línea libre de azúcar",
-    "subcategory": "Chocolate",
-    "size": "10 porciones",
-    "description": "Pan de chocolate con jarabe de vainilla, crema de chocolate y queso delicatessen, versión libre de azúcar según menú de plataforma.",
-    "price": "$449",
-    "price_type": "Precio observado en Rappi; variable por sucursal",
-    "image_status": "Foto en plataformas; no aparece claro en catálogo PDF",
-    "image_source": "Rappi Barrio Tejedores",
-    "image_action": "Usar foto de plataforma solo con autorización; si no, placeholder premium con badge libre de azúcar",
-    "suggested_filename": "queso-chocolate-free-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923821573-montparnasse",
-    "slug": "queso-chocolate-free-10p",
-    "image": "assets/products/queso-chocolate-free-10p.svg",
-    "priceNumber": 449,
-    "internalPriceType": "Precio observado en Rappi; variable por sucursal",
-    "badge": "Libre de azúcar",
-    "moments": [
-      "libre-azucar",
-      "regalo"
-    ],
-    "featured": true
-  },
-  {
-    "id": "galletas-artesanales-free-200g",
-    "name": "Galletas Artesanales Free",
-    "category": "Línea libre de azúcar",
-    "subcategory": "Galletas",
-    "size": "200 g",
-    "description": "Surtido de galletas artesanales endulzadas con stevia: pastiseta, granillo de chocolate, polvorón y canelita; hechas con leche y mantequilla baja en grasa.",
-    "price": "$99",
-    "price_type": "Precio observado en Uber Navarte; también aparece $89 en otras sucursales",
-    "image_status": "Foto en plataformas; no en catálogo PDF",
-    "image_source": "Uber Eats Navarte / Plaza Texcoco",
-    "image_action": "Usar foto con autorización; si no, placeholder de galletas",
-    "suggested_filename": "galletas-artesanales-free-200g.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/pasteleria-montparnasse-navarte/NcfKzSdbXA-QBlOYipfh3Q",
-    "slug": "galletas-artesanales-free-200g",
-    "image": "assets/products/galletas-artesanales-free-200g.svg",
-    "priceNumber": 99,
-    "internalPriceType": "Precio observado en Uber Navarte; también aparece $89 en otras sucursales",
-    "badge": "Libre de azúcar",
-    "moments": [
-      "celebracion",
-      "evento",
-      "libre-azucar",
-      "regalo"
-    ],
-    "featured": true
-  },
-  {
-    "id": "gelatina-mosaico-10p",
-    "name": "Gelatina Mosaico",
-    "category": "Gelatinas",
-    "subcategory": "Tradicionales",
-    "size": "10 porciones",
-    "description": "Gelatina con base de anís y cubos de leche orgánica de sabores limón, uva, naranja y piña.",
-    "price": "$420",
-    "price_type": "Precio observado en Rappi/Uber; puede variar por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Gelatinas / Rappi/Uber",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "gelatina-mosaico-10p.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "gelatina-mosaico-10p",
-    "image": "assets/products/gelatina-mosaico-10p.svg",
-    "priceNumber": 420,
-    "internalPriceType": "Precio observado en Rappi/Uber; puede variar por sucursal",
-    "badge": "Favorito",
-    "moments": [
-      "cumpleanos",
-      "reunion"
-    ],
-    "featured": true
-  },
-  {
-    "id": "gelatina-frutas-10p",
-    "name": "Gelatina de Frutas",
-    "category": "Gelatinas",
-    "subcategory": "Frutales",
-    "size": "10 porciones",
-    "description": "Base de leche sabor vainilla con gelatina de agua sabor fresa y frutas de temporada.",
-    "price": "$270",
-    "price_type": "Precio observado en Uber Plaza Texcoco",
-    "image_status": "Foto en plataformas; no en catálogo PDF 2023",
-    "image_source": "Uber Eats Plaza Texcoco",
-    "image_action": "Usar foto con autorización; si no, placeholder premium",
-    "suggested_filename": "gelatina-frutas-10p.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/montparnasse-plaza-texcoco/lWAbciJMR1KZWTAfEwzceQ",
-    "slug": "gelatina-frutas-10p",
-    "image": "assets/products/gelatina-frutas-10p.svg",
-    "priceNumber": 270,
-    "internalPriceType": "Precio observado en Uber Plaza Texcoco",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "gelatina-halloween",
-    "name": "Gelatina Halloween",
-    "category": "Gelatinas",
-    "subcategory": "Temporada",
-    "size": "Temporada",
-    "description": "Gelatina temática de temporada, ideal para campañas especiales y fechas festivas.",
-    "price": "$340",
-    "price_type": "Precio observado en búsquedas previas / precio de demo si no se confirma",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Usar placeholder o foto oficial de temporada",
-    "suggested_filename": "gelatina-halloween.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "gelatina-halloween",
-    "image": "assets/products/gelatina-halloween.svg",
-    "priceNumber": 340,
-    "internalPriceType": "Precio observado en búsquedas previas / precio de demo si no se confirma",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
-      "reunion"
-    ],
-    "featured": false
-  },
-  {
-    "id": "galletas-surtidas-200g",
-    "name": "Galletas Surtidas",
-    "category": "Galletas y pastas secas",
-    "subcategory": "Galletas",
-    "size": "200 g",
-    "description": "Surtido de galleta artesanal: pastiseta, granillo de chocolate, polvorón y canelita, hechas con leche y mantequilla.",
-    "price": "$120",
-    "price_type": "Precio observado en Rappi Agrícola Oriental; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Galletas / Rappi",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "galletas-surtidas-200g.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "galletas-surtidas-200g",
-    "image": "assets/products/galletas-surtidas-200g.svg",
-    "priceNumber": 120,
-    "internalPriceType": "Precio observado en Rappi Agrícola Oriental; variable por sucursal",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "celebracion",
-      "evento",
-      "regalo"
-    ],
-    "featured": false
-  },
-  {
-    "id": "galletas-artesanales-500g",
-    "name": "Galletas Artesanales",
-    "category": "Galletas y pastas secas",
-    "subcategory": "Galletas",
-    "size": "500 g",
-    "description": "Surtido de galletas artesanales para compartir o regalar: pastiseta, granillo de chocolate, polvorón y canelita.",
-    "price": "$150",
-    "price_type": "Precio observado en Uber Plaza Texcoco; variable por sucursal",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Galletas / Uber",
-    "image_action": "Recortar de catálogo o usar foto de plataforma con autorización",
-    "suggested_filename": "galletas-artesanales-500g.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/montparnasse-plaza-texcoco/lWAbciJMR1KZWTAfEwzceQ",
-    "slug": "galletas-artesanales-500g",
-    "image": "assets/products/galletas-artesanales-500g.svg",
-    "priceNumber": 150,
-    "internalPriceType": "Precio observado en Uber Plaza Texcoco; variable por sucursal",
-    "badge": "Favorito",
-    "moments": [
-      "antojo",
-      "regalo"
-    ],
-    "featured": true
-  },
-  {
-    "id": "teja-almendra-200g",
-    "name": "Teja de Almendra",
-    "category": "Galletas y pastas secas",
-    "subcategory": "Tejas",
-    "size": "200 g",
-    "description": "Galletas crocantes de mantequilla con almendra, ideales para acompañar café, regalar o sumar a mesa dulce.",
-    "price": "$250",
-    "price_type": "Precio observado en Rappi Agrícola Oriental; también aparece $195 en Uber Navarte",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Galletas / Rappi/Uber",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "teja-almendra-200g.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "teja-almendra-200g",
-    "image": "assets/products/teja-almendra-200g.svg",
-    "priceNumber": 250,
-    "internalPriceType": "Precio observado en Rappi Agrícola Oriental; también aparece $195 en Uber Navarte",
-    "badge": "Favorito",
-    "moments": [
-      "antojo",
-      "celebracion",
-      "evento",
-      "regalo"
-    ],
-    "featured": true
-  },
-  {
-    "id": "chocolates-mixtos-200g",
-    "name": "Chocolates Mixtos",
-    "category": "Chocolates",
-    "subcategory": "Trufas",
-    "size": "200 g",
-    "description": "Combinación de trufas rellenas de crema irlandesa, coñac, tequila, whisky y enjambre de nuez.",
-    "price": "$115",
-    "price_type": "Precio observado en plataformas / demo si no se confirma por sucursal",
-    "image_status": "Foto encontrada en catálogo PDF",
-    "image_source": "Catálogo 2023, página Chocolates",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "chocolates-mixtos-200g.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "chocolates-mixtos-200g",
-    "image": "assets/products/chocolates-mixtos-200g.svg",
-    "priceNumber": 115,
-    "internalPriceType": "Precio observado en plataformas / demo si no se confirma por sucursal",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "celebracion",
-      "evento",
-      "regalo"
-    ],
-    "featured": false
-  },
-  {
-    "id": "chocopapis-200g",
-    "name": "Chocopapis",
-    "category": "Chocolates",
-    "subcategory": "Trufas / Chocolate",
-    "size": "200 g",
-    "description": "Combinación de trufas rellenas y enjambre de nuez, producto observado en menú de plataforma.",
-    "price": "$135",
-    "price_type": "Precio observado en Uber Plaza Texcoco",
-    "image_status": "Foto en plataforma; no en catálogo PDF 2023",
-    "image_source": "Uber Eats Plaza Texcoco",
-    "image_action": "Usar foto con autorización; si no, placeholder premium de chocolates",
-    "suggested_filename": "chocopapis-200g.webp",
-    "source_url": "https://www.ubereats.com/mx-en/store/montparnasse-plaza-texcoco/lWAbciJMR1KZWTAfEwzceQ",
-    "slug": "chocopapis-200g",
-    "image": "assets/products/chocopapis-200g.svg",
-    "priceNumber": 135,
-    "internalPriceType": "Precio observado en Uber Plaza Texcoco",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "celebracion",
-      "evento",
-      "regalo"
-    ],
-    "featured": false
-  },
-  {
-    "id": "coliseo-chocolate-10p",
-    "name": "Coliseo de Chocolate",
-    "category": "Panqués",
-    "subcategory": "Chocolate",
-    "size": "8 a 10 porciones",
-    "description": "Panqué de chocolate cubierto con glaseado blanco y abundantes chispas.",
-    "price": "$140",
-    "price_type": "Precio observado en delivery / redes; variable por fecha",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Panqués",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "coliseo-chocolate-10p.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "coliseo-chocolate-10p",
-    "image": "assets/products/coliseo-chocolate-10p.svg",
-    "priceNumber": 140,
-    "internalPriceType": "Precio observado en delivery / redes; variable por fecha",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
-    ],
-    "featured": false
-  },
-  {
-    "id": "coliseo-naranja-10p",
-    "name": "Coliseo de Naranja",
-    "category": "Panqués",
-    "subcategory": "Naranja",
-    "size": "8 a 10 porciones",
-    "description": "Panqué tradicional con toque de naranja, glaseado rojo y chocolate M&M.",
-    "price": "$140",
-    "price_type": "Precio observado en delivery / redes; variable por fecha",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Panqués",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "coliseo-naranja-10p.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "coliseo-naranja-10p",
-    "image": "assets/products/coliseo-naranja-10p.svg",
-    "priceNumber": 140,
-    "internalPriceType": "Precio observado en delivery / redes; variable por fecha",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
-    ],
-    "featured": false
-  },
-  {
-    "id": "bengala",
-    "name": "Bengala Montparnasse",
-    "category": "Extras",
-    "subcategory": "Celebración",
-    "size": "Pieza",
-    "description": "Bengala para acompañar pasteles de celebración.",
-    "price": "$100",
-    "price_type": "Precio observado en Rappi",
-    "image_status": "Foto en plataforma",
-    "image_source": "Rappi Agrícola Oriental",
-    "image_action": "Usar foto con autorización; si no, placeholder de extra",
-    "suggested_filename": "bengala.webp",
-    "source_url": "https://www.rappi.com.mx/restaurantes/1923286321-montparnasse",
-    "slug": "bengala",
-    "image": "assets/products/bengala.svg",
-    "priceNumber": 100,
-    "internalPriceType": "Precio observado en Rappi",
-    "badge": "",
-    "moments": [
-      "cumpleanos",
       "evento"
     ],
-    "featured": false
+    "desc": "Capas crujientes de hojaldre con crema pastelera y fresas naturales en una presentación refinada."
   },
   {
-    "id": "tartaleta-fresa",
-    "name": "Tartaleta de Crema Pastelera con Fresa",
-    "category": "Tartaletas",
-    "subcategory": "Frutales",
-    "size": "Individual",
-    "description": "Tartaleta con base de galleta, crema pastelera y fresas.",
-    "price": "$69",
-    "price_type": "Precio observado en plataformas / demo si no se confirma",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial",
-    "suggested_filename": "tartaleta-fresa.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "tartaleta-fresa",
-    "image": "assets/products/tartaleta-fresa.svg",
-    "priceNumber": 69,
-    "internalPriceType": "Precio observado en plataformas / demo si no se confirma",
-    "badge": "",
-    "moments": [
-      "antojo",
+    "id": "alaska",
+    "name": "Alaska",
+    "category": "Pasteles",
+    "section": "pasteles",
+    "image": "alaska.webp",
+    "sugar": false,
+    "badge": "Cremoso",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "tres-leches",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
+      "cumpleanos",
       "regalo"
     ],
-    "featured": false
+    "desc": "Pastel suave y cremoso con bizcocho de vainilla, jarabe de tres leches y relleno estilo queso delicatessen."
   },
   {
-    "id": "tartaleta-almendras-frutas",
-    "name": "Tartaleta de Almendras con Frutas",
-    "category": "Tartaletas",
-    "subcategory": "Frutales",
-    "size": "Individual",
-    "description": "Tartaleta con crema de almendras y frutos de temporada.",
-    "price": "$69",
-    "price_type": "Precio observado en plataformas / demo si no se confirma",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial",
-    "suggested_filename": "tartaleta-almendras-frutas.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "tartaleta-almendras-frutas",
-    "image": "assets/products/tartaleta-almendras-frutas.svg",
-    "priceNumber": 69,
-    "internalPriceType": "Precio observado en plataformas / demo si no se confirma",
-    "badge": "",
-    "moments": [
-      "antojo",
+    "id": "selva-negra-cake",
+    "name": "Selva Negra",
+    "category": "Pasteles",
+    "section": "pasteles",
+    "image": "selva-negra.webp",
+    "sugar": false,
+    "badge": "Clásico",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "chocolate",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
+      "cumpleanos",
       "regalo"
     ],
-    "featured": false
+    "desc": "Chocolate, crema y notas de cereza en una versión elegante del clásico Selva Negra."
   },
   {
-    "id": "tartaleta-nuez",
-    "name": "Tartaleta de Nuez",
-    "category": "Tartaletas",
-    "subcategory": "Nuez",
-    "size": "Individual",
-    "description": "Base de pasta sablé con miel de maple, nueces, brillo y motivos de chocolate.",
-    "price": "$69",
-    "price_type": "Precio observado en plataformas / demo si no se confirma",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial",
-    "suggested_filename": "tartaleta-nuez.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "tartaleta-nuez",
-    "image": "assets/products/tartaleta-nuez.svg",
-    "priceNumber": 69,
-    "internalPriceType": "Precio observado en plataformas / demo si no se confirma",
-    "badge": "",
-    "moments": [
+    "id": "sf-tres-leches",
+    "name": "3 Leches Libre de Azúcar",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "tres-leches-tradicional.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $270",
+    "price": 270,
+    "presentation": "4 porciones",
+    "flavor": "tres-leches",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
+      "cumpleanos",
+      "regalo",
+      "libre"
+    ],
+    "desc": "Versión libre de azúcar inspirada en el clásico tres leches, cremosa, suave y pensada para compartir."
+  },
+  {
+    "id": "sf-gelatina-mosaico",
+    "name": "Gelatina Mosaico Libre de Azúcar",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "gelatina-mosaico.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $420",
+    "price": 420,
+    "presentation": "10 porciones",
+    "flavor": "frutal",
+    "people": [
+      "8-10",
+      "20+"
+    ],
+    "occasions": [
+      "cumpleanos",
+      "regalo",
+      "libre"
+    ],
+    "desc": "Gelatina cremosa con mosaicos de color en una presentación fresca, limpia y libre de azúcar."
+  },
+  {
+    "id": "sf-galletas",
+    "name": "Galletas Artesanales Free",
+    "category": "Línea Libre de Azúcar",
+    "section": "sugarfree",
+    "image": "galletas-surtidas.webp",
+    "sugar": true,
+    "badge": "Libre de azúcar",
+    "priceLabel": "Desde $120",
+    "price": 120,
+    "presentation": "Caja surtida",
+    "flavor": "especial",
+    "people": [
+      "1-4",
+      "8-10"
+    ],
+    "occasions": [
+      "regalo",
       "antojo",
-      "regalo"
+      "libre"
     ],
-    "featured": false
+    "desc": "Surtido de galletas artesanales libres de azúcar, ideales para regalar o acompañar café."
   },
   {
-    "id": "pan-muerto-tradicional-4p",
-    "name": "Pan de Muerto Tradicional",
-    "category": "Temporada",
-    "subcategory": "Pan de muerto",
-    "size": "4 porciones",
-    "description": "Pan de temporada con crema tradicional Montparnasse y nueces frescas.",
-    "price": "$135",
-    "price_type": "Precio observado en plataformas / temporada",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial de temporada",
-    "suggested_filename": "pan-muerto-tradicional-4p.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "pan-muerto-tradicional-4p",
-    "image": "assets/products/pan-muerto-tradicional-4p.svg",
-    "priceNumber": 135,
-    "internalPriceType": "Precio observado en plataformas / temporada",
-    "badge": "Temporada",
-    "moments": [
+    "id": "teja-almendra",
+    "name": "Teja de Almendra",
+    "category": "Galletas y Chocolates",
+    "section": "regalos",
+    "image": "teja-de-almendra.webp",
+    "sugar": false,
+    "badge": "Regalo",
+    "priceLabel": "Desde $250",
+    "price": 250,
+    "presentation": "200 g",
+    "flavor": "especial",
+    "people": [
+      "1-4"
+    ],
+    "occasions": [
+      "regalo",
       "antojo"
     ],
-    "featured": false
+    "desc": "Tejas delgadas de almendra, crujientes y doradas, con una presentación elegante para detalle dulce."
   },
   {
-    "id": "pan-muerto-tradicional-10p",
-    "name": "Pan de Muerto Tradicional",
-    "category": "Temporada",
-    "subcategory": "Pan de muerto",
-    "size": "10 porciones",
-    "description": "Versión familiar del pan de muerto tradicional, producto de temporada.",
-    "price": "$330",
-    "price_type": "Precio observado en plataformas / temporada",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial de temporada",
-    "suggested_filename": "pan-muerto-tradicional-10p.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "pan-muerto-tradicional-10p",
-    "image": "assets/products/pan-muerto-tradicional-10p.svg",
-    "priceNumber": 330,
-    "internalPriceType": "Precio observado en plataformas / temporada",
-    "badge": "Temporada",
-    "moments": [
-      "antojo"
+    "id": "chocolates-mixtos",
+    "name": "Chocolates Mixtos",
+    "category": "Galletas y Chocolates",
+    "section": "regalos",
+    "image": "chocolates-mixtos.webp",
+    "sugar": false,
+    "badge": "Gift box",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Caja surtida",
+    "flavor": "chocolate",
+    "people": [
+      "1-4",
+      "8-10"
     ],
-    "featured": false
+    "occasions": [
+      "regalo",
+      "evento"
+    ],
+    "desc": "Selección de chocolates y trufas con acabados premium, ideal para regalos y detalles especiales."
   },
   {
-    "id": "pan-muerto-baileys-4p",
-    "name": "Pan de Muerto Bailey's",
-    "category": "Temporada",
-    "subcategory": "Pan de muerto",
-    "size": "4 porciones",
-    "description": "Pan de mantequilla con tres leches de Bailey’s, crema con nata y chocolate Turín sabor Bailey’s.",
-    "price": "$135",
-    "price_type": "Precio observado en plataformas / temporada",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial de temporada",
-    "suggested_filename": "pan-muerto-baileys-4p.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "pan-muerto-baileys-4p",
-    "image": "assets/products/pan-muerto-baileys-4p.svg",
-    "priceNumber": 135,
-    "internalPriceType": "Precio observado en plataformas / temporada",
-    "badge": "Temporada",
-    "moments": [
+    "id": "coliseo-chocolate",
+    "name": "Coliseo de Chocolate",
+    "category": "Panqués",
+    "section": "panques",
+    "image": "coliseo-de-chocolate.webp",
+    "sugar": false,
+    "badge": "Para compartir",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Panqué",
+    "flavor": "chocolate",
+    "people": [
+      "8-10"
+    ],
+    "occasions": [
+      "regalo",
       "antojo"
     ],
-    "featured": false
+    "desc": "Panqué de chocolate con miga húmeda, cubierta brillante y textura intensa para compartir."
   },
   {
-    "id": "pan-muerto-baileys-10p",
-    "name": "Pan de Muerto Bailey's",
-    "category": "Temporada",
-    "subcategory": "Pan de muerto",
-    "size": "10 porciones",
-    "description": "Versión familiar del pan de muerto Bailey’s, producto de temporada.",
-    "price": "$330",
-    "price_type": "Precio observado en plataformas / temporada",
-    "image_status": "Sin foto confirmada en catálogo PDF",
-    "image_source": "Placeholder premium recomendado",
-    "image_action": "Crear placeholder premium o pedir foto oficial de temporada",
-    "suggested_filename": "pan-muerto-baileys-10p.webp",
-    "source_url": "Pendiente de fuente final",
-    "slug": "pan-muerto-baileys-10p",
-    "image": "assets/products/pan-muerto-baileys-10p.svg",
-    "priceNumber": 330,
-    "internalPriceType": "Precio observado en plataformas / temporada",
-    "badge": "Temporada",
-    "moments": [
+    "id": "coliseo-naranja",
+    "name": "Coliseo de Naranja",
+    "category": "Panqués",
+    "section": "panques",
+    "image": "coliseo-de-naranja.webp",
+    "sugar": false,
+    "badge": "Para compartir",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Panqué",
+    "flavor": "especial",
+    "people": [
+      "8-10"
+    ],
+    "occasions": [
+      "regalo",
       "antojo"
     ],
-    "featured": false
+    "desc": "Panqué de naranja con miga dorada, notas cítricas suaves y acabado artesanal."
   },
   {
     "id": "helado-chocolate-intenso",
-    "name": "Helado Chocolate Intenso",
+    "name": "Chocolate Intenso",
     "category": "Helados",
-    "subcategory": "Chocolate",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado de chocolate intenso, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-chocolate-intenso.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-chocolate-intenso",
-    "image": "assets/products/helado-chocolate-intenso.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
+    "section": "helados",
+    "image": "helado-chocolate-intenso.webp",
+    "sugar": false,
+    "badge": "Helado",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "chocolate",
+    "people": [
+      "1-4"
+    ],
+    "occasions": [
       "antojo",
       "regalo"
     ],
-    "featured": false
+    "desc": "Helado de chocolate profundo con textura cremosa y carácter indulgente."
   },
   {
     "id": "helado-selva-negra",
-    "name": "Helado Selva Negra",
+    "name": "Selva Negra Helado",
     "category": "Helados",
-    "subcategory": "Especiales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado inspirado en el sabor Selva Negra, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-selva-negra.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-selva-negra",
-    "image": "assets/products/helado-selva-negra.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-selva-negra.webp",
+    "sugar": false,
+    "badge": "Helado",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "chocolate",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado inspirado en Selva Negra con chocolate, crema y notas sutiles de cereza."
   },
   {
     "id": "helado-baileys",
-    "name": "Helado Bailey's",
+    "name": "Bailey’s Helado",
     "category": "Helados",
-    "subcategory": "Especiales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado con perfil Bailey’s, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-baileys.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-baileys",
-    "image": "assets/products/helado-baileys.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-baileys.webp",
+    "sugar": false,
+    "badge": "Helado",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "especial",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado cremoso con perfil tipo Bailey’s, sofisticado y elegante."
   },
   {
     "id": "helado-fresa-albahaca",
-    "name": "Helado Fresa con Albahaca",
+    "name": "Fresa con Albahaca",
     "category": "Helados",
-    "subcategory": "Frutales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado frutal de fresa con toque fresco de albahaca, disponible en varias presentaciones según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-fresa-albahaca.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-fresa-albahaca",
-    "image": "assets/products/helado-fresa-albahaca.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-fresa-con-albahaca.webp",
+    "sugar": false,
+    "badge": "Gourmet",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "frutal",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado de fresa con un toque fresco de albahaca, ligero, moderno y gourmet."
   },
   {
     "id": "helado-limon-chia",
-    "name": "Helado Limón con Chía",
+    "name": "Limón con Chía",
     "category": "Helados",
-    "subcategory": "Frutales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado fresco de limón con chía, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-limon-chia.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-limon-chia",
-    "image": "assets/products/helado-limon-chia.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-limon-con-chia.webp",
+    "sugar": false,
+    "badge": "Fresco",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "frutal",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado fresco de limón con textura sutil de chía, limpio y refrescante."
   },
   {
     "id": "helado-mango-chamoy",
-    "name": "Helado Mango con Chamoy",
+    "name": "Mango con Chamoy",
     "category": "Helados",
-    "subcategory": "Frutales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado de mango con chamoy, sabor frutal con toque acidito, disponible según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-mango-chamoy.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-mango-chamoy",
-    "image": "assets/products/helado-mango-chamoy.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-mango-con-chamoy.webp",
+    "sugar": false,
+    "badge": "Especial",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "frutal",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado de mango con una nota de chamoy elegante, frutal y diferente."
   },
   {
     "id": "helado-monty",
-    "name": "Helado Monty",
+    "name": "Monty",
     "category": "Helados",
-    "subcategory": "Especiales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Sabor especial de la casa, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-monty.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-monty",
-    "image": "assets/products/helado-monty.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-monty.webp",
+    "sugar": false,
+    "badge": "De la casa",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "especial",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Sabor de la casa con perfil cremoso, distintivo y memorable."
   },
   {
     "id": "helado-oreo",
-    "name": "Helado Oreo",
+    "name": "Oreo",
     "category": "Helados",
-    "subcategory": "Galleta",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado cremoso con galleta Oreo, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-oreo.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-oreo",
-    "image": "assets/products/helado-oreo.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-oreo.webp",
+    "sugar": false,
+    "badge": "Helado",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "especial",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado cremoso con trozos de galleta integrados de forma equilibrada."
   },
   {
     "id": "helado-yogurt-miel",
-    "name": "Helado Yogurt con Miel",
+    "name": "Yogurt con Miel",
     "category": "Helados",
-    "subcategory": "Especiales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado suave de yogurt con miel, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-yogurt-miel.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-yogurt-miel",
-    "image": "assets/products/helado-yogurt-miel.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
-      "antojo",
-      "regalo"
+    "section": "helados",
+    "image": "helado-yogurt-con-miel.webp",
+    "sugar": false,
+    "badge": "Ligero",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "especial",
+    "people": [
+      "1-4"
     ],
-    "featured": false
+    "occasions": [
+      "antojo"
+    ],
+    "desc": "Helado cremoso de yogurt con notas suaves de miel, delicado y gourmet."
   },
   {
     "id": "helado-cherry-love",
-    "name": "Helado Cherry Love",
+    "name": "Cherry Love",
     "category": "Helados",
-    "subcategory": "Frutales",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado dulce y frutal de cereza, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-cherry-love.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-cherry-love",
-    "image": "assets/products/helado-cherry-love.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
+    "section": "helados",
+    "image": "helado-cherry-love.webp",
+    "sugar": false,
+    "badge": "Especial",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "frutal",
+    "people": [
+      "1-4"
+    ],
+    "occasions": [
       "antojo",
       "regalo"
     ],
-    "featured": false
+    "desc": "Helado con carácter de cereza, cremoso, elegante y visualmente especial."
   },
   {
     "id": "helado-pasion-invierno",
-    "name": "Helado Pasión de Invierno",
+    "name": "Pasión de Invierno",
     "category": "Helados",
-    "subcategory": "Temporada",
-    "size": "Sencillo / doble / medio litro / litro",
-    "description": "Helado especial de temporada, disponible en presentaciones individual y para llevar según catálogo.",
-    "price": "$55",
-    "price_type": "Precio demo para boceto; catálogo no muestra precio",
-    "image_status": "Foto encontrada",
-    "image_source": "Catálogo 2023, página Helados",
-    "image_action": "Recortar de catálogo",
-    "suggested_filename": "helado-pasion-invierno.webp",
-    "source_url": "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod%2FX78QHRSvee528QgbK-catalogo-2023-w.pdf",
-    "slug": "helado-pasion-invierno",
-    "image": "assets/products/helado-pasion-invierno.svg",
-    "priceNumber": 55,
-    "internalPriceType": "Precio demo para boceto; catálogo no muestra precio",
-    "badge": "",
-    "moments": [
+    "section": "helados",
+    "image": "helado-pasion-de-invierno.webp",
+    "sugar": false,
+    "badge": "Temporada",
+    "priceLabel": "Cotizar",
+    "price": null,
+    "presentation": "Sencillo / doble",
+    "flavor": "especial",
+    "people": [
+      "1-4"
+    ],
+    "occasions": [
       "antojo",
       "regalo"
     ],
-    "featured": false
+    "desc": "Sabor especial de temporada con perfil cremoso, cálido y sofisticado."
+  }
+];
+const MORE_SPECIALTIES = [
+  {
+    "name": "Delicia de Fresa",
+    "category": "Pasteles",
+    "desc": "Pastel frutal y cremoso para cumpleaños, regalos y reuniones familiares."
+  },
+  {
+    "name": "Monty Bunny",
+    "category": "Pasteles",
+    "desc": "Especialidad de celebración con personalidad visual y enfoque infantil-premium."
+  },
+  {
+    "name": "Fiesta de Rompope",
+    "category": "Pasteles",
+    "desc": "Pastel especial con notas de rompope para celebraciones y temporada."
+  },
+  {
+    "name": "Gelatina de Frutas",
+    "category": "Gelatinas",
+    "desc": "Gelatina fresca con frutas seleccionadas y presentación para compartir."
+  },
+  {
+    "name": "Gelatina Halloween",
+    "category": "Gelatinas de temporada",
+    "desc": "Edición temporal para celebraciones temáticas y pedidos de temporada."
+  },
+  {
+    "name": "Gelatina de Rompope",
+    "category": "Gelatinas",
+    "desc": "Gelatina cremosa con perfil clásico de rompope y acabado suave."
+  },
+  {
+    "name": "Gelatina Tiramisú",
+    "category": "Gelatinas",
+    "desc": "Postre tipo gelatina con inspiración en tiramisú y acabado cremoso."
+  },
+  {
+    "name": "Tartaleta de Fresa",
+    "category": "Tartaletas",
+    "desc": "Tartaleta con crema y fresa natural, ideal para antojos y regalos."
+  },
+  {
+    "name": "Tartaleta de Almendras con Frutas",
+    "category": "Tartaletas",
+    "desc": "Base de almendra con frutas seleccionadas y acabado artesanal."
+  },
+  {
+    "name": "Tartaleta de Nuez",
+    "category": "Tartaletas",
+    "desc": "Tartaleta con nuez y textura crujiente para compartir o regalar."
+  },
+  {
+    "name": "Pan de Muerto Tradicional",
+    "category": "Temporada",
+    "desc": "Especialidad de temporada con presentación clásica y sabor de celebración."
+  },
+  {
+    "name": "Pan de Muerto Bailey’s",
+    "category": "Temporada",
+    "desc": "Versión especial de temporada con perfil cremoso y distintivo."
+  },
+  {
+    "name": "Bengala Montparnasse",
+    "category": "Complementos",
+    "desc": "Detalle para acompañar pasteles de cumpleaños y momentos de celebración."
   }
 ];
 
-const CONFIG = {
-  brandName: 'Montparnasse Pastelería',
-  whatsappNumber: '525524994700', // TODO: reemplazar con WhatsApp oficial si cambia
-  currency: 'MXN',
-  checkoutMode: 'hybrid', // opciones: 'hybrid', 'whatsapp', 'mercadopago'
-  enableMercadoPago: true,
-  enableWhatsApp: true,
-  mercadoPagoEndpoint: '/api/create-preference'
-};
+const CATEGORY_SECTIONS = [
+  { key: "pasteles", title: "Pasteles", kicker: "Para cumpleaños, regalos y momentos especiales", desc: "Sabores clásicos y cremosos con presentación premium." },
+  { key: "sugarfree", title: "Línea libre de azúcar", kicker: "Mismo antojo, un tratamiento visual especial", desc: "Productos con marco verde salvia y badge de categoría para identificarlos rápido." },
+  { key: "helados", title: "Helados", kicker: "Sabores para antojo y temporada", desc: "Una colección visual pensada para verse fresca, moderna y elegante." },
+  { key: "regalos", title: "Galletas y chocolates", kicker: "Detalles para regalar", desc: "Opciones perfectas para llevar, compartir o complementar una celebración." },
+  { key: "panques", title: "Panqués", kicker: "Para compartir", desc: "Sabores cálidos, artesanales y fáciles de regalar." },
+];
 
-const state = { cart: [], activeCategory: 'Pasteles', search: '', builder: { occasion:'cumpleanos', people:'4', flavor:'todos' } };
-const $ = (sel, root=document) => root.querySelector(sel);
-const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-const money = n => Number(n||0).toLocaleString('es-MX', {style:'currency', currency:'MXN', maximumFractionDigits:0});
-const short = (txt, max=125) => txt.length > max ? txt.slice(0,max).trim() + '…' : txt;
-function safe(s) { return String(s||'').replace(/[&<>"]/g, c => { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+let cart = JSON.parse(localStorage.getItem("mp_cart_v4") || "[]");
+let activeRecommendation = { occasion: "cumpleanos", people: "8-10", flavor: "todos" };
 
-function card(product, compact=false) {
-  return `<article class="product-card" data-id="${product.id}">
-    <div class="product-media"><img src="${product.image}" alt="${safe(product.name)}" loading="lazy">${product.badge ? `<span class="badge">${safe(product.badge)}</span>` : ''}</div>
-    <div class="product-body">
-      <div class="meta-row"><span class="size">${safe(product.size)}</span><strong>${safe(product.price)}</strong></div>
-      <h3>${safe(product.name)}</h3>
-      <p class="product-desc">${safe(short(product.description, compact ? 92 : 138))}</p>
-      <div class="product-actions"><button class="btn btn-secondary" data-detail="${product.id}">Ver detalles</button><button class="btn btn-primary" data-add="${product.id}">Agregar</button></div>
+function money(value) {
+  return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(value);
+}
+
+function asset(path) { return `assets/products/${path}`; }
+function qs(sel, parent=document) { return parent.querySelector(sel); }
+function qsa(sel, parent=document) { return [...parent.querySelectorAll(sel)]; }
+
+function productCard(product, compact=false) {
+  const actionLabel = product.price ? "Agregar" : "Consultar";
+  const badge = product.sugar ? "Libre de azúcar" : product.badge;
+  return `
+    <article class="product-card ${product.sugar ? 'is-sugarfree' : ''} ${compact ? 'compact' : ''}" data-product-card="${product.id}">
+      <div class="product-image-wrap">
+        <img src="${asset(product.image)}" alt="${product.name} Montparnasse" loading="lazy">
+        <span class="product-badge">${badge}</span>
+      </div>
+      <div class="product-info">
+        <div class="product-meta"><span>${product.category}</span><span>${product.priceLabel}</span></div>
+        <h3>${product.name}</h3>
+        <p>${product.desc}</p>
+        <div class="product-chips"><span>${product.presentation}</span><span>${product.flavor}</span></div>
+        <div class="product-actions">
+          <button class="btn btn-ghost" type="button" onclick="openProduct('${product.id}')">Ver detalles</button>
+          <button class="btn btn-primary" type="button" onclick="${product.price ? `addToCart('${product.id}')` : `consultProduct('${product.id}')`}">${actionLabel}</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+function renderHeroProducts() {
+  const hero = qs('#heroProducts');
+  const ids = ['ganash','sf-fresas','helado-chocolate-intenso'];
+  hero.innerHTML = ids.map((id, i) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    return `<div class="hero-product hero-product-${i+1}"><img src="${asset(p.image)}" alt="${p.name}"></div>`;
+  }).join('');
+}
+
+function renderFeatured() {
+  const ids = ['ganash','sf-fresas','mil-hojas','helado-chocolate-intenso','selva-negra-cake','teja-almendra'];
+  qs('#featuredTrack').innerHTML = ids.map(id => productCard(PRODUCTS.find(p => p.id === id), true)).join('');
+}
+
+function renderCatalogSections() {
+  const container = qs('#catalogSections');
+  container.innerHTML = CATEGORY_SECTIONS.map(section => {
+    const items = PRODUCTS.filter(p => p.section === section.key);
+    return `<section class="catalog-row" id="${section.key}">
+      <div class="section-heading row-heading">
+        <div>
+          <span class="eyebrow">${section.kicker}</span>
+          <h2>${section.title}</h2>
+          <p>${section.desc}</p>
+        </div>
+        <div class="carousel-controls">
+          <button class="circle-btn" type="button" aria-label="Anterior" onclick="scrollTrack('${section.key}Track', -1)">‹</button>
+          <button class="circle-btn" type="button" aria-label="Siguiente" onclick="scrollTrack('${section.key}Track', 1)">›</button>
+        </div>
+      </div>
+      <div class="product-track" id="${section.key}Track">${items.map(p => productCard(p)).join('')}</div>
+    </section>`;
+  }).join('');
+}
+
+function scrollTrack(id, dir) {
+  const el = qs(`#${id}`);
+  if (!el) return;
+  el.scrollBy({ left: dir * Math.min(920, el.clientWidth * 0.85), behavior: 'smooth' });
+}
+
+function renderMoreSpecialties() {
+  const groups = MORE_SPECIALTIES.reduce((acc, item) => {
+    acc[item.category] ||= [];
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+  qs('#moreSpecialtiesGrid').innerHTML = Object.entries(groups).map(([category, items]) => `
+    <div class="specialty-group">
+      <h3>${category}</h3>
+      <div class="specialty-list">
+        ${items.map(item => `<article class="specialty-card">
+          <div class="specialty-icon"><img src="assets/placeholders/mas-especialidades.svg" alt="${item.name}"></div>
+          <div><span>Más especialidades</span><h4>${item.name}</h4><p>${item.desc}</p></div>
+          <button class="text-link" type="button" onclick="consultSpecialty('${item.name}')">Consultar disponibilidad</button>
+        </article>`).join('')}
+      </div>
     </div>
-  </article>`;
+  `).join('');
 }
 
-function getProductsByCategory(cat) { return PRODUCTS.filter(p => p.category === cat && matchSearch(p)); }
-function matchSearch(p) { const q = state.search.trim().toLowerCase(); if (!q) return true; return [p.name,p.category,p.subcategory,p.description,p.size].join(' ').toLowerCase().includes(q); }
-function renderTrack(id, list, compact=false) { const el = $('#'+id); if (!el) return; el.innerHTML = list.length ? list.map(p => card(p, compact)).join('') : `<div class="empty-state">No encontramos productos con esa búsqueda.</div>`; }
-function renderFeatured() { renderTrack('featuredTrack', PRODUCTS.filter(p => p.featured).slice(0,14)); }
-function renderSugar() { renderTrack('sugarTrack', PRODUCTS.filter(p => p.category === 'Línea libre de azúcar'), true); }
-function renderCategories() {
-  const cats = [...new Set(PRODUCTS.map(p => p.category))];
-  $('#categoryTabs').innerHTML = cats.map(c => `<button class="tab-btn ${c===state.activeCategory?'active':''}" data-category="${safe(c)}">${safe(c)}</button>`).join('');
+function setFinder(key, value) {
+  activeRecommendation[key] = value;
+  qsa(`[data-finder="${key}"]`).forEach(btn => btn.classList.toggle('active', btn.dataset.value === value));
+  renderRecommendations();
 }
-function renderActiveCategory() {
-  $('#activeCategoryTitle').textContent = state.activeCategory;
-  $('#activeCategoryEyebrow').textContent = state.search ? 'Resultados filtrados' : 'Categoría';
-  renderTrack('categoryTrack', getProductsByCategory(state.activeCategory));
-  renderCategories();
+
+function renderRecommendations() {
+  const { occasion, people, flavor } = activeRecommendation;
+  const container = qs('#recommendationResults');
+  const intro = qs('#recommendationIntro');
+  if (people === '40+' || occasion === 'evento') {
+    intro.innerHTML = `<strong>Recomendación para celebración grande:</strong> para 40+ personas conviene cotizar mesa dulce, combos de pasteles y logística por fecha.`;
+    container.innerHTML = eventCards();
+    return;
+  }
+
+  let filtered = PRODUCTS.filter(p => p.occasions.includes(occasion) || (occasion === 'cumpleanos' && p.occasions.includes('regalo')));
+  filtered = filtered.filter(p => p.people.includes(people) || (people === '20+' && p.people.includes('8-10')));
+  if (flavor !== 'todos') filtered = filtered.filter(p => p.flavor === flavor);
+  if (occasion === 'libre') filtered = PRODUCTS.filter(p => p.sugar);
+
+  if (filtered.length < 3) {
+    const backup = occasion === 'libre' ? PRODUCTS.filter(p => p.sugar) : PRODUCTS.filter(p => p.price || p.section === 'helados').slice(0,6);
+    filtered = [...new Map([...filtered, ...backup].map(p => [p.id, p])).values()];
+  }
+  filtered = filtered.slice(0,4);
+  intro.innerHTML = `<strong>Recomendación Montparnasse:</strong> opciones alineadas a tu ocasión, tamaño y perfil de sabor.`;
+  container.innerHTML = filtered.map(p => productCard(p, true)).join('');
 }
-function renderBuilder() {
-  const b = state.builder;
-  let list = PRODUCTS.filter(p => p.moments.includes(b.occasion));
-  if (b.people === '4') list = list.filter(p => /4|sencillo|individual|200|pieza/i.test(p.size) || p.category !== 'Pasteles');
-  if (b.people === '10') list = list.filter(p => /10|8 a 10|8–10|litro|500/i.test(p.size) || p.category === 'Gelatinas');
-  if (b.people === '20') list = list.filter(p => /20/i.test(p.size) || p.category === 'Eventos' || p.category === 'Gelatinas');
-  if (b.people === '40') list = list.filter(p => /20|evento|10/i.test(p.size) || p.category === 'Gelatinas');
-  if (b.flavor !== 'todos') list = list.filter(p => [p.subcategory,p.name,p.description].join(' ').toLowerCase().includes(b.flavor.toLowerCase()));
-  if (!list.length) list = PRODUCTS.filter(p => p.featured).slice(0,3);
-  $('#builderResults').innerHTML = list.slice(0,3).map(p => card(p,true)).join('');
-}
-function renderBundles() {
-  const bundles = [
-    {name:'Cumpleaños familiar', tag:'Para compartir', items:['Pastel 10 porciones','Gelatina Mosaico','Bengala','Galletas artesanales'], cta:'Armar cumpleaños'},
-    {name:'Regalo dulce', tag:'Detalle listo', items:['Tejas de Almendra','Chocolates Mixtos','Galletas Artesanales','Tartaleta individual'], cta:'Elegir regalo'},
-    {name:'Celebración grande', tag:'Eventos', items:['Pasteles 20 porciones','Gelatina de complemento','Mesa de galletas','Cotización por WhatsApp'], cta:'Cotizar evento'},
+
+function eventCards() {
+  const cards = [
+    { title:'Mesa dulce para evento', desc:'Pasteles, gelatina, galletas y detalles dulces para armar una propuesta según número de invitados.', cta:'Cotizar evento' },
+    { title:'Cumpleaños grande', desc:'Combina pasteles de 8–10 porciones, gelatina y complementos para una celebración familiar o social.', cta:'Cotizar cumpleaños' },
+    { title:'Regalos corporativos', desc:'Chocolates, galletas, tejas y panqués en una selección más cuidada para detalle o agradecimiento.', cta:'Consultar regalos' },
   ];
-  $('#bundleGrid').innerHTML = bundles.map(b => `<article class="bundle-card"><span>${safe(b.tag)}</span><h3>${safe(b.name)}</h3><ul>${b.items.map(i=>`<li>${safe(i)}</li>`).join('')}</ul><button class="btn btn-secondary" data-bundle="${safe(b.name)}">${safe(b.cta)}</button></article>`).join('');
+  return cards.map(c => `<article class="event-reco-card">
+    <span>40+ personas</span><h3>${c.title}</h3><p>${c.desc}</p><button class="btn btn-primary" onclick="scrollToSection('eventos')">${c.cta}</button>
+  </article>`).join('');
 }
-function init() { renderFeatured(); renderCategories(); renderActiveCategory(); renderSugar(); renderBuilder(); renderBundles(); renderCart(); bindEvents(); revealOnScroll(); }
 
-document.addEventListener('DOMContentLoaded', init);
-
-function bindEvents() {
-  $('.nav-toggle')?.addEventListener('click', e => { const nav=$('#navLinks'); nav.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', nav.classList.contains('open')); });
-  document.addEventListener('click', e => {
-    const add = e.target.closest('[data-add]'); if (add) addToCart(add.dataset.add);
-    const detail = e.target.closest('[data-detail]'); if (detail) openProduct(detail.dataset.detail);
-    const cat = e.target.closest('[data-category]'); if (cat) { state.activeCategory = cat.dataset.category; renderActiveCategory(); $('#catalogo').scrollIntoView({behavior:'smooth'}); }
-    const scrollBtn = e.target.closest('[data-scroll]'); if (scrollBtn) { const target=$('#'+scrollBtn.dataset.scroll); target?.scrollBy({left:Number(scrollBtn.dataset.dir)*340, behavior:'smooth'}); }
-    const bundle = e.target.closest('[data-bundle]'); if (bundle) sendBundleWhatsApp(bundle.dataset.bundle);
-    const jump = e.target.closest('[data-jump-category]'); if (jump) { state.activeCategory = jump.dataset.jumpCategory; renderActiveCategory(); }
-    const moment = e.target.closest('[data-filter-moment]'); if (moment) { state.builder.occasion = moment.dataset.filterMoment; renderBuilder(); $('#celebracion').scrollIntoView({behavior:'smooth'}); }
-  });
-  $$('#productSearch').forEach(inp => inp.addEventListener('input', e => { state.search = e.target.value; renderActiveCategory(); }));
-  $$('[data-builder]').forEach(group => group.addEventListener('click', e => { const chip=e.target.closest('.chip'); if(!chip) return; const key=group.dataset.builder; state.builder[key]=chip.dataset.value; $$('.chip', group).forEach(c=>c.classList.remove('active')); chip.classList.add('active'); renderBuilder(); }));
-  $('#builderReset')?.addEventListener('click', () => { state.builder = { occasion:'cumpleanos', people:'4', flavor:'todos' }; $$('.chip-group').forEach(group => { $$('.chip', group).forEach((chip,i)=>chip.classList.toggle('active', i===0)); }); renderBuilder(); });
-  $('#openCartBtn')?.addEventListener('click', openCart); $('#closeCartBtn')?.addEventListener('click', closeCart);
-  $('#checkoutWhatsApp')?.addEventListener('click', sendCartWhatsApp); $('#buyWithWhatsSection')?.addEventListener('click', () => { openCart(); });
-  $('#checkoutMP')?.addEventListener('click', startMercadoPago); $('#heroMercadoPago')?.addEventListener('click', () => { openCart(); toast('Agrega productos para pagar con Mercado Pago.'); }); $('#buyWithMPSection')?.addEventListener('click', () => { openCart(); });
-  $('#modalClose')?.addEventListener('click', closeModal); $('#productModal')?.addEventListener('click', e => { if(e.target.id==='productModal') closeModal(); });
-  $('#cartDrawer')?.addEventListener('click', e => { if(e.target.id==='cartDrawer') closeCart(); });
-  $('#eventForm')?.addEventListener('submit', e => { e.preventDefault(); sendEventWhatsApp(new FormData(e.currentTarget)); });
+function openProduct(id) {
+  const product = PRODUCTS.find(p => p.id === id);
+  const modal = qs('#productModal');
+  qs('#modalBody').innerHTML = `<div class="modal-grid ${product.sugar ? 'is-sugarfree' : ''}">
+    <div class="modal-image"><img src="${asset(product.image)}" alt="${product.name}"></div>
+    <div class="modal-copy">
+      <span class="eyebrow">${product.category}</span>
+      <h2>${product.name}</h2>
+      <p>${product.desc}</p>
+      <div class="detail-list">
+        <div><strong>Presentación</strong><span>${product.presentation}</span></div>
+        <div><strong>Precio</strong><span>${product.priceLabel}</span></div>
+        <div><strong>Perfil</strong><span>${product.flavor}</span></div>
+        <div><strong>Disponibilidad</strong><span>Se confirma por fecha y sucursal</span></div>
+      </div>
+      <div class="modal-actions">
+        ${product.price ? `<button class="btn btn-primary" onclick="addToCart('${product.id}'); closeProduct();">Agregar al pedido</button>` : `<button class="btn btn-primary" onclick="consultProduct('${product.id}')">Consultar por WhatsApp</button>`}
+        <button class="btn btn-ghost" onclick="closeProduct()">Seguir viendo</button>
+      </div>
+    </div>
+  </div>`;
+  modal.showModal();
 }
-function addToCart(id) { const p = PRODUCTS.find(x=>x.id===id); if(!p) return; const item = state.cart.find(x=>x.id===id); if(item) item.qty += 1; else state.cart.push({...p, qty:1}); renderCart(); toast(`${p.name} agregado al pedido`); }
+function closeProduct() { qs('#productModal').close(); }
+
+function addToCart(id) {
+  const product = PRODUCTS.find(p => p.id === id);
+  if (!product.price) return consultProduct(id);
+  const existing = cart.find(item => item.id === id);
+  if (existing) existing.qty += 1; else cart.push({ id, qty: 1 });
+  saveCart();
+  openCart();
+}
+function removeFromCart(id) { cart = cart.filter(item => item.id !== id); saveCart(); }
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id); else saveCart();
+}
+function saveCart() {
+  localStorage.setItem("mp_cart_v4", JSON.stringify(cart));
+  renderCart();
+}
+function cartDetails() {
+  return cart.map(item => { const p = PRODUCTS.find(x => x.id === item.id); return {...p, qty:item.qty, subtotal:(p.price||0)*item.qty}; });
+}
 function renderCart() {
-  $('#cartCount').textContent = state.cart.reduce((a,i)=>a+i.qty,0);
-  const items = $('#cartItems');
-  if(!state.cart.length) items.innerHTML = `<div class="empty-state">Tu carrito está listo para llenarse de algo dulce.</div>`;
-  else items.innerHTML = state.cart.map(i => `<div class="cart-item"><img src="${i.image}" alt="${safe(i.name)}"><div><strong>${safe(i.name)}</strong><small>${safe(i.size)} · ${safe(i.price)}</small><div class="qty"><button data-qty="${i.id}" data-delta="-1">−</button><span>${i.qty}</span><button data-qty="${i.id}" data-delta="1">+</button></div></div><button class="remove-btn" data-remove="${i.id}">Quitar</button></div>`).join('');
-  $('#cartTotal').textContent = money(state.cart.reduce((sum,i)=>sum+(i.priceNumber||0)*i.qty,0));
-  $('#upsellItems').innerHTML = PRODUCTS.filter(p=>['Bengala Montparnasse','Gelatina Mosaico','Galletas Artesanales','Teja de Almendra'].includes(p.name)).slice(0,4).map(p=>`<button class="upsell-chip" data-add="${p.id}">+ ${safe(p.name)}</button>`).join('');
-  $$('[data-qty]').forEach(btn => btn.addEventListener('click', () => changeQty(btn.dataset.qty, Number(btn.dataset.delta))));
-  $$('[data-remove]').forEach(btn => btn.addEventListener('click', () => removeItem(btn.dataset.remove)));
+  const details = cartDetails();
+  const count = details.reduce((a,b)=>a+b.qty,0);
+  const total = details.reduce((a,b)=>a+b.subtotal,0);
+  qsa('.cart-count').forEach(el => el.textContent = count);
+  qs('#cartItems').innerHTML = details.length ? details.map(p => `<div class="cart-line">
+    <img src="${asset(p.image)}" alt="${p.name}">
+    <div><h4>${p.name}</h4><p>${p.presentation} · ${money(p.price)}</p><div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button><span>${p.qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div></div>
+    <strong>${money(p.subtotal)}</strong>
+  </div>`).join('') : `<div class="empty-cart"><p>Tu selección está vacía.</p><button class="btn btn-primary" onclick="closeCart(); scrollToSection('catalogo')">Ver catálogo</button></div>`;
+  qs('#cartTotal').textContent = money(total);
+  qs('#mpButton').disabled = !details.length || details.some(p => !p.price);
 }
-function changeQty(id, delta) { const item = state.cart.find(x=>x.id===id); if(!item) return; item.qty += delta; if(item.qty<=0) state.cart = state.cart.filter(x=>x.id!==id); renderCart(); }
-function removeItem(id) { state.cart = state.cart.filter(x=>x.id!==id); renderCart(); }
-function openCart() { $('#cartDrawer').classList.add('open'); $('#cartDrawer').setAttribute('aria-hidden','false'); }
-function closeCart() { $('#cartDrawer').classList.remove('open'); $('#cartDrawer').setAttribute('aria-hidden','true'); }
-function openProduct(id) { const p = PRODUCTS.find(x=>x.id===id); if(!p) return; $('#modalContent').innerHTML = `<div class="modal-product"><img src="${p.image}" alt="${safe(p.name)}"><div><span class="eyebrow">${safe(p.category)}</span><h2>${safe(p.name)}</h2><div class="modal-meta"><span class="pill">${safe(p.size)}</span><span class="pill">${safe(p.price)}</span>${p.badge ? `<span class="pill">${safe(p.badge)}</span>` : ''}</div><p>${safe(p.description)}</p><p><strong>Ideal para:</strong> ${safe(p.moments.map(m=>m.replace('-', ' ')).join(', '))}</p><div class="hero-actions"><button class="btn btn-primary" data-add="${p.id}">Agregar al pedido</button><button class="btn btn-secondary" onclick="openCart(); closeModal();">Ver carrito</button></div></div></div>`; $('#productModal').classList.add('open'); $('#productModal').setAttribute('aria-hidden','false'); }
-function closeModal() { $('#productModal').classList.remove('open'); $('#productModal').setAttribute('aria-hidden','true'); }
-function toast(msg) { const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(window.__toast); window.__toast=setTimeout(()=>el.classList.remove('show'),2600); }
-function cartMessage() {
-  const lines = state.cart.map(i => `• ${i.qty} x ${i.name} (${i.size}) — ${i.price}`);
-  const total = money(state.cart.reduce((sum,i)=>sum+(i.priceNumber||0)*i.qty,0));
-  const date=$('#cartDate').value||'Por definir';
-  const delivery=$('#cartDelivery').value||'Por definir';
-  const zone=$('#cartZone').value||'Por definir';
-  return [
-    'Hola, quiero hacer un pedido Montparnasse.',
-    '',
-    'Productos:',
-    lines.join('\n'),
-    '',
-    `Total estimado: ${total}`,
-    `Fecha deseada: ${date}`,
-    `Entrega o recolección: ${delivery}`,
-    `Zona o sucursal: ${zone}`,
-    '',
-    'Quedo atento/a para finalizar mi pedido.'
-  ].join('\n');
-}
-function sendCartWhatsApp() { if(!state.cart.length) return toast('Agrega un producto antes de finalizar.'); const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(cartMessage())}`; window.open(url, '_blank'); }
-function sendBundleWhatsApp(bundleName) { const msg = `Hola, quiero armar una mesa dulce Montparnasse para: ${bundleName}. ¿Me pueden ayudar a elegir productos y cantidades?`; window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank'); }
-function sendEventWhatsApp(fd) { const msg = `Hola, quiero cotizar una celebración Montparnasse.
+function openCart() { qs('#cartDrawer').classList.add('open'); qs('#backdrop').classList.add('show'); renderCart(); }
+function closeCart() { qs('#cartDrawer').classList.remove('open'); qs('#backdrop').classList.remove('show'); }
 
-Tipo de evento: ${fd.get('eventType')}
-Fecha: ${fd.get('eventDate')}
-Personas: ${fd.get('people')}
-Producto deseado: ${fd.get('desiredProduct')||'Por definir'}
-Zona: ${fd.get('zone')||'Por definir'}
-Presupuesto aproximado: ${fd.get('budget')||'Por definir'}
-Comentarios: ${fd.get('comments')||'Sin comentarios'}`; window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank'); }
-async function startMercadoPago() {
-  if(!state.cart.length) return toast('Agrega productos antes de pagar.');
-  const items = state.cart.filter(i => i.priceNumber).map(i => ({ id:i.id, title:i.name + ' - ' + i.size, quantity:i.qty, unit_price:i.priceNumber, currency_id:'MXN', picture_url: new URL(i.image, window.location.href).href }));
-  if(!items.length) return toast('Este pedido necesita atención por WhatsApp.');
+function whatsappText(kind='pedido') {
+  const details = cartDetails();
+  if (!details.length) return 'Hola, quiero información sobre Montparnasse Pastelería.';
+  const lines = details.map(p => `• ${p.qty} x ${p.name} (${p.presentation}) — ${money(p.subtotal)}`);
+  const total = details.reduce((a,b)=>a+b.subtotal,0);
+  return `Hola, quiero finalizar mi pedido Montparnasse:
+
+${lines.join('\n')}
+
+Total estimado: ${money(total)}
+
+Fecha deseada:
+Entrega o recolección:
+Zona / sucursal:
+Comentarios:
+
+Me ayudan a confirmar disponibilidad, cobertura, total final y método de pago.`;
+}
+function openWhatsApp(text) { window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank'); }
+function checkoutWhatsApp() { openWhatsApp(whatsappText()); }
+function consultProduct(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  openWhatsApp(`Hola, quiero consultar disponibilidad de ${p.name}.
+
+Presentación: ${p.presentation}
+Categoría: ${p.category}
+
+Me pueden ayudar con precio, disponibilidad, sucursal y forma de entrega.`);
+}
+function consultSpecialty(name) {
+  openWhatsApp(`Hola, quiero consultar si tienen disponible o pueden cotizar esta especialidad: ${name}.
+
+Me pueden ayudar con presentaciones, precio y disponibilidad.`);
+}
+
+async function checkoutMercadoPago() {
+  const items = cartDetails().filter(p => p.price).map(p => ({ title:p.name, quantity:p.qty, unit_price:p.price, currency_id:SITE_CURRENCY }));
+  if (!items.length) return;
   try {
-    const res = await fetch(CONFIG.mercadoPagoEndpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ items, payer_note: cartMessage() }) });
+    qs('#mpButton').textContent = 'Creando pago...';
+    const res = await fetch('/api/create-preference', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ items }) });
     const data = await res.json();
-    if(!res.ok) throw new Error(data.message || 'No se pudo iniciar Mercado Pago');
-    window.location.href = data.init_point || data.sandbox_init_point;
-  } catch(err) {
-    console.error(err);
-    toast('Por ahora te ayudamos a finalizar tu pedido por WhatsApp.');
+    if (!res.ok || !data.init_point) throw new Error(data.error || 'No se pudo crear la preferencia');
+    window.location.href = data.init_point;
+  } catch (err) {
+    alert('Mercado Pago todavía no está activado en esta demo. Puedes finalizar por WhatsApp o configurar MP_ACCESS_TOKEN en Vercel.');
+  } finally {
+    qs('#mpButton').textContent = 'Pagar con Mercado Pago';
   }
 }
-function revealOnScroll() { const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:.12}); $$('.reveal').forEach(el => obs.observe(el)); }
+
+function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
+
+function setupFinder() {
+  qsa('[data-finder]').forEach(btn => btn.addEventListener('click', () => setFinder(btn.dataset.finder, btn.dataset.value)));
+  renderRecommendations();
+}
+function setupForms() {
+  qs('#eventForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    const text = `Hola, quiero cotizar un evento con Montparnasse.
+
+Tipo de evento: ${data.evento}
+Fecha: ${data.fecha}
+Personas: ${data.personas}
+Producto deseado: ${data.producto}
+Zona: ${data.zona}
+Comentarios: ${data.comentarios || 'Sin comentarios adicionales'}
+
+Me pueden ayudar con disponibilidad, sugerencias y cotización.`;
+    openWhatsApp(text);
+    qs('#eventSuccess').classList.add('show');
+  });
+  qs('#contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    openWhatsApp(`Hola, soy ${data.nombre}.
+Teléfono: ${data.telefono}
+Motivo: ${data.motivo}
+Mensaje: ${data.mensaje}`);
+  });
+}
+function setupNav() {
+  qs('#menuToggle').addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
+  qsa('[data-scroll]').forEach(btn => btn.addEventListener('click', () => scrollToSection(btn.dataset.scroll)));
+  qs('#openCart').addEventListener('click', openCart);
+  qs('#closeCart').addEventListener('click', closeCart);
+  qs('#backdrop').addEventListener('click', closeCart);
+  qs('#whatsappCheckout').addEventListener('click', checkoutWhatsApp);
+  qs('#mpButton').addEventListener('click', checkoutMercadoPago);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderHeroProducts();
+  renderFeatured();
+  renderCatalogSections();
+  renderMoreSpecialties();
+  setupFinder();
+  setupForms();
+  setupNav();
+  renderCart();
+});
