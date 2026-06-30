@@ -657,16 +657,66 @@ const MORE_SPECIALTIES = [
   }
 ];
 
-const CATEGORY_SECTIONS = [
-  { key: "pasteles", title: "Pasteles", kicker: "Para cumpleaños, regalos y momentos especiales", desc: "Sabores clásicos y cremosos con presentación premium." },
-  { key: "sugarfree", title: "Línea libre de azúcar", kicker: "Mismo antojo, un tratamiento visual especial", desc: "Productos con marco verde salvia y badge de categoría para identificarlos rápido." },
-  { key: "helados", title: "Helados", kicker: "Sabores para antojo y temporada", desc: "Una colección visual pensada para verse fresca, moderna y elegante." },
-  { key: "regalos", title: "Galletas y chocolates", kicker: "Detalles para regalar", desc: "Opciones perfectas para llevar, compartir o complementar una celebración." },
-  { key: "panques", title: "Panqués", kicker: "Para compartir", desc: "Sabores cálidos, artesanales y fáciles de regalar." },
+const SHOWCASE_COLLECTIONS = [
+  {
+    key: "favoritos",
+    label: "Favoritos",
+    eyebrow: "Montparnasse recomienda",
+    title: "Favoritos para empezar.",
+    desc: "Una selección principal para abrir antojo sin hacer la página demasiado larga.",
+    hero: "ganash",
+    ids: ["ganash", "sf-fresas", "mil-hojas", "helado-chocolate-intenso", "selva-negra-cake", "teja-almendra"]
+  },
+  {
+    key: "pasteles",
+    label: "Pasteles",
+    eyebrow: "Celebraciones clásicas",
+    title: "Pasteles con presencia premium.",
+    desc: "Sabores clásicos y especiales para cumpleaños, regalos y momentos importantes.",
+    hero: "mil-hojas",
+    ids: PRODUCTS.filter(p => p.section === "pasteles").map(p => p.id)
+  },
+  {
+    key: "sugarfree",
+    label: "Libre de azúcar",
+    eyebrow: "Línea especial",
+    title: "Opciones fáciles de identificar.",
+    desc: "El acento verde salvia ayuda a distinguir la línea libre de azúcar sin perder la estética premium.",
+    hero: "sf-fresas",
+    ids: PRODUCTS.filter(p => p.section === "sugarfree").map(p => p.id)
+  },
+  {
+    key: "helados",
+    label: "Helados",
+    eyebrow: "Sabores de antojo",
+    title: "Helados con más personalidad visual.",
+    desc: "Sabores cremosos y de temporada para una sección más fresca, compacta y dinámica.",
+    hero: "helado-chocolate-intenso",
+    ids: PRODUCTS.filter(p => p.section === "helados").map(p => p.id)
+  },
+  {
+    key: "regalos",
+    label: "Regalos",
+    eyebrow: "Detalles para regalar",
+    title: "Regalos y complementos.",
+    desc: "Opciones para detalle dulce, agradecimiento o un extra dentro de una celebración.",
+    hero: "chocolates-mixtos",
+    ids: PRODUCTS.filter(p => p.section === "regalos").map(p => p.id)
+  },
+  {
+    key: "panques",
+    label: "Panqués",
+    eyebrow: "Para compartir",
+    title: "Panqués artesanales.",
+    desc: "Sabores cálidos y fáciles de regalar en un formato visual corto y elegante.",
+    hero: "coliseo-chocolate",
+    ids: PRODUCTS.filter(p => p.section === "panques").map(p => p.id)
+  }
 ];
 
 let cart = JSON.parse(localStorage.getItem("mp_cart_v4") || "[]");
 let activeRecommendation = { occasion: "cumpleanos", people: "8-10", flavor: "todos" };
+let activeShowcase = "favoritos";
 
 function money(value) {
   return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(value);
@@ -698,39 +748,69 @@ function productCard(product, compact=false) {
     </article>`;
 }
 
+function getShowcaseCollection(key = activeShowcase) {
+  return SHOWCASE_COLLECTIONS.find(collection => collection.key === key) || SHOWCASE_COLLECTIONS[0];
+}
+
 function renderHeroProducts() {
+  const collection = getShowcaseCollection();
+  const product = PRODUCTS.find(item => item.id === collection.hero) || PRODUCTS.find(item => item.id === collection.ids[0]);
   const hero = qs('#heroProducts');
-  const ids = ['ganash','sf-fresas','helado-chocolate-intenso'];
-  hero.innerHTML = ids.map((id, i) => {
-    const p = PRODUCTS.find(x => x.id === id);
-    return `<div class="hero-product hero-product-${i+1}"><img src="${asset(p.image)}" alt="${p.name}"></div>`;
-  }).join('');
+  const note = qs('#heroFloatingNote');
+  if (!hero || !product || !note) return;
+  hero.innerHTML = `
+    <article class="hero-stage-card ${product.sugar ? 'is-sugarfree' : ''}">
+      <div class="hero-stage-media"><img src="${asset(product.image)}" alt="${product.name} Montparnasse"></div>
+      <div class="hero-stage-labels"><span>${collection.label}</span><span>${product.priceLabel}</span></div>
+    </article>`;
+  note.innerHTML = `
+    <span class="hero-note-kicker">${collection.eyebrow}</span>
+    <strong>${product.name}</strong>
+    <span>${product.desc}</span>
+    <div class="hero-note-tags"><span>${product.presentation}</span><span>${product.flavor}</span></div>
+    <button class="text-link" type="button" onclick="scrollToSection('catalogo')">Ver categoría</button>`;
 }
 
-function renderFeatured() {
-  const ids = ['ganash','sf-fresas','mil-hojas','helado-chocolate-intenso','selva-negra-cake','teja-almendra'];
-  qs('#featuredTrack').innerHTML = ids.map(id => productCard(PRODUCTS.find(p => p.id === id), true)).join('');
+function renderCategoryTabs() {
+  const tabs = qs('#categoryTabs');
+  if (!tabs) return;
+  tabs.innerHTML = SHOWCASE_COLLECTIONS.map(collection => `
+    <button class="category-tab ${collection.key === activeShowcase ? 'active' : ''}" type="button" onclick="setActiveShowcase('${collection.key}')">${collection.label}</button>
+  `).join('');
 }
 
-function renderCatalogSections() {
-  const container = qs('#catalogSections');
-  container.innerHTML = CATEGORY_SECTIONS.map(section => {
-    const items = PRODUCTS.filter(p => p.section === section.key);
-    return `<section class="catalog-row" id="${section.key}">
-      <div class="section-heading row-heading">
-        <div>
-          <span class="eyebrow">${section.kicker}</span>
-          <h2>${section.title}</h2>
-          <p>${section.desc}</p>
-        </div>
-        <div class="carousel-controls">
-          <button class="circle-btn" type="button" aria-label="Anterior" onclick="scrollTrack('${section.key}Track', -1)">‹</button>
-          <button class="circle-btn" type="button" aria-label="Siguiente" onclick="scrollTrack('${section.key}Track', 1)">›</button>
-        </div>
-      </div>
-      <div class="product-track" id="${section.key}Track">${items.map(p => productCard(p)).join('')}</div>
-    </section>`;
-  }).join('');
+function renderCategoryShowcase() {
+  const collection = getShowcaseCollection();
+  const copy = qs('#catalogStageCopy');
+  const showcase = qs('#categoryShowcase');
+  if (!copy || !showcase) return;
+  copy.innerHTML = `
+    <span class="eyebrow">${collection.eyebrow}</span>
+    <h2>${collection.title}</h2>
+    <p>${collection.desc}</p>`;
+  const items = collection.ids
+    .map(id => PRODUCTS.find(product => product.id === id))
+    .filter(Boolean);
+  showcase.innerHTML = items.map(product => productCard(product, true)).join('');
+}
+
+function setActiveShowcase(key, skipAnimation = false) {
+  activeShowcase = key;
+  renderCategoryTabs();
+  const stage = qs('#catalogStage');
+  const hero = qs('#heroVisual');
+  if (!skipAnimation) {
+    stage?.classList.add('is-changing');
+    hero?.classList.add('is-changing');
+  }
+  window.setTimeout(() => {
+    renderCategoryShowcase();
+    renderHeroProducts();
+    requestAnimationFrame(() => {
+      stage?.classList.remove('is-changing');
+      hero?.classList.remove('is-changing');
+    });
+  }, skipAnimation ? 0 : 170);
 }
 
 function scrollTrack(id, dir) {
@@ -824,6 +904,8 @@ function openProduct(id) {
   modal.showModal();
 }
 function closeProduct() { qs('#productModal').close(); }
+function openAtelier() { qs('#atelierModal')?.showModal(); }
+function closeAtelier() { qs('#atelierModal')?.close(); }
 
 function addToCart(id) {
   const product = PRODUCTS.find(p => p.id === id);
@@ -948,7 +1030,10 @@ Mensaje: ${data.mensaje}`);
 }
 function setupNav() {
   qs('#menuToggle').addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
-  qsa('[data-scroll]').forEach(btn => btn.addEventListener('click', () => scrollToSection(btn.dataset.scroll)));
+  qsa('[data-scroll]').forEach(btn => btn.addEventListener('click', () => {
+    if (btn.dataset.category) setActiveShowcase(btn.dataset.category);
+    scrollToSection(btn.dataset.scroll);
+  }));
   qs('#openCart').addEventListener('click', openCart);
   qs('#closeCart').addEventListener('click', closeCart);
   qs('#backdrop').addEventListener('click', closeCart);
@@ -957,11 +1042,9 @@ function setupNav() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderHeroProducts();
-  renderFeatured();
-  renderCatalogSections();
+  renderCategoryTabs();
+  setActiveShowcase(activeShowcase, true);
   renderMoreSpecialties();
-  setupFinder();
   setupForms();
   setupNav();
   renderCart();

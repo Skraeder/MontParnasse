@@ -23,8 +23,8 @@
     </a>
     <nav class="site-nav" id="siteNav">
       <button data-scroll="catalogo">Catálogo</button>
-      <button data-scroll="sugarfree">Libre de azúcar</button>
-      <button data-scroll="helados">Helados</button>
+      <button data-scroll="catalogo" data-category="sugarfree">Libre de azúcar</button>
+      <button data-scroll="catalogo" data-category="helados">Helados</button>
       <button data-scroll="eventos">Eventos</button>
       <button data-scroll="mas-especialidades">Más especialidades</button>
       <button data-scroll="contacto">Contacto</button>
@@ -43,81 +43,70 @@
         <p>Pasteles, helados, gelatinas y detalles para celebrar, regalar o cotizar eventos con el estilo cálido y premium de Montparnasse.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" data-scroll="catalogo">Ver catálogo</button>
-          <button class="btn btn-secondary" data-scroll="atelier">Armar mi celebración</button>
+          <button class="btn btn-secondary" data-scroll="atelier">Ver atelier</button>
           <button class="btn btn-ghost" data-scroll="eventos">Cotizar evento</button>
         </div>
         <div class="trust-strip">
           <span>Desde 1981</span><span>Libre de azúcar</span><span>WhatsApp oficial</span><span>Mercado Pago listo</span>
         </div>
       </div>
-      <div class="hero-visual">
+      <div class="hero-visual" id="heroVisual">
         <div class="gold-arc"></div>
+        <div class="hero-orbit hero-orbit-1"></div>
+        <div class="hero-orbit hero-orbit-2"></div>
         <div class="hero-products" id="heroProducts"></div>
-        <div class="floating-note"><strong>Atelier Montparnasse</strong><span>elige por ocasión, sabor y número de personas</span></div>
+        <div class="floating-note" id="heroFloatingNote"></div>
       </div>
     </section>
 
     <section class="occasion-strip section-pad compact-pad">
-      <div class="occasion-card" data-scroll="catalogo"><span>Cumpleaños</span><p>Pasteles y complementos para cantar las mañanitas.</p></div>
-      <div class="occasion-card" data-scroll="regalos"><span>Regalos</span><p>Chocolates, tejas, panqués y detalles dulces.</p></div>
+      <div class="occasion-card" data-scroll="catalogo" data-category="pasteles"><span>Cumpleaños</span><p>Pasteles y complementos para cantar las mañanitas.</p></div>
+      <div class="occasion-card" data-scroll="catalogo" data-category="regalos"><span>Regalos</span><p>Chocolates, tejas, panqués y detalles dulces.</p></div>
       <div class="occasion-card" data-scroll="eventos"><span>Eventos</span><p>Cotización guiada para grupos y celebraciones.</p></div>
-      <div class="occasion-card special" data-scroll="sugarfree"><span>Libre de azúcar</span><p>Identificado con marco verde salvia premium.</p></div>
+      <div class="occasion-card special" data-scroll="catalogo" data-category="sugarfree"><span>Libre de azúcar</span><p>Identificado con marco verde salvia premium.</p></div>
     </section>
 
     <section class="atelier section-pad" id="atelier">
       <div class="section-heading centered">
         <span class="eyebrow">Atelier de celebraciones</span>
-        <h2>Encuentra el producto ideal sin perderte en el catálogo.</h2>
-        <p>Una guía rápida para recomendar opciones según ocasión, número de personas y perfil de sabor.</p>
+        <h2>Una entrada más estética, más compacta y más premium.</h2>
+        <p>En lugar de extender la página, el atelier vive como una experiencia visual breve con un solo punto de entrada.</p>
       </div>
-      <div class="atelier-grid">
-        <aside class="finder-panel">
-          <h3>1. ¿Qué quieres celebrar?</h3>
-          <div class="chip-group">
-            <button class="chip active" data-finder="occasion" data-value="cumpleanos">Cumpleaños</button>
-            <button class="chip" data-finder="occasion" data-value="regalo">Regalo</button>
-            <button class="chip" data-finder="occasion" data-value="evento">Evento</button>
-            <button class="chip" data-finder="occasion" data-value="antojo">Antojo</button>
-            <button class="chip" data-finder="occasion" data-value="libre">Libre de azúcar</button>
-          </div>
-          <h3>2. ¿Para cuántas personas?</h3>
-          <div class="chip-group">
-            <button class="chip" data-finder="people" data-value="1-4">1–4</button>
-            <button class="chip active" data-finder="people" data-value="8-10">8–10</button>
-            <button class="chip" data-finder="people" data-value="20+">20+</button>
-            <button class="chip" data-finder="people" data-value="40+">40+</button>
-          </div>
-          <h3>3. Perfil de sabor</h3>
-          <div class="chip-group">
-            <button class="chip active" data-finder="flavor" data-value="todos">Todos</button>
-            <button class="chip" data-finder="flavor" data-value="chocolate">Chocolate</button>
-            <button class="chip" data-finder="flavor" data-value="frutal">Frutal</button>
-            <button class="chip" data-finder="flavor" data-value="tres-leches">Tres leches</button>
-            <button class="chip" data-finder="flavor" data-value="especial">Especial</button>
-          </div>
-        </aside>
-        <div class="recommendation-panel">
-          <div class="recommendation-top"><p id="recommendationIntro"></p><button class="text-link" type="button" onclick="setFinder('occasion','cumpleanos'); setFinder('people','8-10'); setFinder('flavor','todos')">Reiniciar</button></div>
-          <div class="recommendation-results" id="recommendationResults"></div>
+      <div class="atelier-spotlight">
+        <img src="assets/products/mil-hojas-de-fresa.webp" alt="Atelier de celebraciones Montparnasse" loading="lazy">
+        <div class="atelier-gradient"></div>
+        <div class="atelier-badge">Atelier Montparnasse</div>
+        <div class="atelier-panel">
+          <span class="eyebrow">Celebraciones a tu medida</span>
+          <h3>Elige una experiencia más cuidada para cumpleaños, regalos y eventos.</h3>
+          <p>Explora la propuesta del atelier en una sola vista y entra a los detalles cuando de verdad quieras profundizar.</p>
+          <button class="btn btn-primary" type="button" onclick="openAtelier()">Ver detalles</button>
         </div>
+        <div class="atelier-mini-tags"><span>Cumpleaños</span><span>Eventos</span><span>Regalos</span></div>
       </div>
-    </section>
-
-    <section class="featured section-pad" id="recomendados">
-      <div class="section-heading row-heading">
-        <div><span class="eyebrow">Montparnasse recomienda</span><h2>Favoritos para empezar.</h2><p>Una selección visual para abrir antojo antes de entrar al catálogo completo.</p></div>
-        <div class="carousel-controls"><button class="circle-btn" onclick="scrollTrack('featuredTrack',-1)">‹</button><button class="circle-btn" onclick="scrollTrack('featuredTrack',1)">›</button></div>
-      </div>
-      <div class="product-track featured-track" id="featuredTrack"></div>
     </section>
 
     <section class="catalog section-pad" id="catalogo">
       <div class="section-heading centered">
         <span class="eyebrow">Catálogo digital</span>
-        <h2>Explora por categoría, no por lista infinita.</h2>
-        <p>Cada colección tiene su propio carrusel para que la experiencia se sienta más limpia, premium y cómoda en móvil.</p>
+        <h2>Explora por categoría con favoritos al frente.</h2>
+        <p>La vista principal abre con favoritos y, al cambiar de categoría, todo el escaparate se actualiza con una transición suave y premium.</p>
       </div>
-      <div id="catalogSections"></div>
+      <div class="catalog-shell">
+        <div class="category-tabs" id="categoryTabs"></div>
+        <div class="catalog-stage" id="catalogStage">
+          <div class="catalog-stage-head">
+            <div class="catalog-stage-copy" id="catalogStageCopy"></div>
+            <div class="carousel-controls">
+              <button class="circle-btn" type="button" aria-label="Anterior" onclick="scrollTrack('categoryShowcase',-1)">‹</button>
+              <button class="circle-btn" type="button" aria-label="Siguiente" onclick="scrollTrack('categoryShowcase',1)">›</button>
+            </div>
+          </div>
+          <div class="catalog-stage-track">
+            <div class="product-track showcase-track" id="categoryShowcase"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="sugar-story section-pad">
@@ -150,9 +139,9 @@
 
     <section class="more-specialties section-pad" id="mas-especialidades">
       <div class="section-heading centered">
-        <span class="eyebrow">Más especialidades</span>
-        <h2>Productos que pueden integrarse en una siguiente etapa.</h2>
-        <p>Esta sección mantiene visible el potencial del catálogo sin romper la estética de la página. Cada especialidad se puede consultar por WhatsApp mientras se agregan imágenes finales.</p>
+        <span class="eyebrow">Por agregar</span>
+        <h2>Especialidades que pueden integrarse después por categoría.</h2>
+        <p>Este bloque deja visible lo pendiente del catálogo principal, organizado por categorías y con descripciones listas para una siguiente fase.</p>
       </div>
       <div class="more-grid" id="moreSpecialtiesGrid"></div>
     </section>
@@ -197,6 +186,28 @@
   </footer>
 
   <dialog class="product-modal" id="productModal"><button class="modal-close" onclick="closeProduct()" aria-label="Cerrar">×</button><div id="modalBody"></div></dialog>
+  <dialog class="product-modal atelier-modal" id="atelierModal">
+    <button class="modal-close" onclick="closeAtelier()" aria-label="Cerrar">×</button>
+    <div class="modal-grid">
+      <div class="modal-image"><img src="assets/products/mil-hojas-de-fresa.webp" alt="Atelier Montparnasse"></div>
+      <div class="modal-copy">
+        <span class="eyebrow">Atelier de celebraciones</span>
+        <h2>Una guía más visual para celebrar con estilo Montparnasse.</h2>
+        <p>El atelier concentra la parte inspiracional en un formato más aesthetic: una entrada limpia, una imagen protagonista y un punto único para revisar detalles cuando realmente se necesitan.</p>
+        <div class="detail-list">
+          <div><strong>Ideal para</strong><span>Cumpleaños, regalos, reuniones y celebraciones especiales</span></div>
+          <div><strong>Enfoque</strong><span>Experiencia visual compacta, premium y fácil de recorrer</span></div>
+          <div><strong>Qué incluye</strong><span>Recomendación visual, orientación y acceso directo a cotización</span></div>
+          <div><strong>Siguiente paso</strong><span>Confirmar fecha, cobertura, producto y total por WhatsApp</span></div>
+        </div>
+        <div class="atelier-detail-pills"><span>Pasteles</span><span>Helados</span><span>Regalos</span><span>Eventos</span></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="button" onclick="scrollToSection('eventos'); closeAtelier()">Cotizar evento</button>
+          <button class="btn btn-secondary" type="button" onclick="openWhatsApp('Hola, quiero ayuda para armar una celebración con Montparnasse.')">Pedir recomendación</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
   <div class="backdrop" id="backdrop"></div>
   <aside class="cart-drawer" id="cartDrawer">
     <div class="cart-head"><div><span>Tu selección</span><h2>Pedido Montparnasse</h2></div><button id="closeCart" aria-label="Cerrar carrito">×</button></div>
