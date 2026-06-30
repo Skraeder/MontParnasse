@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Montparnasse Pastelería | Catálogo, helados y celebraciones</title>
-  <meta name="description" content="Catálogo digital demo para Montparnasse Pastelería: pasteles, helados, gelatinas, línea libre de azúcar, regalos y cotización de eventos por WhatsApp.">
+  <meta name="description" content="Montparnasse Pastelería: pasteles, helados, gelatinas, línea libre de azúcar, regalos, sucursales y cotización de eventos por WhatsApp.">
   <meta name="theme-color" content="#6e2c76">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
       <button data-scroll="catalogo" data-category="helados">Helados</button>
       <button data-scroll="eventos">Eventos</button>
       <button data-scroll="mas-especialidades">Más especialidades</button>
-      <button data-scroll="contacto">Contacto</button>
+      <button data-scroll="sucursales">Sucursales</button>
     </nav>
     <div class="header-actions">
       <button class="cart-button" id="openCart" type="button">Pedido <span class="cart-count">0</span></button>
@@ -38,16 +38,15 @@
   <main id="inicio">
     <section class="hero section-pad">
       <div class="hero-copy">
-        <span class="eyebrow">Pastelería mexicana · Catálogo digital</span>
-        <h1>Endulzamos tu vida con una experiencia más fácil de elegir.</h1>
-        <p>Pasteles, helados, gelatinas y detalles para celebrar, regalar o cotizar eventos con el estilo cálido y premium de Montparnasse.</p>
+        <span class="eyebrow">Pastelería mexicana · desde 1981</span>
+        <h1>Endulzamos tu vida.</h1>
+        <p>Pasteles, helados y detalles para celebrar con el sabor de Montparnasse.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" data-scroll="catalogo">Ver catálogo</button>
-          <button class="btn btn-secondary" data-scroll="atelier">Ver atelier</button>
-          <button class="btn btn-ghost" data-scroll="eventos">Cotizar evento</button>
+          <button class="btn btn-secondary" data-scroll="eventos">Cotizar evento</button>
         </div>
         <div class="trust-strip">
-          <span>Desde 1981</span><span>Libre de azúcar</span><span>WhatsApp oficial</span><span>Mercado Pago listo</span>
+          <span>Pastelería mexicana</span><span>Línea libre de azúcar</span><span>CDMX y Edo. Méx.</span>
         </div>
       </div>
       <div class="hero-visual" id="heroVisual">
@@ -63,34 +62,29 @@
       <div class="occasion-card" data-scroll="catalogo" data-category="pasteles"><span>Cumpleaños</span><p>Pasteles y complementos para cantar las mañanitas.</p></div>
       <div class="occasion-card" data-scroll="catalogo" data-category="regalos"><span>Regalos</span><p>Chocolates, tejas, panqués y detalles dulces.</p></div>
       <div class="occasion-card" data-scroll="eventos"><span>Eventos</span><p>Cotización guiada para grupos y celebraciones.</p></div>
-      <div class="occasion-card special" data-scroll="catalogo" data-category="sugarfree"><span>Libre de azúcar</span><p>Identificado con marco verde salvia premium.</p></div>
+      <div class="occasion-card special" data-scroll="catalogo" data-category="sugarfree"><span>Libre de azúcar</span><p>Opciones para disfrutar sin renunciar al sabor.</p></div>
     </section>
 
-    <section class="atelier section-pad" id="atelier">
-      <div class="section-heading centered">
-        <span class="eyebrow">Atelier de celebraciones</span>
-        <h2>Una entrada más estética, más compacta y más premium.</h2>
-        <p>En lugar de extender la página, el atelier vive como una experiencia visual breve con un solo punto de entrada.</p>
-      </div>
-      <div class="atelier-spotlight">
-        <img src="assets/products/mil-hojas-de-fresa.webp" alt="Atelier de celebraciones Montparnasse" loading="lazy">
-        <div class="atelier-gradient"></div>
-        <div class="atelier-badge">Atelier Montparnasse</div>
-        <div class="atelier-panel">
-          <span class="eyebrow">Celebraciones a tu medida</span>
-          <h3>Elige una experiencia más cuidada para cumpleaños, regalos y eventos.</h3>
-          <p>Explora la propuesta del atelier en una sola vista y entra a los detalles cuando de verdad quieras profundizar.</p>
-          <button class="btn btn-primary" type="button" onclick="openAtelier()">Ver detalles</button>
+    <section class="atelier-mini section-pad compact-pad" id="atelier">
+      <div class="atelier-mini-card">
+        <div class="atelier-mini-image"><img src="assets/products/fresas-con-crema.webp" alt="Celebración Montparnasse" loading="lazy"></div>
+        <div class="atelier-mini-copy">
+          <span class="eyebrow">Celebraciones</span>
+          <h2>¿Celebras algo especial?</h2>
+          <p>Te ayudamos a elegir pastel, helado o detalle según la ocasión y el número de personas.</p>
+          <div class="atelier-mini-actions">
+            <button class="btn btn-primary" type="button" onclick="openAtelier()">Cotizar celebración</button>
+            <button class="btn btn-secondary" type="button" data-scroll="catalogo">Ver recomendaciones</button>
+          </div>
         </div>
-        <div class="atelier-mini-tags"><span>Cumpleaños</span><span>Eventos</span><span>Regalos</span></div>
       </div>
     </section>
 
     <section class="catalog section-pad" id="catalogo">
       <div class="section-heading centered">
         <span class="eyebrow">Catálogo digital</span>
-        <h2>Explora por categoría con favoritos al frente.</h2>
-        <p>La vista principal abre con favoritos y, al cambiar de categoría, todo el escaparate se actualiza con una transición suave y premium.</p>
+        <h2>Elige por categoría.</h2>
+        <p>Favoritos al frente y colecciones que cambian en el mismo espacio.</p>
       </div>
       <div class="catalog-shell">
         <div class="category-tabs" id="categoryTabs"></div>
@@ -109,21 +103,12 @@
       </div>
     </section>
 
-    <section class="sugar-story section-pad">
-      <div class="sugar-copy">
-        <span class="eyebrow">Línea libre de azúcar</span>
-        <h2>Un marco verde salvia para identificar opciones especiales.</h2>
-        <p>La línea libre de azúcar conserva la estética Montparnasse, pero suma un acento verde sutil para distinguirla sin verse clínica, fit o genérica.</p>
-      </div>
-      <div class="sugar-badges"><span>Elegante</span><span>Premium</span><span>Fácil de identificar</span></div>
-    </section>
-
     <section class="events section-pad" id="eventos">
       <div class="events-copy">
-        <span class="eyebrow">Eventos y celebraciones</span>
-        <h2>Cotiza una celebración completa, no solo un pastel.</h2>
-        <p>Para grupos grandes, cumpleaños, reuniones o regalos especiales, el flujo correcto es cotizar por WhatsApp para confirmar fecha, disponibilidad, sucursal, cobertura y total final.</p>
-        <div class="event-highlights"><span>Pasteles</span><span>Gelatinas</span><span>Galletas</span><span>Chocolates</span><span>Mesa dulce</span></div>
+        <span class="eyebrow">Eventos</span>
+        <h2>Celebra con Montparnasse.</h2>
+        <p>Cuéntanos la fecha, número de personas y el producto que buscas. Te ayudamos a confirmar disponibilidad y armar una propuesta.</p>
+        <div class="event-highlights"><span>Cumpleaños</span><span>Regalos</span><span>Mesa dulce</span><span>Reuniones</span></div>
       </div>
       <form class="event-form" id="eventForm">
         <label>Tipo de evento <select name="evento" required><option>Cumpleaños</option><option>Reunión familiar</option><option>Evento empresarial</option><option>Regalo especial</option><option>Otro</option></select></label>
@@ -131,80 +116,70 @@
         <label>Número de personas <input name="personas" type="number" min="1" placeholder="Ej. 40" required></label>
         <label>Producto deseado <input name="producto" placeholder="Ej. pastel + gelatina + galletas" required></label>
         <label>Zona <input name="zona" placeholder="Alcaldía, municipio o zona de entrega" required></label>
-        <label>Comentarios <textarea name="comentarios" rows="3" placeholder="Cuéntanos si es regalo, sabor preferido o si necesitas recomendación"></textarea></label>
-        <button class="btn btn-primary" type="submit">Enviar cotización por WhatsApp</button>
+        <label>Comentarios <textarea name="comentarios" rows="3" placeholder="Sabor, ocasión o mensaje especial"></textarea></label>
+        <button class="btn btn-primary" type="submit">Cotizar por WhatsApp</button>
         <p class="form-success" id="eventSuccess">Listo, se abrió WhatsApp con tu solicitud.</p>
       </form>
     </section>
 
     <section class="more-specialties section-pad" id="mas-especialidades">
       <div class="section-heading centered">
-        <span class="eyebrow">Por agregar</span>
-        <h2>Especialidades que pueden integrarse después por categoría.</h2>
-        <p>Este bloque deja visible lo pendiente del catálogo principal, organizado por categorías y con descripciones listas para una siguiente fase.</p>
+        <span class="eyebrow">Más especialidades</span>
+        <h2>Otras creaciones para consultar.</h2>
+        <p>También puedes preguntar por productos de temporada, tartaletas, gelatinas y detalles especiales.</p>
       </div>
       <div class="more-grid" id="moreSpecialtiesGrid"></div>
     </section>
 
-    <section class="how-to section-pad">
-      <div class="section-heading centered"><span class="eyebrow">Flujo de compra</span><h2>Compra clara, atención humana.</h2></div>
-      <div class="steps-grid">
-        <article><strong>01</strong><h3>Elige productos</h3><p>Agrega al pedido o consulta productos sin precio final.</p></article>
-        <article><strong>02</strong><h3>Revisa tu selección</h3><p>El carrito muestra subtotal estimado y cantidades.</p></article>
-        <article><strong>03</strong><h3>Finaliza por WhatsApp</h3><p>El equipo confirma disponibilidad, cobertura y total final.</p></article>
-        <article><strong>04</strong><h3>Mercado Pago</h3><p>Preparado para activarse en Vercel cuando haya credenciales.</p></article>
+    <section class="locations section-pad" id="sucursales">
+      <div class="section-heading centered">
+        <span class="eyebrow">Sucursales</span>
+        <h2>Sucursales Montparnasse</h2>
+        <p>Encuentra tu punto más cercano en CDMX y Estado de México.</p>
       </div>
-    </section>
-
-    <section class="contact section-pad" id="contacto">
-      <div class="contact-card">
-        <div><span class="eyebrow">Atención Montparnasse</span><h2>Encuentra tu sucursal más cercana.</h2><p>Te ayudamos a ubicar el punto ideal para recoger, consultar cobertura o finalizar tu pedido con atención personalizada.</p><button class="btn btn-primary" onclick="openWhatsApp('Hola, quiero consultar mi sucursal Montparnasse más cercana y disponibilidad de productos.')">Consultar por WhatsApp</button></div>
-        <form id="contactForm" class="contact-form">
-          <input name="nombre" placeholder="Nombre" required>
-          <input name="telefono" placeholder="Teléfono" required>
-          <select name="motivo"><option>Pedido</option><option>Evento</option><option>Sucursal</option><option>Libre de azúcar</option></select>
-          <textarea name="mensaje" rows="3" placeholder="¿Cómo podemos ayudarte?" required></textarea>
-          <button class="btn btn-secondary" type="submit">Enviar mensaje</button>
-        </form>
+      <div class="locations-layout">
+        <div class="map-card">
+          <iframe title="Mapa de sucursales Montparnasse" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Montparnasse%20Pasteler%C3%ADa%20CDMX%20Estado%20de%20M%C3%A9xico&output=embed"></iframe>
+        </div>
+        <div class="locations-grid" id="locationsGrid"></div>
       </div>
     </section>
 
     <section class="faq section-pad">
-      <div class="section-heading centered"><span class="eyebrow">Preguntas frecuentes</span><h2>Detalles antes de pedir.</h2></div>
+      <div class="section-heading centered"><span class="eyebrow">Preguntas frecuentes</span><h2>Antes de pedir.</h2></div>
       <div class="faq-grid">
-        <details open><summary>¿El pedido queda confirmado al agregar al carrito?</summary><p>No. El carrito arma tu selección; la confirmación final se realiza por WhatsApp con disponibilidad, fecha, sucursal, entrega y método de pago.</p></details>
-        <details><summary>¿Puedo pagar con Mercado Pago?</summary><p>La página ya está preparada para Mercado Pago en Vercel. Para usarlo en producción se deben configurar las credenciales oficiales.</p></details>
-        <details><summary>¿La línea libre de azúcar es definitiva?</summary><p>La sección está diseñada para demo y debe validarse con el catálogo oficial antes de publicación comercial.</p></details>
-        <details><summary>¿Los precios son finales?</summary><p>Son precios base/estimados para demo. Deben reemplazarse por precios oficiales, presentaciones y disponibilidad real.</p></details>
+        <details open><summary>¿Cómo confirmo disponibilidad?</summary><p>El equipo confirma disponibilidad por WhatsApp según fecha, sucursal y producto.</p></details>
+        <details><summary>¿Puedo pedir para evento?</summary><p>Sí. Comparte fecha, número de personas, zona y producto deseado para recibir una propuesta.</p></details>
+        <details><summary>¿Hay opciones libres de azúcar?</summary><p>Sí. Están señaladas dentro del catálogo como línea libre de azúcar.</p></details>
+        <details><summary>¿El precio final se confirma por WhatsApp?</summary><p>Sí. El total puede depender de disponibilidad, presentación, sucursal y forma de entrega.</p></details>
+        <details><summary>¿Puedo recoger en sucursal?</summary><p>Sí. La recolección se confirma directamente con la sucursal disponible.</p></details>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div><img src="assets/brand/montparnasse-wordmark.svg" alt="Montparnasse Pastelería"><p>Endulzamos tu vida.</p></div>
-    <nav><a href="aviso-privacidad.html">Aviso de privacidad</a><a href="terminos.html">Términos</a><button onclick="openWhatsApp('Hola, quiero información de Montparnasse Pastelería.')">WhatsApp</button></nav>
+    <nav><button data-scroll="sucursales">Sucursales</button><a href="aviso-privacidad.html">Aviso de privacidad</a><a href="terminos.html">Términos</a><button onclick="openWhatsApp('Hola, quiero información de Montparnasse Pastelería.')">WhatsApp</button></nav>
   </footer>
 
   <dialog class="product-modal" id="productModal"><button class="modal-close" onclick="closeProduct()" aria-label="Cerrar">×</button><div id="modalBody"></div></dialog>
   <dialog class="product-modal atelier-modal" id="atelierModal">
     <button class="modal-close" onclick="closeAtelier()" aria-label="Cerrar">×</button>
     <div class="modal-grid">
-      <div class="modal-image"><img src="assets/products/mil-hojas-de-fresa.webp" alt="Atelier Montparnasse"></div>
+      <div class="modal-image"><img src="assets/products/fresas-con-crema.webp" alt="Cotizar celebración Montparnasse"></div>
       <div class="modal-copy">
-        <span class="eyebrow">Atelier de celebraciones</span>
-        <h2>Una guía más visual para celebrar con estilo Montparnasse.</h2>
-        <p>El atelier concentra la parte inspiracional en un formato más aesthetic: una entrada limpia, una imagen protagonista y un punto único para revisar detalles cuando realmente se necesitan.</p>
-        <div class="detail-list">
-          <div><strong>Ideal para</strong><span>Cumpleaños, regalos, reuniones y celebraciones especiales</span></div>
-          <div><strong>Enfoque</strong><span>Experiencia visual compacta, premium y fácil de recorrer</span></div>
-          <div><strong>Qué incluye</strong><span>Recomendación visual, orientación y acceso directo a cotización</span></div>
-          <div><strong>Siguiente paso</strong><span>Confirmar fecha, cobertura, producto y total por WhatsApp</span></div>
-        </div>
-        <div class="atelier-detail-pills"><span>Pasteles</span><span>Helados</span><span>Regalos</span><span>Eventos</span></div>
-        <div class="modal-actions">
-          <button class="btn btn-primary" type="button" onclick="scrollToSection('eventos'); closeAtelier()">Cotizar evento</button>
-          <button class="btn btn-secondary" type="button" onclick="openWhatsApp('Hola, quiero ayuda para armar una celebración con Montparnasse.')">Pedir recomendación</button>
-        </div>
+        <span class="eyebrow">Cotiza tu celebración</span>
+        <h2>Cuéntanos qué quieres celebrar.</h2>
+        <p>Armamos una recomendación según fecha, personas y zona.</p>
+        <form class="event-form modal-form" id="atelierForm">
+          <label>Tipo de celebración <select name="evento" required><option>Cumpleaños</option><option>Regalo especial</option><option>Reunión familiar</option><option>Evento empresarial</option><option>Otro</option></select></label>
+          <label>Fecha <input name="fecha" type="date" required></label>
+          <label>Número de personas <input name="personas" type="number" min="1" placeholder="Ej. 12" required></label>
+          <label>Producto deseado <input name="producto" placeholder="Pastel, helado, gelatina o detalle" required></label>
+          <label>Zona <input name="zona" placeholder="CDMX, Edo. Méx. o sucursal" required></label>
+          <label>Comentarios <textarea name="comentarios" rows="3" placeholder="Sabor, dedicatoria o preferencia"></textarea></label>
+          <button class="btn btn-primary" type="submit">Cotizar por WhatsApp</button>
+        </form>
       </div>
     </div>
   </dialog>
@@ -212,7 +187,7 @@
   <aside class="cart-drawer" id="cartDrawer">
     <div class="cart-head"><div><span>Tu selección</span><h2>Pedido Montparnasse</h2></div><button id="closeCart" aria-label="Cerrar carrito">×</button></div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-summary"><div><span>Total estimado</span><strong id="cartTotal">$0</strong></div><p>El equipo confirmará disponibilidad, cobertura, total final y método de pago.</p><button class="btn btn-primary" id="whatsappCheckout">Finalizar por WhatsApp</button><button class="btn btn-secondary" id="mpButton">Pagar con Mercado Pago</button></div>
+    <div class="cart-summary"><div><span>Total estimado</span><strong id="cartTotal">$0</strong></div><p>El equipo confirmará disponibilidad, cobertura, total final y método de pago.</p><button class="btn btn-primary" id="whatsappCheckout">Finalizar por WhatsApp</button></div>
   </aside>
   <button class="floating-whatsapp" onclick="openWhatsApp('Hola, quiero hacer un pedido en Montparnasse Pastelería.')">WhatsApp</button>
   <script src="script.js"></script>

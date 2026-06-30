@@ -1,10 +1,8 @@
-// Montparnasse Pastelería — catálogo visual v4
+// Montparnasse Pastelería — catálogo visual
 // TODO: reemplazar catálogo, precios y disponibilidad con información oficial antes de publicación comercial.
-// TODO: conectar Mercado Pago con credenciales reales desde Vercel Environment Variables.
 // TODO: validar textos legales con asesoría correspondiente.
 
 const WHATSAPP_NUMBER = "525524994700"; // TODO: confirmar número final de WhatsApp.
-const ENABLE_MERCADOPAGO = true;
 const SITE_CURRENCY = "MXN";
 
 const PRODUCTS = [
@@ -612,7 +610,7 @@ const MORE_SPECIALTIES = [
   },
   {
     "name": "Gelatina Halloween",
-    "category": "Gelatinas de temporada",
+    "category": "Temporada",
     "desc": "Edición temporal para celebraciones temáticas y pedidos de temporada."
   },
   {
@@ -657,40 +655,53 @@ const MORE_SPECIALTIES = [
   }
 ];
 
+const LOCATIONS = [
+  { name: "Roma Sur", zone: "Cuauhtémoc, CDMX", address: "Baja California esquina, Tonalá 319, Roma Sur, Cuauhtémoc, 06760 Ciudad de México, CDMX" },
+  { name: "Lindavista", zone: "Gustavo A. Madero, CDMX", address: "Av. Montevideo 171, Lindavista, 07300 Ciudad de México, CDMX" },
+  { name: "Pensador Mexicano", zone: "Venustiano Carranza, CDMX", address: "Norte 172, Pensador Mexicano, Ciudad de México, CDMX" },
+  { name: "Del Recreo", zone: "Azcapotzalco, CDMX", address: "Calzada Camarones 542, Colonia del Recreo, Ciudad de México, CDMX" },
+  { name: "Granjas San Antonio", zone: "Iztapalapa, CDMX", address: "Av. Año de Juárez Loc M, esquina Ermita Iztapalapa, Col. Granjas San Antonio, Iztapalapa" },
+  { name: "Boturini", zone: "Venustiano Carranza, CDMX", address: "Cúcurpe No. 39, Col. El Parque, Venustiano Carranza, Ciudad de México" },
+  { name: "Santa Clara Coatitla", zone: "Ecatepec, Edo. Méx.", address: "Vía Morelos 421, MZ 014, Santa Clara Coatitla, 55540 Ecatepec de Morelos, Méx." },
+  { name: "Las Américas", zone: "Ecatepec, Edo. Méx.", address: "Av. Central S/N, Jardines de Morelos 5a Sección, 55075 Ecatepec de Morelos, Méx." },
+  { name: "San Lorenzo Tetlixtac", zone: "Coacalco, Edo. Méx.", address: "Avenida José López Portillo 145, San Lorenzo Tetlixtac, Coacalco, Edo. Méx." },
+  { name: "Ixtapaluca", zone: "Ixtapaluca, Edo. Méx.", address: "Carretera Federal México-Puebla, Santa Cruz Tlapacoya, Ixtapaluca, Edo. Méx." }
+];
+
 const SHOWCASE_COLLECTIONS = [
   {
     key: "favoritos",
     label: "Favoritos",
     eyebrow: "Montparnasse recomienda",
-    title: "Favoritos para empezar.",
-    desc: "Una selección principal para abrir antojo sin hacer la página demasiado larga.",
-    hero: "ganash",
-    ids: ["ganash", "sf-fresas", "mil-hojas", "helado-chocolate-intenso", "selva-negra-cake", "teja-almendra"]
+    title: "Favoritos Montparnasse",
+    desc: "Una selección para empezar a elegir sin recorrer todo el catálogo.",
+    hero: "mil-hojas",
+    ids: ["ganash", "sf-fresas", "mil-hojas", "helado-chocolate-intenso", "selva-negra-cake", "chocolates-mixtos"]
   },
   {
     key: "pasteles",
     label: "Pasteles",
-    eyebrow: "Celebraciones clásicas",
-    title: "Pasteles con presencia premium.",
-    desc: "Sabores clásicos y especiales para cumpleaños, regalos y momentos importantes.",
-    hero: "mil-hojas",
+    eyebrow: "Pasteles para celebrar",
+    title: "Pasteles",
+    desc: "Clásicos, cremosos y especiales para cumpleaños o regalo.",
+    hero: "ganash",
     ids: PRODUCTS.filter(p => p.section === "pasteles").map(p => p.id)
   },
   {
     key: "sugarfree",
     label: "Libre de azúcar",
-    eyebrow: "Línea especial",
-    title: "Opciones fáciles de identificar.",
-    desc: "El acento verde salvia ayuda a distinguir la línea libre de azúcar sin perder la estética premium.",
+    eyebrow: "Opciones libres de azúcar",
+    title: "Libre de azúcar",
+    desc: "Opciones para disfrutar con el estilo Montparnasse.",
     hero: "sf-fresas",
     ids: PRODUCTS.filter(p => p.section === "sugarfree").map(p => p.id)
   },
   {
     key: "helados",
     label: "Helados",
-    eyebrow: "Sabores de antojo",
-    title: "Helados con más personalidad visual.",
-    desc: "Sabores cremosos y de temporada para una sección más fresca, compacta y dinámica.",
+    eyebrow: "Helados",
+    title: "Helados",
+    desc: "Sabores cremosos, frescos y de temporada.",
     hero: "helado-chocolate-intenso",
     ids: PRODUCTS.filter(p => p.section === "helados").map(p => p.id)
   },
@@ -698,8 +709,8 @@ const SHOWCASE_COLLECTIONS = [
     key: "regalos",
     label: "Regalos",
     eyebrow: "Detalles para regalar",
-    title: "Regalos y complementos.",
-    desc: "Opciones para detalle dulce, agradecimiento o un extra dentro de una celebración.",
+    title: "Regalos",
+    desc: "Chocolates, galletas y detalles dulces para compartir.",
     hero: "chocolates-mixtos",
     ids: PRODUCTS.filter(p => p.section === "regalos").map(p => p.id)
   },
@@ -707,10 +718,19 @@ const SHOWCASE_COLLECTIONS = [
     key: "panques",
     label: "Panqués",
     eyebrow: "Para compartir",
-    title: "Panqués artesanales.",
-    desc: "Sabores cálidos y fáciles de regalar en un formato visual corto y elegante.",
+    title: "Panqués",
+    desc: "Sabores cálidos para regalar, compartir o acompañar un momento especial.",
     hero: "coliseo-chocolate",
     ids: PRODUCTS.filter(p => p.section === "panques").map(p => p.id)
+  },
+  {
+    key: "mas",
+    label: "Más especialidades",
+    eyebrow: "Más especialidades",
+    title: "Más especialidades",
+    desc: "Temporada, tartaletas, gelatinas y complementos bajo consulta.",
+    hero: "teja-almendra",
+    ids: []
   }
 ];
 
@@ -736,10 +756,8 @@ function productCard(product, compact=false) {
         <span class="product-badge">${badge}</span>
       </div>
       <div class="product-info">
-        <div class="product-meta"><span>${product.category}</span><span>${product.priceLabel}</span></div>
         <h3>${product.name}</h3>
-        <p>${product.desc}</p>
-        <div class="product-chips"><span>${product.presentation}</span><span>${product.flavor}</span></div>
+        <div class="product-price-row"><span>${product.priceLabel}</span></div>
         <div class="product-actions">
           <button class="btn btn-ghost" type="button" onclick="openProduct('${product.id}')">Ver detalles</button>
           <button class="btn btn-primary" type="button" onclick="${product.price ? `addToCart('${product.id}')` : `consultProduct('${product.id}')`}">${actionLabel}</button>
@@ -754,7 +772,7 @@ function getShowcaseCollection(key = activeShowcase) {
 
 function renderHeroProducts() {
   const collection = getShowcaseCollection();
-  const product = PRODUCTS.find(item => item.id === collection.hero) || PRODUCTS.find(item => item.id === collection.ids[0]);
+  const product = PRODUCTS.find(item => item.id === collection.hero) || PRODUCTS.find(item => item.id === collection.ids[0]) || PRODUCTS[0];
   const hero = qs('#heroProducts');
   const note = qs('#heroFloatingNote');
   if (!hero || !product || !note) return;
@@ -764,11 +782,10 @@ function renderHeroProducts() {
       <div class="hero-stage-labels"><span>${collection.label}</span><span>${product.priceLabel}</span></div>
     </article>`;
   note.innerHTML = `
-    <span class="hero-note-kicker">${collection.eyebrow}</span>
+    <span class="hero-note-kicker">${product.category}</span>
     <strong>${product.name}</strong>
-    <span>${product.desc}</span>
-    <div class="hero-note-tags"><span>${product.presentation}</span><span>${product.flavor}</span></div>
-    <button class="text-link" type="button" onclick="scrollToSection('catalogo')">Ver categoría</button>`;
+    <span>${product.priceLabel}</span>
+    <button class="text-link" type="button" onclick="openProduct('${product.id}')">Ver detalles</button>`;
 }
 
 function renderCategoryTabs() {
@@ -777,6 +794,14 @@ function renderCategoryTabs() {
   tabs.innerHTML = SHOWCASE_COLLECTIONS.map(collection => `
     <button class="category-tab ${collection.key === activeShowcase ? 'active' : ''}" type="button" onclick="setActiveShowcase('${collection.key}')">${collection.label}</button>
   `).join('');
+}
+
+function specialtyMiniCard(item) {
+  return `<article class="specialty-mini-card">
+    <div class="specialty-mini-art"><img src="assets/placeholders/mas-especialidades.svg" alt="${item.name}" loading="lazy"></div>
+    <div><span>${item.category}</span><h3>${item.name}</h3><p>${item.desc}</p></div>
+    <button class="btn btn-primary" type="button" onclick="consultSpecialty('${item.name}')">Consultar</button>
+  </article>`;
 }
 
 function renderCategoryShowcase() {
@@ -788,6 +813,12 @@ function renderCategoryShowcase() {
     <span class="eyebrow">${collection.eyebrow}</span>
     <h2>${collection.title}</h2>
     <p>${collection.desc}</p>`;
+  if (collection.key === 'mas') {
+    showcase.innerHTML = MORE_SPECIALTIES.slice(0, 10).map(specialtyMiniCard).join('');
+    showcase.classList.add('specialty-showcase');
+    return;
+  }
+  showcase.classList.remove('specialty-showcase');
   const items = collection.ids
     .map(id => PRODUCTS.find(product => product.id === id))
     .filter(Boolean);
@@ -880,6 +911,11 @@ function eventCards() {
   </article>`).join('');
 }
 
+function idealFor(product) {
+  const map = { cumpleanos: 'Cumpleaños', regalo: 'Regalos', antojo: 'Antojo', evento: 'Eventos', libre: 'Opciones libres de azúcar' };
+  return product.occasions.map(item => map[item] || item).join(', ');
+}
+
 function openProduct(id) {
   const product = PRODUCTS.find(p => p.id === id);
   const modal = qs('#productModal');
@@ -890,13 +926,15 @@ function openProduct(id) {
       <h2>${product.name}</h2>
       <p>${product.desc}</p>
       <div class="detail-list">
-        <div><strong>Presentación</strong><span>${product.presentation}</span></div>
         <div><strong>Precio</strong><span>${product.priceLabel}</span></div>
-        <div><strong>Perfil</strong><span>${product.flavor}</span></div>
-        <div><strong>Disponibilidad</strong><span>Se confirma por fecha y sucursal</span></div>
+        <div><strong>Presentación</strong><span>${product.presentation}</span></div>
+        <div><strong>Ideal para</strong><span>${idealFor(product)}</span></div>
+        <div><strong>Disponibilidad</strong><span>Sujeta a fecha y sucursal.</span></div>
       </div>
+      ${product.price ? `<label class="modal-qty">Cantidad <input id="modalQty" type="number" min="1" value="1"></label>` : ''}
       <div class="modal-actions">
-        ${product.price ? `<button class="btn btn-primary" onclick="addToCart('${product.id}'); closeProduct();">Agregar al pedido</button>` : `<button class="btn btn-primary" onclick="consultProduct('${product.id}')">Consultar por WhatsApp</button>`}
+        ${product.price ? `<button class="btn btn-primary" onclick="addToCart('${product.id}', Number(qs('#modalQty')?.value || 1)); closeProduct();">Agregar al pedido</button>` : ``}
+        <button class="btn btn-secondary" onclick="consultProduct('${product.id}')">Consultar por WhatsApp</button>
         <button class="btn btn-ghost" onclick="closeProduct()">Seguir viendo</button>
       </div>
     </div>
@@ -907,11 +945,12 @@ function closeProduct() { qs('#productModal').close(); }
 function openAtelier() { qs('#atelierModal')?.showModal(); }
 function closeAtelier() { qs('#atelierModal')?.close(); }
 
-function addToCart(id) {
+function addToCart(id, qty = 1) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product.price) return consultProduct(id);
+  const quantity = Math.max(1, Number(qty) || 1);
   const existing = cart.find(item => item.id === id);
-  if (existing) existing.qty += 1; else cart.push({ id, qty: 1 });
+  if (existing) existing.qty += quantity; else cart.push({ id, qty: quantity });
   saveCart();
   openCart();
 }
@@ -940,7 +979,6 @@ function renderCart() {
     <strong>${money(p.subtotal)}</strong>
   </div>`).join('') : `<div class="empty-cart"><p>Tu selección está vacía.</p><button class="btn btn-primary" onclick="closeCart(); scrollToSection('catalogo')">Ver catálogo</button></div>`;
   qs('#cartTotal').textContent = money(total);
-  qs('#mpButton').disabled = !details.length || details.some(p => !p.price);
 }
 function openCart() { qs('#cartDrawer').classList.add('open'); qs('#backdrop').classList.add('show'); renderCart(); }
 function closeCart() { qs('#cartDrawer').classList.remove('open'); qs('#backdrop').classList.remove('show'); }
@@ -980,20 +1018,22 @@ function consultSpecialty(name) {
 Me pueden ayudar con presentaciones, precio y disponibilidad.`);
 }
 
-async function checkoutMercadoPago() {
-  const items = cartDetails().filter(p => p.price).map(p => ({ title:p.name, quantity:p.qty, unit_price:p.price, currency_id:SITE_CURRENCY }));
-  if (!items.length) return;
-  try {
-    qs('#mpButton').textContent = 'Creando pago...';
-    const res = await fetch('/api/create-preference', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ items }) });
-    const data = await res.json();
-    if (!res.ok || !data.init_point) throw new Error(data.error || 'No se pudo crear la preferencia');
-    window.location.href = data.init_point;
-  } catch (err) {
-    alert('Mercado Pago todavía no está activado en esta demo. Puedes finalizar por WhatsApp o configurar MP_ACCESS_TOKEN en Vercel.');
-  } finally {
-    qs('#mpButton').textContent = 'Pagar con Mercado Pago';
-  }
+
+function renderLocations() {
+  const grid = qs('#locationsGrid');
+  if (!grid) return;
+  grid.innerHTML = LOCATIONS.map(location => {
+    const query = encodeURIComponent(`Montparnasse ${location.address}`);
+    return `<article class="location-card">
+      <span>${location.zone}</span>
+      <h3>${location.name}</h3>
+      <p>${location.address}</p>
+      <div class="location-actions">
+        <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${query}">Cómo llegar</a>
+        <button class="btn btn-primary" type="button" onclick="openWhatsApp('Hola, quiero consultar disponibilidad en sucursal ${location.name}.')">Consultar</button>
+      </div>
+    </article>`;
+  }).join('');
 }
 
 function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
@@ -1002,32 +1042,36 @@ function setupFinder() {
   qsa('[data-finder]').forEach(btn => btn.addEventListener('click', () => setFinder(btn.dataset.finder, btn.dataset.value)));
   renderRecommendations();
 }
-function setupForms() {
-  qs('#eventForm').addEventListener('submit', e => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    const text = `Hola, quiero cotizar un evento con Montparnasse.
+function formToWhatsApp(data, title='evento') {
+  return `Hola, quiero cotizar ${title} con Montparnasse.
 
-Tipo de evento: ${data.evento}
+Tipo: ${data.evento}
 Fecha: ${data.fecha}
 Personas: ${data.personas}
 Producto deseado: ${data.producto}
 Zona: ${data.zona}
 Comentarios: ${data.comentarios || 'Sin comentarios adicionales'}
 
-Me pueden ayudar con disponibilidad, sugerencias y cotización.`;
-    openWhatsApp(text);
-    qs('#eventSuccess').classList.add('show');
-  });
-  qs('#contactForm').addEventListener('submit', e => {
+Me pueden ayudar con disponibilidad y cotización.`;
+}
+
+function setupForms() {
+  const eventForm = qs('#eventForm');
+  if (eventForm) eventForm.addEventListener('submit', e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
-    openWhatsApp(`Hola, soy ${data.nombre}.
-Teléfono: ${data.telefono}
-Motivo: ${data.motivo}
-Mensaje: ${data.mensaje}`);
+    openWhatsApp(formToWhatsApp(data, 'un evento'));
+    qs('#eventSuccess')?.classList.add('show');
+  });
+  const atelierForm = qs('#atelierForm');
+  if (atelierForm) atelierForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    openWhatsApp(formToWhatsApp(data, 'una celebración'));
+    closeAtelier();
   });
 }
+
 function setupNav() {
   qs('#menuToggle').addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
   qsa('[data-scroll]').forEach(btn => btn.addEventListener('click', () => {
@@ -1038,13 +1082,13 @@ function setupNav() {
   qs('#closeCart').addEventListener('click', closeCart);
   qs('#backdrop').addEventListener('click', closeCart);
   qs('#whatsappCheckout').addEventListener('click', checkoutWhatsApp);
-  qs('#mpButton').addEventListener('click', checkoutMercadoPago);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCategoryTabs();
   setActiveShowcase(activeShowcase, true);
   renderMoreSpecialties();
+  renderLocations();
   setupForms();
   setupNav();
   renderCart();
