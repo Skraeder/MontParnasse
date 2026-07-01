@@ -4,86 +4,75 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Montparnasse Pastelería | Catálogo, helados y celebraciones</title>
-  <meta name="description" content="Montparnasse Pastelería: pasteles, helados, gelatinas, línea libre de azúcar, regalos, sucursales y cotización de eventos por WhatsApp.">
+  <meta name="description" content="Montparnasse Pastelería: pasteles, helados, línea libre de azúcar, regalos, sucursales y cotización de eventos por WhatsApp.">
   <meta name="theme-color" content="#6e2c76">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="topbar">
-    <p>Endulzamos tu vida desde 1981 · Pedidos, eventos y atención personalizada por WhatsApp</p>
-    <button type="button" data-scroll="eventos">Cotizar evento</button>
-  </div>
-
   <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="Montparnasse Pastelería">
+    <button class="brand" type="button" data-view="home" aria-label="Inicio Montparnasse">
       <img src="assets/brand/montparnasse-wordmark.svg" alt="Montparnasse Pastelería">
-    </a>
-    <nav class="site-nav" id="siteNav">
-      <button data-scroll="catalogo">Catálogo</button>
-      <button data-scroll="catalogo" data-category="sugarfree">Libre de azúcar</button>
-      <button data-scroll="catalogo" data-category="helados">Helados</button>
-      <button data-scroll="eventos">Eventos</button>
-      <button data-scroll="mas-especialidades">Más especialidades</button>
-      <button data-scroll="sucursales">Sucursales</button>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Navegación principal">
+      <button data-view="catalog" data-category="favoritos">Catálogo</button>
+      <button data-view="catalog" data-category="sugarfree">Libre de azúcar</button>
+      <button data-view="catalog" data-category="helados">Helados</button>
+      <button data-view="events">Eventos</button>
+      <button data-view="more">Más especialidades</button>
+      <button data-view="locations">Sucursales</button>
     </nav>
     <div class="header-actions">
-      <button class="cart-button" id="openCart" type="button">Pedido <span class="cart-count">0</span></button>
+      <button class="cart-button" type="button" data-action="cart">Pedido <span class="cart-count">0</span></button>
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú">☰</button>
     </div>
   </header>
 
-  <main id="inicio">
-    <section class="hero section-pad">
-      <div class="hero-copy">
-        <span class="eyebrow">Pastelería mexicana · desde 1981</span>
-        <h1>Endulzamos tu vida.</h1>
-        <p>Pasteles, helados y detalles para celebrar con el sabor de Montparnasse.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" data-scroll="catalogo">Ver catálogo</button>
-          <button class="btn btn-secondary" data-scroll="eventos">Cotizar evento</button>
-        </div>
-        <div class="trust-strip">
-          <span>Pastelería mexicana</span><span>Línea libre de azúcar</span><span>CDMX y Edo. Méx.</span>
-        </div>
-      </div>
-      <div class="hero-visual" id="heroVisual">
-        <div class="gold-arc"></div>
-        <div class="hero-orbit hero-orbit-1"></div>
-        <div class="hero-orbit hero-orbit-2"></div>
-        <div class="hero-products" id="heroProducts"></div>
-        <div class="floating-note" id="heroFloatingNote"></div>
-      </div>
-    </section>
-
-    <section class="occasion-strip section-pad compact-pad">
-      <div class="occasion-card" data-scroll="catalogo" data-category="pasteles"><span>Cumpleaños</span><p>Pasteles y complementos para cantar las mañanitas.</p></div>
-      <div class="occasion-card" data-scroll="catalogo" data-category="regalos"><span>Regalos</span><p>Chocolates, tejas, panqués y detalles dulces.</p></div>
-      <div class="occasion-card" data-scroll="eventos"><span>Eventos</span><p>Cotización guiada para grupos y celebraciones.</p></div>
-      <div class="occasion-card special" data-scroll="catalogo" data-category="sugarfree"><span>Libre de azúcar</span><p>Opciones para disfrutar sin renunciar al sabor.</p></div>
-    </section>
-
-    <section class="atelier-mini section-pad compact-pad" id="atelier">
-      <div class="atelier-mini-card">
-        <div class="atelier-mini-image"><img src="assets/products/fresas-con-crema.webp" alt="Celebración Montparnasse" loading="lazy"></div>
-        <div class="atelier-mini-copy">
-          <span class="eyebrow">Celebraciones</span>
-          <h2>¿Celebras algo especial?</h2>
-          <p>Te ayudamos a elegir pastel, helado o detalle según la ocasión y el número de personas.</p>
-          <div class="atelier-mini-actions">
-            <button class="btn btn-primary" type="button" onclick="openAtelier()">Cotizar celebración</button>
-            <button class="btn btn-secondary" type="button" data-scroll="catalogo">Ver recomendaciones</button>
+  <main class="app-shell">
+    <section class="app-view home-view active" data-view="home">
+      <div class="home-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Pastelería mexicana · desde 1981</span>
+          <h1>Endulzamos tu vida.</h1>
+          <p>Pasteles, helados y detalles para celebrar con el sabor de Montparnasse.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-view="catalog" data-category="favoritos">Ver catálogo</button>
+            <button class="btn btn-secondary" data-view="events">Cotizar evento</button>
+          </div>
+          <div class="brand-points">
+            <span>Tradición desde 1981</span>
+            <span>Pasteles y helados</span>
+            <span>CDMX y Edo. Méx.</span>
           </div>
         </div>
+        <div class="hero-visual" id="heroVisual">
+          <div class="gold-arc"></div>
+          <div class="hero-orbit hero-orbit-1"></div>
+          <div class="hero-products" id="heroProducts"></div>
+          <div class="floating-note" id="heroFloatingNote"></div>
+        </div>
+      </div>
+      <div class="home-bottom">
+        <div class="home-favorites" id="homeFavorites"></div>
+        <div class="mini-atelier-card">
+          <div>
+            <span>Celebraciones</span>
+            <strong>¿Celebras algo especial?</strong>
+            <p>Te ayudamos a elegir el detalle ideal.</p>
+          </div>
+          <button class="btn btn-primary" data-view="events">Cotizar</button>
+        </div>
       </div>
     </section>
 
-    <section class="catalog section-pad" id="catalogo">
-      <div class="section-heading centered">
-        <span class="eyebrow">Catálogo digital</span>
-        <h2>Elige por categoría.</h2>
+    <section class="app-view catalog-view" data-view="catalog">
+      <div class="view-head compact-head">
+        <div>
+          <span class="eyebrow">Catálogo digital</span>
+          <h1>Elige por categoría.</h1>
+        </div>
         <p>Favoritos al frente y colecciones que cambian en el mismo espacio.</p>
       </div>
       <div class="catalog-shell">
@@ -103,38 +92,50 @@
       </div>
     </section>
 
-    <section class="events section-pad" id="eventos">
-      <div class="events-copy">
-        <span class="eyebrow">Eventos</span>
-        <h2>Celebra con Montparnasse.</h2>
-        <p>Cuéntanos la fecha, número de personas y el producto que buscas. Te ayudamos a confirmar disponibilidad y armar una propuesta.</p>
-        <div class="event-highlights"><span>Cumpleaños</span><span>Regalos</span><span>Mesa dulce</span><span>Reuniones</span></div>
+    <section class="app-view events-view" data-view="events">
+      <div class="events-shell">
+        <aside class="events-copy">
+          <span class="eyebrow">Eventos</span>
+          <h1>Celebra con Montparnasse.</h1>
+          <p>Cuéntanos la fecha, número de personas y el producto que buscas. Te ayudamos a confirmar disponibilidad y armar una propuesta.</p>
+          <div class="event-highlights"><span>Cumpleaños</span><span>Regalos</span><span>Mesa dulce</span><span>Reuniones</span></div>
+          <div class="atelier-strip">
+            <img src="assets/products/fresas-con-crema.webp" alt="Celebración Montparnasse" loading="lazy">
+            <div>
+              <strong>¿Celebras algo especial?</strong>
+              <p>Recibe una recomendación por ocasión y número de personas.</p>
+              <button class="text-link" type="button" onclick="openAtelier()">Ver recomendaciones</button>
+            </div>
+          </div>
+        </aside>
+        <form class="event-form" id="eventForm">
+          <label>Tipo de evento <select name="evento" required><option>Cumpleaños</option><option>Reunión familiar</option><option>Evento empresarial</option><option>Regalo especial</option><option>Otro</option></select></label>
+          <label>Fecha <input name="fecha" type="date" required></label>
+          <label>Número de personas <input name="personas" type="number" min="1" placeholder="Ej. 40" required></label>
+          <label>Producto deseado <input name="producto" placeholder="Ej. pastel + gelatina + galletas" required></label>
+          <label>Zona <input name="zona" placeholder="Alcaldía, municipio o zona de entrega" required></label>
+          <label>Comentarios <textarea name="comentarios" rows="3" placeholder="Sabor, ocasión o mensaje especial"></textarea></label>
+          <button class="btn btn-primary" type="submit">Cotizar por WhatsApp</button>
+          <p class="form-success" id="eventSuccess">Listo, se abrió WhatsApp con tu solicitud.</p>
+        </form>
       </div>
-      <form class="event-form" id="eventForm">
-        <label>Tipo de evento <select name="evento" required><option>Cumpleaños</option><option>Reunión familiar</option><option>Evento empresarial</option><option>Regalo especial</option><option>Otro</option></select></label>
-        <label>Fecha <input name="fecha" type="date" required></label>
-        <label>Número de personas <input name="personas" type="number" min="1" placeholder="Ej. 40" required></label>
-        <label>Producto deseado <input name="producto" placeholder="Ej. pastel + gelatina + galletas" required></label>
-        <label>Zona <input name="zona" placeholder="Alcaldía, municipio o zona de entrega" required></label>
-        <label>Comentarios <textarea name="comentarios" rows="3" placeholder="Sabor, ocasión o mensaje especial"></textarea></label>
-        <button class="btn btn-primary" type="submit">Cotizar por WhatsApp</button>
-        <p class="form-success" id="eventSuccess">Listo, se abrió WhatsApp con tu solicitud.</p>
-      </form>
     </section>
 
-    <section class="more-specialties section-pad" id="mas-especialidades">
-      <div class="section-heading centered">
+    <section class="app-view more-view" data-view="more">
+      <div class="view-head">
         <span class="eyebrow">Más especialidades</span>
-        <h2>Otras creaciones para consultar.</h2>
+        <h1>Otras creaciones para consultar.</h1>
         <p>También puedes preguntar por productos de temporada, tartaletas, gelatinas y detalles especiales.</p>
       </div>
       <div class="more-grid" id="moreSpecialtiesGrid"></div>
     </section>
 
-    <section class="locations section-pad" id="sucursales">
-      <div class="section-heading centered">
-        <span class="eyebrow">Sucursales</span>
-        <h2>Sucursales Montparnasse</h2>
+    <section class="app-view locations-view" data-view="locations">
+      <div class="view-head compact-head">
+        <div>
+          <span class="eyebrow">Sucursales</span>
+          <h1>Sucursales Montparnasse</h1>
+        </div>
         <p>Encuentra tu punto más cercano en CDMX y Estado de México.</p>
       </div>
       <div class="locations-layout">
@@ -144,22 +145,11 @@
         <div class="locations-grid" id="locationsGrid"></div>
       </div>
     </section>
-
-    <section class="faq section-pad">
-      <div class="section-heading centered"><span class="eyebrow">Preguntas frecuentes</span><h2>Antes de pedir.</h2></div>
-      <div class="faq-grid">
-        <details open><summary>¿Cómo confirmo disponibilidad?</summary><p>El equipo confirma disponibilidad por WhatsApp según fecha, sucursal y producto.</p></details>
-        <details><summary>¿Puedo pedir para evento?</summary><p>Sí. Comparte fecha, número de personas, zona y producto deseado para recibir una propuesta.</p></details>
-        <details><summary>¿Hay opciones libres de azúcar?</summary><p>Sí. Están señaladas dentro del catálogo como línea libre de azúcar.</p></details>
-        <details><summary>¿El precio final se confirma por WhatsApp?</summary><p>Sí. El total puede depender de disponibilidad, presentación, sucursal y forma de entrega.</p></details>
-        <details><summary>¿Puedo recoger en sucursal?</summary><p>Sí. La recolección se confirma directamente con la sucursal disponible.</p></details>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">
     <div><img src="assets/brand/montparnasse-wordmark.svg" alt="Montparnasse Pastelería"><p>Endulzamos tu vida.</p></div>
-    <nav><button data-scroll="sucursales">Sucursales</button><a href="aviso-privacidad.html">Aviso de privacidad</a><a href="terminos.html">Términos</a><button onclick="openWhatsApp('Hola, quiero información de Montparnasse Pastelería.')">WhatsApp</button></nav>
+    <nav><button data-view="locations">Sucursales</button><a href="aviso-privacidad.html">Aviso de privacidad</a><a href="terminos.html">Términos</a><button onclick="openWhatsApp('Hola, quiero información de Montparnasse Pastelería.')">WhatsApp</button></nav>
   </footer>
 
   <dialog class="product-modal" id="productModal"><button class="modal-close" onclick="closeProduct()" aria-label="Cerrar">×</button><div id="modalBody"></div></dialog>
@@ -187,7 +177,7 @@
   <aside class="cart-drawer" id="cartDrawer">
     <div class="cart-head"><div><span>Tu selección</span><h2>Pedido Montparnasse</h2></div><button id="closeCart" aria-label="Cerrar carrito">×</button></div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-summary"><div><span>Total estimado</span><strong id="cartTotal">$0</strong></div><p>El equipo confirmará disponibilidad, cobertura, total final y método de pago.</p><button class="btn btn-primary" id="whatsappCheckout">Finalizar por WhatsApp</button></div>
+    <div class="cart-summary"><div><span>Total estimado</span><strong id="cartTotal">$0</strong></div><p>El equipo confirmará disponibilidad, total final y forma de pago.</p><button class="btn btn-primary" id="whatsappCheckout">Finalizar por WhatsApp</button></div>
   </aside>
   <button class="floating-whatsapp" onclick="openWhatsApp('Hola, quiero hacer un pedido en Montparnasse Pastelería.')">WhatsApp</button>
   <script src="script.js"></script>

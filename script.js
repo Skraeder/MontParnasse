@@ -734,30 +734,36 @@ const SHOWCASE_COLLECTIONS = [
   }
 ];
 
-let cart = JSON.parse(localStorage.getItem("mp_cart_v4") || "[]");
-let activeRecommendation = { occasion: "cumpleanos", people: "8-10", flavor: "todos" };
+
+let cart = JSON.parse(localStorage.getItem("mp_cart_v7") || "[]");
+let activeView = "home";
 let activeShowcase = "favoritos";
 
 function money(value) {
   return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(value);
 }
-
 function asset(path) { return `assets/products/${path}`; }
 function qs(sel, parent=document) { return parent.querySelector(sel); }
 function qsa(sel, parent=document) { return [...parent.querySelectorAll(sel)]; }
 
-function productCard(product, compact=false) {
+function getShowcaseCollection(key = activeShowcase) {
+  return SHOWCASE_COLLECTIONS.find(collection => collection.key === key) || SHOWCASE_COLLECTIONS[0];
+}
+
+function productCard(product) {
   const actionLabel = product.price ? "Agregar" : "Consultar";
   const badge = product.sugar ? "Libre de azúcar" : product.badge;
   return `
-    <article class="product-card ${product.sugar ? 'is-sugarfree' : ''} ${compact ? 'compact' : ''}" data-product-card="${product.id}">
+    <article class="product-card ${product.sugar ? 'is-sugarfree' : ''}" data-product-card="${product.id}">
       <div class="product-image-wrap">
         <img src="${asset(product.image)}" alt="${product.name} Montparnasse" loading="lazy">
         <span class="product-badge">${badge}</span>
       </div>
       <div class="product-info">
-        <h3>${product.name}</h3>
-        <div class="product-price-row"><span>${product.priceLabel}</span></div>
+        <div>
+          <h3>${product.name}</h3>
+          <span class="product-price">${product.priceLabel}</span>
+        </div>
         <div class="product-actions">
           <button class="btn btn-ghost" type="button" onclick="openProduct('${product.id}')">Ver detalles</button>
           <button class="btn btn-primary" type="button" onclick="${product.price ? `addToCart('${product.id}')` : `consultProduct('${product.id}')`}">${actionLabel}</button>
@@ -766,26 +772,43 @@ function productCard(product, compact=false) {
     </article>`;
 }
 
-function getShowcaseCollection(key = activeShowcase) {
-  return SHOWCASE_COLLECTIONS.find(collection => collection.key === key) || SHOWCASE_COLLECTIONS[0];
+function specialtyMiniCard(item) {
+  return `<article class="specialty-mini-card">
+    <div class="specialty-mini-art"><img src="assets/placeholders/mas-especialidades.svg" alt="${item.name}" loading="lazy"></div>
+    <div class="specialty-mini-content"><span>${item.category}</span><h3>${item.name}</h3><p>${item.desc}</p></div>
+    <button class="btn btn-primary" type="button" onclick="consultSpecialty('${item.name}')">Consultar</button>
+  </article>`;
 }
 
 function renderHeroProducts() {
-  const collection = getShowcaseCollection();
-  const product = PRODUCTS.find(item => item.id === collection.hero) || PRODUCTS.find(item => item.id === collection.ids[0]) || PRODUCTS[0];
+  const collection = getShowcaseCollection(activeShowcase);
+  const heroId = activeView === 'catalog' ? collection.hero : 'mil-hojas';
+  const product = PRODUCTS.find(item => item.id === heroId) || PRODUCTS[0];
   const hero = qs('#heroProducts');
   const note = qs('#heroFloatingNote');
-  if (!hero || !product || !note) return;
+  if (!hero || !note) return;
   hero.innerHTML = `
     <article class="hero-stage-card ${product.sugar ? 'is-sugarfree' : ''}">
       <div class="hero-stage-media"><img src="${asset(product.image)}" alt="${product.name} Montparnasse"></div>
-      <div class="hero-stage-labels"><span>${collection.label}</span><span>${product.priceLabel}</span></div>
     </article>`;
   note.innerHTML = `
-    <span class="hero-note-kicker">${product.category}</span>
+    <span>${product.category}</span>
     <strong>${product.name}</strong>
-    <span>${product.priceLabel}</span>
+    <em>${product.priceLabel}</em>
     <button class="text-link" type="button" onclick="openProduct('${product.id}')">Ver detalles</button>`;
+}
+
+function renderHomeFavorites() {
+  const ids = ["ganash", "mil-hojas", "sf-fresas", "helado-chocolate-intenso"];
+  const target = qs('#homeFavorites');
+  if (!target) return;
+  target.innerHTML = ids.map(id => {
+    const p = PRODUCTS.find(item => item.id === id);
+    return `<button class="home-fav ${p.sugar ? 'is-sugarfree' : ''}" type="button" onclick="openProduct('${p.id}')">
+      <img src="${asset(p.image)}" alt="${p.name}" loading="lazy">
+      <span>${p.name}</span>
+    </button>`;
+  }).join('');
 }
 
 function renderCategoryTabs() {
@@ -796,36 +819,28 @@ function renderCategoryTabs() {
   `).join('');
 }
 
-function specialtyMiniCard(item) {
-  return `<article class="specialty-mini-card">
-    <div class="specialty-mini-art"><img src="assets/placeholders/mas-especialidades.svg" alt="${item.name}" loading="lazy"></div>
-    <div><span>${item.category}</span><h3>${item.name}</h3><p>${item.desc}</p></div>
-    <button class="btn btn-primary" type="button" onclick="consultSpecialty('${item.name}')">Consultar</button>
-  </article>`;
-}
-
 function renderCategoryShowcase() {
-  const collection = getShowcaseCollection();
+  const collection = getShowcaseCollection(activeShowcase);
   const copy = qs('#catalogStageCopy');
   const showcase = qs('#categoryShowcase');
   if (!copy || !showcase) return;
+
   copy.innerHTML = `
     <span class="eyebrow">${collection.eyebrow}</span>
-    <h2>${collection.title}</h2>
+    <h1>${collection.title}</h1>
     <p>${collection.desc}</p>`;
+
   if (collection.key === 'mas') {
-    showcase.innerHTML = MORE_SPECIALTIES.slice(0, 10).map(specialtyMiniCard).join('');
-    showcase.classList.add('specialty-showcase');
-    return;
+    showcase.innerHTML = MORE_SPECIALTIES.slice(0, 8).map(specialtyMiniCard).join('');
+    showcase.classList.add('specialty-track');
+  } else {
+    showcase.classList.remove('specialty-track');
+    const items = collection.ids.map(id => PRODUCTS.find(product => product.id === id)).filter(Boolean);
+    showcase.innerHTML = items.map(productCard).join('');
   }
-  showcase.classList.remove('specialty-showcase');
-  const items = collection.ids
-    .map(id => PRODUCTS.find(product => product.id === id))
-    .filter(Boolean);
-  showcase.innerHTML = items.map(product => productCard(product, true)).join('');
 }
 
-function setActiveShowcase(key, skipAnimation = false) {
+function setActiveShowcase(key, skipAnimation=false) {
   activeShowcase = key;
   renderCategoryTabs();
   const stage = qs('#catalogStage');
@@ -837,78 +852,58 @@ function setActiveShowcase(key, skipAnimation = false) {
   window.setTimeout(() => {
     renderCategoryShowcase();
     renderHeroProducts();
-    requestAnimationFrame(() => {
-      stage?.classList.remove('is-changing');
-      hero?.classList.remove('is-changing');
-    });
-  }, skipAnimation ? 0 : 170);
+    stage?.classList.remove('is-changing');
+    hero?.classList.remove('is-changing');
+  }, skipAnimation ? 0 : 160);
+}
+
+function showView(view, category) {
+  activeView = view;
+  qsa('.app-view').forEach(section => section.classList.toggle('active', section.dataset.view === view));
+  qsa('[data-view]').forEach(btn => btn.classList.toggle('nav-active', btn.dataset.view === view && (!btn.dataset.category || btn.dataset.category === category)));
+  if (view === 'catalog') {
+    setActiveShowcase(category || activeShowcase || 'favoritos', true);
+  }
+  if (view === 'home') {
+    activeShowcase = 'favoritos';
+    renderHeroProducts();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  qs('#siteNav')?.classList.remove('open');
 }
 
 function scrollTrack(id, dir) {
-  const el = qs(`#${id}`);
-  if (!el) return;
-  el.scrollBy({ left: dir * Math.min(920, el.clientWidth * 0.85), behavior: 'smooth' });
+  const track = qs(`#${id}`);
+  if (!track) return;
+  track.scrollBy({ left: dir * Math.min(920, track.clientWidth * 0.82), behavior: 'smooth' });
 }
 
 function renderMoreSpecialties() {
-  const groups = MORE_SPECIALTIES.reduce((acc, item) => {
-    acc[item.category] ||= [];
-    acc[item.category].push(item);
-    return acc;
-  }, {});
-  qs('#moreSpecialtiesGrid').innerHTML = Object.entries(groups).map(([category, items]) => `
-    <div class="specialty-group">
-      <h3>${category}</h3>
-      <div class="specialty-list">
-        ${items.map(item => `<article class="specialty-card">
-          <div class="specialty-icon"><img src="assets/placeholders/mas-especialidades.svg" alt="${item.name}"></div>
-          <div><span>Más especialidades</span><h4>${item.name}</h4><p>${item.desc}</p></div>
-          <button class="text-link" type="button" onclick="consultSpecialty('${item.name}')">Consultar disponibilidad</button>
-        </article>`).join('')}
+  const grouped = MORE_SPECIALTIES.reduce((acc, item) => { (acc[item.category] ||= []).push(item); return acc; }, {});
+  const target = qs('#moreSpecialtiesGrid');
+  if (!target) return;
+  target.innerHTML = Object.entries(grouped).map(([category, items]) => `
+    <section class="more-category">
+      <div class="more-category-head"><span>${category}</span><h2>${category}</h2></div>
+      <div class="more-category-list">${items.map(specialtyMiniCard).join('')}</div>
+    </section>`).join('');
+}
+
+function renderLocations() {
+  const grid = qs('#locationsGrid');
+  if (!grid) return;
+  grid.innerHTML = LOCATIONS.map(location => {
+    const query = encodeURIComponent(`Montparnasse ${location.address}`);
+    return `<article class="location-card">
+      <span>${location.zone}</span>
+      <h3>${location.name}</h3>
+      <p>${location.address}</p>
+      <div class="location-actions">
+        <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${query}">Cómo llegar</a>
+        <button class="btn btn-primary" type="button" onclick="openWhatsApp('Hola, quiero consultar disponibilidad en sucursal ${location.name}.')">Consultar</button>
       </div>
-    </div>
-  `).join('');
-}
-
-function setFinder(key, value) {
-  activeRecommendation[key] = value;
-  qsa(`[data-finder="${key}"]`).forEach(btn => btn.classList.toggle('active', btn.dataset.value === value));
-  renderRecommendations();
-}
-
-function renderRecommendations() {
-  const { occasion, people, flavor } = activeRecommendation;
-  const container = qs('#recommendationResults');
-  const intro = qs('#recommendationIntro');
-  if (people === '40+' || occasion === 'evento') {
-    intro.innerHTML = `<strong>Recomendación para celebración grande:</strong> para 40+ personas conviene cotizar mesa dulce, combos de pasteles y logística por fecha.`;
-    container.innerHTML = eventCards();
-    return;
-  }
-
-  let filtered = PRODUCTS.filter(p => p.occasions.includes(occasion) || (occasion === 'cumpleanos' && p.occasions.includes('regalo')));
-  filtered = filtered.filter(p => p.people.includes(people) || (people === '20+' && p.people.includes('8-10')));
-  if (flavor !== 'todos') filtered = filtered.filter(p => p.flavor === flavor);
-  if (occasion === 'libre') filtered = PRODUCTS.filter(p => p.sugar);
-
-  if (filtered.length < 3) {
-    const backup = occasion === 'libre' ? PRODUCTS.filter(p => p.sugar) : PRODUCTS.filter(p => p.price || p.section === 'helados').slice(0,6);
-    filtered = [...new Map([...filtered, ...backup].map(p => [p.id, p])).values()];
-  }
-  filtered = filtered.slice(0,4);
-  intro.innerHTML = `<strong>Recomendación Montparnasse:</strong> opciones alineadas a tu ocasión, tamaño y perfil de sabor.`;
-  container.innerHTML = filtered.map(p => productCard(p, true)).join('');
-}
-
-function eventCards() {
-  const cards = [
-    { title:'Mesa dulce para evento', desc:'Pasteles, gelatina, galletas y detalles dulces para armar una propuesta según número de invitados.', cta:'Cotizar evento' },
-    { title:'Cumpleaños grande', desc:'Combina pasteles de 8–10 porciones, gelatina y complementos para una celebración familiar o social.', cta:'Cotizar cumpleaños' },
-    { title:'Regalos corporativos', desc:'Chocolates, galletas, tejas y panqués en una selección más cuidada para detalle o agradecimiento.', cta:'Consultar regalos' },
-  ];
-  return cards.map(c => `<article class="event-reco-card">
-    <span>40+ personas</span><h3>${c.title}</h3><p>${c.desc}</p><button class="btn btn-primary" onclick="scrollToSection('eventos')">${c.cta}</button>
-  </article>`).join('');
+    </article>`;
+  }).join('');
 }
 
 function idealFor(product) {
@@ -962,7 +957,7 @@ function changeQty(id, delta) {
   if (item.qty <= 0) removeFromCart(id); else saveCart();
 }
 function saveCart() {
-  localStorage.setItem("mp_cart_v4", JSON.stringify(cart));
+  localStorage.setItem("mp_cart_v7", JSON.stringify(cart));
   renderCart();
 }
 function cartDetails() {
@@ -973,88 +968,38 @@ function renderCart() {
   const count = details.reduce((a,b)=>a+b.qty,0);
   const total = details.reduce((a,b)=>a+b.subtotal,0);
   qsa('.cart-count').forEach(el => el.textContent = count);
-  qs('#cartItems').innerHTML = details.length ? details.map(p => `<div class="cart-line">
+  const container = qs('#cartItems');
+  if (!container) return;
+  container.innerHTML = details.length ? details.map(p => `<div class="cart-line">
     <img src="${asset(p.image)}" alt="${p.name}">
     <div><h4>${p.name}</h4><p>${p.presentation} · ${money(p.price)}</p><div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button><span>${p.qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div></div>
     <strong>${money(p.subtotal)}</strong>
-  </div>`).join('') : `<div class="empty-cart"><p>Tu selección está vacía.</p><button class="btn btn-primary" onclick="closeCart(); scrollToSection('catalogo')">Ver catálogo</button></div>`;
+  </div>`).join('') : `<div class="empty-cart"><p>Tu selección está vacía.</p><button class="btn btn-primary" onclick="closeCart(); showView('catalog','favoritos')">Ver catálogo</button></div>`;
   qs('#cartTotal').textContent = money(total);
 }
 function openCart() { qs('#cartDrawer').classList.add('open'); qs('#backdrop').classList.add('show'); renderCart(); }
 function closeCart() { qs('#cartDrawer').classList.remove('open'); qs('#backdrop').classList.remove('show'); }
 
-function whatsappText(kind='pedido') {
+function openWhatsApp(text) { window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank'); }
+function whatsappText() {
   const details = cartDetails();
   if (!details.length) return 'Hola, quiero información sobre Montparnasse Pastelería.';
   const lines = details.map(p => `• ${p.qty} x ${p.name} (${p.presentation}) — ${money(p.subtotal)}`);
   const total = details.reduce((a,b)=>a+b.subtotal,0);
-  return `Hola, quiero finalizar mi pedido Montparnasse:
-
-${lines.join('\n')}
-
-Total estimado: ${money(total)}
-
-Fecha deseada:
-Entrega o recolección:
-Zona / sucursal:
-Comentarios:
-
-Me ayudan a confirmar disponibilidad, cobertura, total final y método de pago.`;
+  return `Hola, quiero finalizar mi pedido Montparnasse:\n\n${lines.join('\n')}\n\nTotal estimado: ${money(total)}\n\nFecha deseada:\nEntrega o recolección:\nZona / sucursal:\nComentarios:\n\nMe ayudan a confirmar disponibilidad, total final y forma de pago.`;
 }
-function openWhatsApp(text) { window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank'); }
 function checkoutWhatsApp() { openWhatsApp(whatsappText()); }
 function consultProduct(id) {
   const p = PRODUCTS.find(x => x.id === id);
-  openWhatsApp(`Hola, quiero consultar disponibilidad de ${p.name}.
-
-Presentación: ${p.presentation}
-Categoría: ${p.category}
-
-Me pueden ayudar con precio, disponibilidad, sucursal y forma de entrega.`);
+  openWhatsApp(`Hola, quiero consultar disponibilidad de ${p.name}.\n\nPresentación: ${p.presentation}\nCategoría: ${p.category}\n\nMe pueden ayudar con precio, disponibilidad, sucursal y forma de entrega.`);
 }
 function consultSpecialty(name) {
-  openWhatsApp(`Hola, quiero consultar si tienen disponible o pueden cotizar esta especialidad: ${name}.
-
-Me pueden ayudar con presentaciones, precio y disponibilidad.`);
+  openWhatsApp(`Hola, quiero consultar disponibilidad de ${name}.\n\nMe pueden ayudar con presentaciones, precio y sucursal.`);
 }
 
-
-function renderLocations() {
-  const grid = qs('#locationsGrid');
-  if (!grid) return;
-  grid.innerHTML = LOCATIONS.map(location => {
-    const query = encodeURIComponent(`Montparnasse ${location.address}`);
-    return `<article class="location-card">
-      <span>${location.zone}</span>
-      <h3>${location.name}</h3>
-      <p>${location.address}</p>
-      <div class="location-actions">
-        <a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${query}">Cómo llegar</a>
-        <button class="btn btn-primary" type="button" onclick="openWhatsApp('Hola, quiero consultar disponibilidad en sucursal ${location.name}.')">Consultar</button>
-      </div>
-    </article>`;
-  }).join('');
-}
-
-function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
-
-function setupFinder() {
-  qsa('[data-finder]').forEach(btn => btn.addEventListener('click', () => setFinder(btn.dataset.finder, btn.dataset.value)));
-  renderRecommendations();
-}
 function formToWhatsApp(data, title='evento') {
-  return `Hola, quiero cotizar ${title} con Montparnasse.
-
-Tipo: ${data.evento}
-Fecha: ${data.fecha}
-Personas: ${data.personas}
-Producto deseado: ${data.producto}
-Zona: ${data.zona}
-Comentarios: ${data.comentarios || 'Sin comentarios adicionales'}
-
-Me pueden ayudar con disponibilidad y cotización.`;
+  return `Hola, quiero cotizar ${title} con Montparnasse.\n\nTipo: ${data.evento}\nFecha: ${data.fecha}\nPersonas: ${data.personas}\nProducto deseado: ${data.producto}\nZona: ${data.zona}\nComentarios: ${data.comentarios || 'Sin comentarios adicionales'}\n\nMe pueden ayudar con disponibilidad y cotización.`;
 }
-
 function setupForms() {
   const eventForm = qs('#eventForm');
   if (eventForm) eventForm.addEventListener('submit', e => {
@@ -1073,23 +1018,23 @@ function setupForms() {
 }
 
 function setupNav() {
-  qs('#menuToggle').addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
-  qsa('[data-scroll]').forEach(btn => btn.addEventListener('click', () => {
-    if (btn.dataset.category) setActiveShowcase(btn.dataset.category);
-    scrollToSection(btn.dataset.scroll);
-  }));
-  qs('#openCart').addEventListener('click', openCart);
-  qs('#closeCart').addEventListener('click', closeCart);
-  qs('#backdrop').addEventListener('click', closeCart);
-  qs('#whatsappCheckout').addEventListener('click', checkoutWhatsApp);
+  qs('#menuToggle')?.addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
+  qsa('[data-view]').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view, btn.dataset.category)));
+  qsa('[data-action="cart"]').forEach(btn => btn.addEventListener('click', openCart));
+  qs('#closeCart')?.addEventListener('click', closeCart);
+  qs('#backdrop')?.addEventListener('click', closeCart);
+  qs('#whatsappCheckout')?.addEventListener('click', checkoutWhatsApp);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  renderHomeFavorites();
   renderCategoryTabs();
   setActiveShowcase(activeShowcase, true);
   renderMoreSpecialties();
   renderLocations();
+  renderHeroProducts();
   setupForms();
   setupNav();
   renderCart();
+  showView('home');
 });
