@@ -18,8 +18,6 @@
     </button>
     <nav class="site-nav" id="siteNav" aria-label="Navegación principal">
       <button data-view="catalog" data-category="favoritos">Catálogo</button>
-      <button data-view="catalog" data-category="sugarfree">Libre de azúcar</button>
-      <button data-view="catalog" data-category="helados">Helados</button>
       <button data-view="events">Eventos</button>
       <button data-view="more">Más especialidades</button>
       <button data-view="locations">Sucursales</button>
@@ -65,6 +63,34 @@
           <button class="btn btn-primary" data-view="events">Cotizar</button>
         </div>
       </div>
+      <section class="curation-module" aria-label="Curaduría Montparnasse">
+        <div class="curation-copy">
+          <span class="eyebrow">Curaduría Montparnasse</span>
+          <h2>Te ayudamos a elegir.</h2>
+          <p>Una guía breve para encontrar opciones según el momento.</p>
+        </div>
+        <div class="curation-controls">
+          <div class="curation-step" data-curation-group="occasion">
+            <span>Ocasión</span>
+            <button class="active" data-curation="occasion" data-value="celebrar">Celebrar</button>
+            <button data-curation="occasion" data-value="regalar">Regalar</button>
+            <button data-curation="occasion" data-value="antojo">Antojo</button>
+          </div>
+          <div class="curation-step" data-curation-group="people">
+            <span>Personas</span>
+            <button class="active" data-curation="people" data-value="1-4">1–4</button>
+            <button data-curation="people" data-value="8-10">8–10</button>
+            <button data-curation="people" data-value="20+">20+</button>
+          </div>
+          <div class="curation-step" data-curation-group="style">
+            <span>Estilo</span>
+            <button class="active" data-curation="style" data-value="clasico">Clásico</button>
+            <button data-curation="style" data-value="premium">Premium</button>
+            <button data-curation="style" data-value="fresco">Fresco</button>
+          </div>
+        </div>
+        <div class="curation-results" id="curationResults"></div>
+      </section>
     </section>
 
     <section class="app-view catalog-view" data-view="catalog">
@@ -97,7 +123,7 @@
         <aside class="events-copy">
           <span class="eyebrow">Eventos</span>
           <h1>Celebra con Montparnasse.</h1>
-          <p>Cuéntanos la fecha, número de personas y el producto que buscas. Te ayudamos a confirmar disponibilidad y armar una propuesta.</p>
+          <p>Cuéntanos la ocasión y te ayudamos a elegir.</p>
           <div class="event-highlights"><span>Cumpleaños</span><span>Regalos</span><span>Mesa dulce</span><span>Reuniones</span></div>
           <div class="atelier-strip">
             <img src="assets/products/fresas-con-crema.webp" alt="Celebración Montparnasse" loading="lazy">
@@ -140,7 +166,21 @@
       </div>
       <div class="locations-layout">
         <div class="map-card">
-          <iframe title="Mapa de sucursales Montparnasse" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Montparnasse%20Pasteler%C3%ADa%20CDMX%20Estado%20de%20M%C3%A9xico&output=embed"></iframe>
+          <div class="custom-map" id="customMap" role="img" aria-label="Mapa visual de sucursales Montparnasse en CDMX y Estado de México">
+            <div class="map-glow map-glow-a"></div>
+            <div class="map-glow map-glow-b"></div>
+            <svg class="map-lines" viewBox="0 0 1000 760" aria-hidden="true">
+              <path d="M46 590 C180 510 235 430 330 452 C430 475 465 326 590 326 C722 326 780 242 940 192" />
+              <path d="M95 245 C270 274 355 178 492 222 C594 255 680 170 840 112" />
+              <path d="M170 690 C250 575 310 535 430 552 C548 568 628 500 745 523 C835 540 890 482 963 435" />
+              <path d="M210 96 C250 236 240 366 315 485 C390 605 486 652 614 698" />
+              <path d="M510 78 C550 200 520 302 588 410 C650 510 700 590 720 705" />
+              <path d="M738 84 C705 188 722 288 770 390 C825 505 850 585 850 708" />
+              <circle cx="475" cy="390" r="150" />
+              <circle cx="475" cy="390" r="260" />
+            </svg>
+            <div class="map-pins" id="mapPins"></div>
+          </div>
         </div>
         <div class="locations-grid" id="locationsGrid"></div>
       </div>

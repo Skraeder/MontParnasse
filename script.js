@@ -656,16 +656,16 @@ const MORE_SPECIALTIES = [
 ];
 
 const LOCATIONS = [
-  { name: "Roma Sur", zone: "Cuauhtémoc, CDMX", address: "Baja California esquina, Tonalá 319, Roma Sur, Cuauhtémoc, 06760 Ciudad de México, CDMX" },
-  { name: "Lindavista", zone: "Gustavo A. Madero, CDMX", address: "Av. Montevideo 171, Lindavista, 07300 Ciudad de México, CDMX" },
-  { name: "Pensador Mexicano", zone: "Venustiano Carranza, CDMX", address: "Norte 172, Pensador Mexicano, Ciudad de México, CDMX" },
-  { name: "Del Recreo", zone: "Azcapotzalco, CDMX", address: "Calzada Camarones 542, Colonia del Recreo, Ciudad de México, CDMX" },
-  { name: "Granjas San Antonio", zone: "Iztapalapa, CDMX", address: "Av. Año de Juárez Loc M, esquina Ermita Iztapalapa, Col. Granjas San Antonio, Iztapalapa" },
-  { name: "Boturini", zone: "Venustiano Carranza, CDMX", address: "Cúcurpe No. 39, Col. El Parque, Venustiano Carranza, Ciudad de México" },
-  { name: "Santa Clara Coatitla", zone: "Ecatepec, Edo. Méx.", address: "Vía Morelos 421, MZ 014, Santa Clara Coatitla, 55540 Ecatepec de Morelos, Méx." },
-  { name: "Las Américas", zone: "Ecatepec, Edo. Méx.", address: "Av. Central S/N, Jardines de Morelos 5a Sección, 55075 Ecatepec de Morelos, Méx." },
-  { name: "San Lorenzo Tetlixtac", zone: "Coacalco, Edo. Méx.", address: "Avenida José López Portillo 145, San Lorenzo Tetlixtac, Coacalco, Edo. Méx." },
-  { name: "Ixtapaluca", zone: "Ixtapaluca, Edo. Méx.", address: "Carretera Federal México-Puebla, Santa Cruz Tlapacoya, Ixtapaluca, Edo. Méx." }
+  { name: "Roma Sur", zone: "Cuauhtémoc, CDMX", address: "Baja California esquina, Tonalá 319, Roma Sur, Cuauhtémoc, 06760 Ciudad de México, CDMX", x: 48, y: 61 },
+  { name: "Lindavista", zone: "Gustavo A. Madero, CDMX", address: "Av. Montevideo 171, Lindavista, 07300 Ciudad de México, CDMX", x: 56, y: 35 },
+  { name: "Pensador Mexicano", zone: "Venustiano Carranza, CDMX", address: "Norte 172, Pensador Mexicano, Ciudad de México, CDMX", x: 67, y: 56 },
+  { name: "Del Recreo", zone: "Azcapotzalco, CDMX", address: "Calzada Camarones 542, Colonia del Recreo, Ciudad de México, CDMX", x: 38, y: 39 },
+  { name: "Granjas San Antonio", zone: "Iztapalapa, CDMX", address: "Av. Año de Juárez Loc M, esquina Ermita Iztapalapa, Col. Granjas San Antonio, Iztapalapa", x: 61, y: 72 },
+  { name: "Boturini", zone: "Venustiano Carranza, CDMX", address: "Cúcurpe No. 39, Col. El Parque, Venustiano Carranza, Ciudad de México", x: 58, y: 60 },
+  { name: "Santa Clara Coatitla", zone: "Ecatepec, Edo. Méx.", address: "Vía Morelos 421, MZ 014, Santa Clara Coatitla, 55540 Ecatepec de Morelos, Méx.", x: 76, y: 30 },
+  { name: "Las Américas", zone: "Ecatepec, Edo. Méx.", address: "Av. Central S/N, Jardines de Morelos 5a Sección, 55075 Ecatepec de Morelos, Méx.", x: 82, y: 40 },
+  { name: "San Lorenzo Tetlixtac", zone: "Coacalco, Edo. Méx.", address: "Avenida José López Portillo 145, San Lorenzo Tetlixtac, Coacalco, Edo. Méx.", x: 65, y: 22 },
+  { name: "Ixtapaluca", zone: "Ixtapaluca, Edo. Méx.", address: "Carretera Federal México-Puebla, Santa Cruz Tlapacoya, Ixtapaluca, Edo. Méx.", x: 84, y: 78 }
 ];
 
 const SHOWCASE_COLLECTIONS = [
@@ -735,9 +735,10 @@ const SHOWCASE_COLLECTIONS = [
 ];
 
 
-let cart = JSON.parse(localStorage.getItem("mp_cart_v7") || "[]");
+let cart = JSON.parse(localStorage.getItem("mp_cart_v8") || "[]");
 let activeView = "home";
 let activeShowcase = "favoritos";
+let curationState = { occasion: "celebrar", people: "1-4", style: "clasico" };
 
 function money(value) {
   return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(value);
@@ -778,6 +779,38 @@ function specialtyMiniCard(item) {
     <div class="specialty-mini-content"><span>${item.category}</span><h3>${item.name}</h3><p>${item.desc}</p></div>
     <button class="btn btn-primary" type="button" onclick="consultSpecialty('${item.name}')">Consultar</button>
   </article>`;
+}
+
+
+function miniProductCard(product) {
+  return `<button class="curation-product ${product.sugar ? 'is-sugarfree' : ''}" type="button" onclick="openProduct('${product.id}')">
+    <img src="${asset(product.image)}" alt="${product.name}" loading="lazy">
+    <span>${product.name}</span>
+    <strong>${product.priceLabel}</strong>
+  </button>`;
+}
+
+function curateProducts() {
+  let ids = ["ganash", "sf-fresas", "mil-hojas"];
+  if (curationState.occasion === "regalar") ids = ["chocolates-mixtos", "galletas-surtidas", "teja-almendra"];
+  if (curationState.occasion === "antojo") ids = ["helado-chocolate-intenso", "helado-fresa-albahaca", "coliseo-naranja"];
+  if (curationState.people === "8-10") ids = ids.map(id => id === "ganash" ? "mil-hojas" : id);
+  if (curationState.people === "20+") ids = ["mil-hojas", "selva-negra-cake", "sf-gelatina-mosaico"];
+  if (curationState.style === "premium") ids = ["mil-hojas", "chocolates-mixtos", "baileys-cake"];
+  if (curationState.style === "fresco") ids = ["sf-fresas", "helado-fresa-albahaca", "helado-limon-chia"];
+  return [...new Set(ids)].map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean).slice(0,3);
+}
+
+function renderCuration() {
+  const target = qs('#curationResults');
+  if (!target) return;
+  target.innerHTML = curateProducts().map(miniProductCard).join('');
+}
+
+function setCuration(group, value) {
+  curationState[group] = value;
+  qsa(`[data-curation="${group}"]`).forEach(btn => btn.classList.toggle('active', btn.dataset.value === value));
+  renderCuration();
 }
 
 function renderHeroProducts() {
@@ -891,10 +924,17 @@ function renderMoreSpecialties() {
 
 function renderLocations() {
   const grid = qs('#locationsGrid');
+  const pins = qs('#mapPins');
   if (!grid) return;
-  grid.innerHTML = LOCATIONS.map(location => {
+  if (pins) {
+    pins.innerHTML = LOCATIONS.map((location, index) => `
+      <button class="map-pin" type="button" aria-label="${location.name}" data-location-index="${index}" style="left:${location.x}%;top:${location.y}%" onclick="focusLocation(${index})">
+        <img src="assets/brand/montparnasse-map-pin.png" alt="">
+      </button>`).join('');
+  }
+  grid.innerHTML = LOCATIONS.map((location, index) => {
     const query = encodeURIComponent(`Montparnasse ${location.address}`);
-    return `<article class="location-card">
+    return `<article class="location-card" data-location-card="${index}" onmouseenter="highlightLocation(${index})" onmouseleave="highlightLocation(null)">
       <span>${location.zone}</span>
       <h3>${location.name}</h3>
       <p>${location.address}</p>
@@ -904,6 +944,15 @@ function renderLocations() {
       </div>
     </article>`;
   }).join('');
+}
+function highlightLocation(index) {
+  qsa('[data-location-index]').forEach(pin => pin.classList.toggle('active', Number(pin.dataset.locationIndex) === Number(index)));
+  qsa('[data-location-card]').forEach(card => card.classList.toggle('active', Number(card.dataset.locationCard) === Number(index)));
+}
+function focusLocation(index) {
+  highlightLocation(index);
+  const card = qs(`[data-location-card="${index}"]`);
+  card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function idealFor(product) {
@@ -957,7 +1006,7 @@ function changeQty(id, delta) {
   if (item.qty <= 0) removeFromCart(id); else saveCart();
 }
 function saveCart() {
-  localStorage.setItem("mp_cart_v7", JSON.stringify(cart));
+  localStorage.setItem("mp_cart_v8", JSON.stringify(cart));
   renderCart();
 }
 function cartDetails() {
@@ -1021,6 +1070,7 @@ function setupNav() {
   qs('#menuToggle')?.addEventListener('click', () => qs('#siteNav').classList.toggle('open'));
   qsa('[data-view]').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view, btn.dataset.category)));
   qsa('[data-action="cart"]').forEach(btn => btn.addEventListener('click', openCart));
+  qsa('[data-curation]').forEach(btn => btn.addEventListener('click', () => setCuration(btn.dataset.curation, btn.dataset.value)));
   qs('#closeCart')?.addEventListener('click', closeCart);
   qs('#backdrop')?.addEventListener('click', closeCart);
   qs('#whatsappCheckout')?.addEventListener('click', checkoutWhatsApp);
@@ -1028,6 +1078,7 @@ function setupNav() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderHomeFavorites();
+  renderCuration();
   renderCategoryTabs();
   setActiveShowcase(activeShowcase, true);
   renderMoreSpecialties();
